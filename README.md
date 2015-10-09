@@ -127,5 +127,7 @@ consumption. Feel free to contribute any changes there.
 ## Release Notes
 
 Author Nicolas Zin.
+
 Updated by Jonathan Gazeley and Michael Porter.
+
 Maintained by Wazuh
