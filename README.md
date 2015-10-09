@@ -130,4 +130,4 @@ Author Nicolas Zin.
 
 Updated by Jonathan Gazeley and Michael Porter.
 
-Maintained by Wazuh
+Maintained by Wazuh, Inc 
