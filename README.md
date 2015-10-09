@@ -30,7 +30,7 @@ The server is configured by installing the `ossec::server` class, and using opti
 ```puppet
 class { 'ossec::server':
   mailserver_ip => 'mailserver.mycompany.com',
-  ossec_emailto => 'nicolas.zin@mycompany.com',
+  ossec_emailto => 'user@mycompany.com',
 }
 
 ossec::command { 'firewallblock':
