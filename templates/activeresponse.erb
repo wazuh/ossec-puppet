@@ -1,0 +1,7 @@
+  <active-response>
+    <command><%= @command_name %></command>
+    <location><%= @ar_location %></location>
+    <level><%= @ar_level %></level>
+	<rules_id><% @ar_rules_id.each do |ruleid| -%><%= ruleid %>,<% end %></rules_id>
+    <timeout><%= @ar_timeout %></timeout>
+  </active-response>

@@ -1,0 +1,34 @@
+<ossec_config>
+  <client>
+    <server-ip><%= @ossec_server_ip %></server-ip>
+  </client>
+
+  <syscheck>
+    <!-- Frequency that syscheck is executed -->
+    <frequency><%= @ossec_check_frequency %></frequency>
+
+    <!-- Files/directories to ignore (parameterized) -->
+<% @ossec_ignorepaths.each do |path| -%>    <ignore><%= @path %></ignore>
+<% end %>
+  </syscheck>
+
+<% if @ossec_rootcheck == false then %>
+  <rootcheck>
+    <disabled>yes</disabled>
+  </rootcheck>
+<% end %>
+
+<% if @ossec_active_response == false then %>
+  <active-response>
+    <disabled>yes</disabled>
+  </active-response>
+<% end %>
+
+  <!-- Files to monitor (localfiles) -->
+
+<% @ossec_local_files.each do |path, format| %>
+  <localfile>
+    <log_format><%= format %></log_format>
+    <location><%= path %></location>
+  </localfile>
+<% end %>
