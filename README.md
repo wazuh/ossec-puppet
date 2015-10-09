@@ -1,0 +1,1 @@
+# ossec-puppet
