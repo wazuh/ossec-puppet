@@ -1,12 +1,13 @@
 {
   "name": "wazuh-ossec",
-  "version": "1.0.0",
+  "version": "2.0.1",
   "author": "WAZUH",
   "summary": "Install and configure OSSEC-HIDS client and server",
   "license": "Apache-2.0",
-  "source": "https://github.com/wazuh/puppet-ossec",
-  "project_page": "https://github.com/wazuh/puppet-ossec",
-  "issues_url": "https://github.com/wazuh/puppet-ossec/issues",
+  "source": "https://github.com/wazuh/ossec-puppet",
+  "project_page": "https://github.com/wazuh/ossec-puppet",
+  "issues_url": "https://github.com/wazuh/ossec-puppet/issues",
+  "tags": ["ossec", "hids"],
   "operatingsystem_support": [
     {
       "operatingsystem": "Windows",
@@ -63,6 +64,10 @@
     {
       "name": "stahnma/epel",
       "version_range": ">= 1.0.0"
+    },
+    {
+      "name": "puppetlabs/apt",
+      "version_range": ">= 2.0.0"
     },
     {
       "name": "jfryman/selinux",

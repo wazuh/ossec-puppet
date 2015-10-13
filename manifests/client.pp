@@ -30,19 +30,19 @@ class ossec::client(
     'windows' : {
           
           file {
-          'C:/ossec-agent-win32-2.8.exe':
+          'C:/ossec-win32-2.8.1.exe':
           owner              => 'Administrators',
           group              => 'Administrators',
           mode               => '0774',
-          source             => 'puppet:///modules/ossec/ossec-agent-win32-2.8.exe',
+          source             => 'puppet:///modules/ossec/ossec-win32-2.8.1.exe',
           source_permissions => ignore
 	 }
 
       package { $ossec::params::agent_package:
         ensure          => installed,
-        source          => 'C:/ossec-agent-win32-2.8.exe',
+        source          => 'C:/ossec-win32-2.8.1.exe',
         install_options => [ '/S' ],  # Nullsoft installer silent installation
-        require         => File['C:/ossec-agent-win32-2.8.exe'],
+        require         => File['C:/ossec-win32-2.8.1.exe'],
      }
     }
     default: { fail('OS not supported') }
@@ -84,13 +84,13 @@ class ossec::client(
     require => Package[$ossec::params::agent_package]
   }
   ossec::agentkey{ "ossec_agent_${::fqdn}_client":
-    agent_id         => $::uniqueid,
+    agent_id         => fqdn_rand(3000),
     agent_name       => $::hostname,
     agent_ip_address => $::ipaddress,
   }
   @@ossec::agentkey{ "ossec_agent_${::fqdn}_server":
-    agent_id         => $::hostname,
-    agent_name       => $::fqdn,
+    agent_id         => fqdn_rand(3000),
+    agent_name       => $::hostname,
     agent_ip_address => $::ipaddress
   }
 
