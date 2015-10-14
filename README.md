@@ -109,10 +109,10 @@ About active-response mechanism, check the documentation (and extends the functi
 
 ## Limitations
 
-On RedHat-like systems, this module depends on the [Atomic repo](https://www6.atomicorp.com/channels/atomic/)
+On RedHat-like systems, this module depends on the [Wazuh repo](http://ossec.wazuh.com/el/)
 to provide the OSSEC packages, and on the [EPEL repo](https://fedoraproject.org/wiki/EPEL) to provide
 a dependency, `inotify-tools`.  On Debian-like systems, this module depends on the
-[Alienvault repo](http://ossec.alienvault.com/repos/apt/debian/) to provide the OSSEC packages.  However, the
+[Wazuh repo](http://ossec.wazuh.com/repos/apt/debian/) to provide the OSSEC packages.  However, the
 module now supports the ability to skip management of repositories, so you can rely on existing repositories
 (such as locally-hosted mirrors, etc.).
 
