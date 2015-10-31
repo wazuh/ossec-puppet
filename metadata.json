@@ -1,33 +1,13 @@
 {
-  "name": "wazuh-ossec",
-  "version": "2.0.1",
-  "author": "WAZUH",
+  "name": "yokatan-ossec",
+  "version": "1.7.2",
+  "author": "jlruiz",
   "summary": "Install and configure OSSEC-HIDS client and server",
   "license": "Apache-2.0",
-  "source": "https://github.com/wazuh/ossec-puppet",
-  "project_page": "https://github.com/wazuh/ossec-puppet",
-  "issues_url": "https://github.com/wazuh/ossec-puppet/issues",
-  "tags": ["ossec", "hids"],
+  "source": "https://github.com/jlruizmlg/puppet-ossec",
+  "project_page": "https://github.com/jlruizmlg/puppet-ossec",
+  "issues_url": "https://github.com/jlruizmlg/puppet-ossec/issues",
   "operatingsystem_support": [
-    {
-      "operatingsystem": "Windows",
-      "operatingsystemrelease": [
-        "Server 2003 R2",
-        "Server 2008 R2",
-        "Server 2012",
-        "Server 2012 R2",
-        "Windows 2008",
-        "Windows 10"
-      ]
-    },
-   {
-      "operatingsystem": "CentOS",
-      "operatingsystemrelease": [
-        "5",
-        "6",
-        "7"
-      ]
-    },
     {
       "operatingsystem": "RedHat",
       "operatingsystemrelease": [
@@ -37,41 +17,23 @@
       ]
     },
     {
-      "operatingsystem": "Ubuntu",
-      "operatingsystemrelease": [
-        "Precise",
-        "Trusty"
-      ]
+      "operatingsystem": "Ubuntu"
     },
     {
       "operatingsystem": "Debian",
       "operatingsystemrelease": [
         "Squeeze",
         "Wheezy",
-        "Jessie"
+        "Jessie",
+        "trusty"
       ]
     }
   ],
   "dependencies": [
-    {
-      "name": "puppetlabs/stdlib",
-      "version_range": ">= 1.0.0"
-    },
-    {
-      "name": "puppetlabs/concat",
-      "version_range": ">= 1.0.0"
-    },
-    {
-      "name": "stahnma/epel",
-      "version_range": ">= 1.0.0"
-    },
-    {
-      "name": "puppetlabs/apt",
-      "version_range": ">= 2.0.0"
-    },
-    {
-      "name": "jfryman/selinux",
-      "version_range": ">= 0.2.3"
-    }
+    {"name":"puppetlabs/stdlib"},
+    {"name":"puppetlabs/concat"},
+    {"name":"puppetlabs/apt"},
+    {"name":"stahnma/epel"},
+    {"name":"jfryman/selinux"}
   ]
 }

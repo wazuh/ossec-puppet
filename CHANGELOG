@@ -70,34 +70,3 @@
 
  Jonathan Gazeley <jonathan.gazeley@bristol.ac.uk>:
   * SELinux permissions fix
-
-2015-09-16 Michael Porter <michael.porter@lightningsource.com> - 2.0.0
-===========================================================
-
-Michael Porter <michael.porter@lightningsource.com>:
-  * Allow skipping MySQL dependency, disabling active response,
-    and executing rootcheck
-  * Windows agent support
-  * Use Puppet md5 support, instead of adding parser function
-  * Utilize centralized agent configuration
-  * Various clean-up and reorganization of Puppet module structure
-  * Utilize 'hostname' instead of 'uniqueid' for agent ID, due to uniqueid
-    not existing on Windows, and not necessarily being unique across the org
-    on Linux
-
-2015-09-16 Jose Luis Ruiz <jose@wazuh.com> - 2.0.0
-===========================================================
-
-Jose Luis Ruiz <jose@wazuh.com>:
-
-  * Update for all kind of Windows
-  * Change repos to Wazuh, Inc.
-
-2015-10-13 Jose Luis Ruiz <jose@wazuh.com> - 2.0.1
-===========================================================
-
-Jose Luis Ruiz <jose@wazuh.com>:
-  
-  * Update Windows Agent to version 2.8.1
-  * Fix a bug with the Windows Agent ID, now use for all systems **fqdn_rand** to generate the client.keys ID
-

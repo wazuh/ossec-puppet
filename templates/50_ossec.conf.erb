@@ -1,0 +1,20 @@
+  <localfile>
+    <log_format>syslog</log_format>
+	<location>/var/log/remote/<%= @fqdn %>/auth.log</location>
+  </localfile>
+
+  <localfile>
+    <log_format>syslog</log_format>
+	<location>/var/log/remote/<%= @fqdn %>/cron.log</location>
+  </localfile>
+
+  <localfile>
+    <log_format>syslog</log_format>
+	<location>/var/log/remote/<%= @fqdn %>/daemon.log</location>
+  </localfile>
+
+  <localfile>
+    <log_format>syslog</log_format>
+	<location>/var/log/remote/<%= @fqdn %>/syslog.log</location>
+  </localfile>
+
