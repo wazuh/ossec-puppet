@@ -1,13 +1,14 @@
 <ossec_config>
   <global>
     <email_notification><%= @ossec_emailnotification %></email_notification>
-	<email_to><%= @ossec_emailto %></email_to>
-	<smtp_server><%= @mailserver_ip %></smtp_server>
-	<email_from><%= @ossec_emailfrom %></email_from>
-	<stats><%= @ossec_global_stat_level %></stats>
-	<host_information><%= @ossec_global_host_information_level %></host_information>
+    <email_to><%= @ossec_emailto %></email_to>
+    <smtp_server><%= @mailserver_ip %></smtp_server>
+    <email_from><%= @ossec_emailfrom %></email_from>
+    <stats><%= @ossec_global_stat_level %></stats>
+    <host_information><%= @ossec_global_host_information_level %></host_information>
   </global>
 
+  <!-- Included rules (static) -->
   <rules>
     <include>rules_config.xml</include>
     <include>pam_rules.xml</include>
@@ -66,58 +67,23 @@
     <include>ossec_rules.xml</include>
     <include>attack_rules.xml</include>
     <include>local_rules.xml</include>
-  </rules>  
+  </rules>
 
+  <!-- Most of these rules are defined in the shared agent config -->
   <syscheck>
-    <!-- Frequency that syscheck is executed - default to every 22 hours -->
-    <frequency>79200</frequency>
-    
-    <!-- Directories to check  (perform all possible verifications) -->
-    <directories check_all="yes">/etc,/usr/bin,/usr/sbin</directories>
-    <directories check_all="yes">/bin,/sbin</directories>
+    <!-- Frequency that syscheck is executed -->
+    <frequency><%= @ossec_check_frequency %></frequency>
 
-    <!-- Files/directories to ignore -->
-    <ignore>/etc/mtab</ignore>
-    <ignore>/etc/mnttab</ignore>
-    <ignore>/etc/hosts.deny</ignore>
-    <ignore>/etc/mail/statistics</ignore>
-    <ignore>/etc/random-seed</ignore>
-    <ignore>/etc/adjtime</ignore>
-    <ignore>/etc/httpd/logs</ignore>
-    <ignore>/etc/utmpx</ignore>
-    <ignore>/etc/wtmpx</ignore>
-    <ignore>/etc/cups/certs</ignore>
-    <ignore>/etc/dumpdates</ignore>
-    <ignore>/etc/svc/volatile</ignore>
-    <ignore>/etc/prelink.cache</ignore>
-
-    <!-- Windows files to ignore -->
-    <ignore>C:\WINDOWS/System32/LogFiles</ignore>
-    <ignore>C:\WINDOWS/Debug</ignore>
-    <ignore>C:\WINDOWS/WindowsUpdate.log</ignore>
-    <ignore>C:\WINDOWS/iis6.log</ignore>
-    <ignore>C:\WINDOWS/system32/wbem/Logs</ignore>
-    <ignore>C:\WINDOWS/system32/wbem/Repository</ignore>
-    <ignore>C:\WINDOWS/Prefetch</ignore>
-    <ignore>C:\WINDOWS/PCHEALTH/HELPCTR/DataColl</ignore>
-    <ignore>C:\WINDOWS/SoftwareDistribution</ignore>
-    <ignore>C:\WINDOWS/Temp</ignore>
-    <ignore>C:\WINDOWS/system32/config</ignore>
-    <ignore>C:\WINDOWS/system32/spool</ignore>
-    <ignore>C:\WINDOWS/system32/CatRoot</ignore>
-
-<% @ossec_ignorepaths.each do |path| -%>	<ignore><%= @path %></ignore>
+    <!-- Files/directories to ignore (parameterized) -->
+<% @ossec_ignorepaths.each do |path| -%>    <ignore><%= @path %></ignore>
 <% end %>
   </syscheck>
 
+<% if @ossec_rootcheck == false then %>
   <rootcheck>
-    <rootkit_files>/var/ossec/etc/shared/rootkit_files.txt</rootkit_files>
-    <rootkit_trojans>/var/ossec/etc/shared/rootkit_trojans.txt</rootkit_trojans>
-    <system_audit>/var/ossec/etc/shared/system_audit_rcl.txt</system_audit>
-    <system_audit>/var/ossec/etc/shared/cis_debian_linux_rcl.txt</system_audit>
-    <system_audit>/var/ossec/etc/shared/cis_rhel_linux_rcl.txt</system_audit>
-    <system_audit>/var/ossec/etc/shared/cis_rhel5_linux_rcl.txt</system_audit>
+    <disabled>yes</disabled>
   </rootcheck>
+<% end %>
 <% if @ossec_active_response == false then %>
   <active-response>
     <disabled>yes</disabled>
@@ -132,49 +98,11 @@
     <log_alert_level>1</log_alert_level>
 	<email_alert_level><%= @ossec_email_alert_level %></email_alert_level>
   </alerts>
+
   <!-- Files to monitor (localfiles) -->
-
+<% @ossec_local_files.each do |path, format| %>
   <localfile>
-    <log_format>syslog</log_format>
-    <location>/var/log/messages</location>
+    <log_format><%= format %></log_format>
+    <location><%= path %></location>
   </localfile>
-
-  <localfile>
-    <log_format>syslog</log_format>
-    <location>/var/log/auth.log</location>
-  </localfile>
-
-  <localfile>
-    <log_format>syslog</log_format>
-    <location>/var/log/syslog</location>
-  </localfile>
-
-  <localfile>
-    <log_format>syslog</log_format>
-    <location>/var/log/mail.info</location>
-  </localfile>
-
-  <localfile>
-    <log_format>syslog</log_format>
-    <location>/var/log/maillog</location>
-  </localfile>
-
-  <localfile>
-    <log_format>syslog</log_format>
-    <location>/var/log/dpkg.log</location>
-  </localfile>
-
-  <localfile>
-    <log_format>apache</log_format>
-    <location>/var/log/apache2/access.log</location>
-  </localfile>
-
-  <localfile>
-    <log_format>apache</log_format>
-    <location>/var/log/apache2/error.log</location>
-  </localfile>
-
-  <localfile> 
-    <log_format>syslog</log_format> 
-    <location>/var/ossec/logs/active-responses.log</location> 
-  </localfile> 
+<% end %>

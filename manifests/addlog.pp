@@ -3,11 +3,13 @@ define ossec::addlog(
   $logfile,
   $logtype = 'syslog',
 ) {
+  require ossec::params
+
   concat::fragment { "ossec.conf_20-${logfile}":
-    target  => '/var/ossec/etc/ossec.conf',
+    target  => $ossec::params::config_file,
     content => template('ossec/20_ossecLogfile.conf.erb'),
     order   => 20,
-    notify  => Service[$ossec::common::hidsserverservice]
+    notify  => Service[$ossec::params::server_service]
   }
 
 }

@@ -5,9 +5,11 @@ define ossec::command(
   $command_expect = 'srcip',
   $timeout_allowed = true,
 ) {
+  require ossec::params
+
   if ($timeout_allowed) { $command_timeout_allowed='yes' } else { $command_timeout_allowed='no' }
   concat::fragment { $name:
-    target  => '/var/ossec/etc/ossec.conf',
+    target  => $ossec::params::config_file,
     order   => 45,
     content => template('ossec/command.erb'),
   }

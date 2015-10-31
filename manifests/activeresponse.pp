@@ -6,8 +6,10 @@ define ossec::activeresponse(
   $ar_rules_id = [],
   $ar_timeout  = 300,
 ) {
+  require ossec::params
+
   concat::fragment { $name:
-    target  => '/var/ossec/etc/ossec.conf',
+    target  => $ossec::params::config_file,
     order   => 55,
     content => template('ossec/activeresponse.erb')
   }
