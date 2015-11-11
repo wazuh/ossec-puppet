@@ -30,19 +30,19 @@ class ossec::client(
     'windows' : {
           
           file {
-          'C:/ossec-win32-2.8.1.exe':
+          'C:/ossec-win32-agent-2.8.3.exe':
           owner              => 'Administrators',
           group              => 'Administrators',
           mode               => '0774',
-          source             => 'puppet:///modules/ossec/ossec-win32-2.8.1.exe',
+          source             => 'puppet:///modules/ossec/ossec-win32-agent-2.8.3.exe',
           source_permissions => ignore
 	 }
 
       package { $ossec::params::agent_package:
         ensure          => installed,
-        source          => 'C:/ossec-win32-2.8.1.exe',
+        source          => 'C:/ossec-win32-agent-2.8.3.exe',
         install_options => [ '/S' ],  # Nullsoft installer silent installation
-        require         => File['C:/ossec-win32-2.8.1.exe'],
+        require         => File['C:/ossec-win32-agent-2.8.3.exe'],
      }
     }
     default: { fail('OS not supported') }

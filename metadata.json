@@ -1,13 +1,13 @@
 {
   "name": "wazuh-ossec",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "author": "WAZUH",
   "summary": "Install and configure OSSEC-HIDS client and server",
   "license": "Apache-2.0",
   "source": "https://github.com/wazuh/ossec-puppet",
   "project_page": "https://github.com/wazuh/ossec-puppet",
   "issues_url": "https://github.com/wazuh/ossec-puppet/issues",
-  "tags": ["ossec", "hids"],
+  "tags": ["ossec", "hids", "2.8.3"],
   "operatingsystem_support": [
     {
       "operatingsystem": "Windows",
@@ -40,15 +40,18 @@
       "operatingsystem": "Ubuntu",
       "operatingsystemrelease": [
         "Precise",
-        "Trusty"
+        "Trusty",
+        "Vivid",
+        "Wily"
       ]
     },
     {
       "operatingsystem": "Debian",
       "operatingsystemrelease": [
-        "Squeeze",
         "Wheezy",
-        "Jessie"
+        "Jessie",
+        "Stretch",
+        "Sid"
       ]
     }
   ],

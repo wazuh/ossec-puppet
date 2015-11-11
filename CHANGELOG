@@ -101,3 +101,11 @@ Jose Luis Ruiz <jose@wazuh.com>:
   * Update Windows Agent to version 2.8.1
   * Fix a bug with the Windows Agent ID, now use for all systems **fqdn_rand** to generate the client.keys ID
 
+2015-10-13 Jose Luis Ruiz <jose@wazuh.com> - 2.0.2
+===========================================================
+
+Jose Luis Ruiz <jose@wazuh.com>:
+
+  * Update Windows Agent to version 2.8.3
+  * Update packaget to Ubuntu Vivid and Wily
+  * Update packages to Debian Stretch and Sid

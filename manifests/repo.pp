@@ -4,7 +4,7 @@ class ossec::repo (
   case $::osfamily {
     'Debian' : {
       case $::lsbdistcodename {
-        /(lucid|precise|trusty)/: {
+        /(precise|trusty|vivid|wily)/: {
         
           apt::source { 'wazuh':
             ensure      => present,
@@ -24,7 +24,7 @@ class ossec::repo (
           }
 
     }
-        /^(jessie|wheezy)$/: {
+        /^(jessie|wheezy|stretch|sid)$/: {
           apt::source { 'wazuh':
             ensure      => present,
             comment     => 'This is the WAZUH Debian repository for Ossec',

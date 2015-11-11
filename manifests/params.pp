@@ -31,11 +31,11 @@ class ossec::params {
           }
 
           case $::lsbdistcodename {
-            /(lucid|precise|trusty)/: {
+            /(precise|trusty|vivid|wily)/: {
               $server_service = 'ossec-hids-server'
               $server_package = 'ossec-hids-server'
             }
-            /^(jessie|wheezy)$/: {
+            /^(jessie|wheezy|stretch|sid)$/: {
               $server_service = 'ossec'
               $server_package = 'ossec-hids'
             }
