@@ -5,7 +5,8 @@ This module installs and configure OSSEC HIDS agent and manager.
 ## Documentation
 
 * [Full documentation](http://documentation.wazuh.com)
-* [OSSEC Puppet module](http://documentation.wazuh.com/en/latest/ossec_puppet.html#ossec-puppet-module)
+* [OSSEC Puppet module documentation](http://documentation.wazuh.com/en/latest/ossec_puppet.html#ossec-puppet-module)
+* [Puppet Forge](https://forge.puppetlabs.com/wazuh/ossec)
 
 ## Credits and thank you
 
