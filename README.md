@@ -1,6 +1,6 @@
 # OSSEC Puppet module
 
-This module installas and configure OSSEC HIDS agent and manager.
+This module installs and configure OSSEC HIDS agent and manager.
 
 ## Documentation
 
