@@ -37,7 +37,7 @@ class ossec::repo (
             key_source  => 'http://ossec.wazuh.com/repos/apt/conf/ossec-key.gpg.key',
           }
           ~>
-          exec { 'update-apt-alienvault-repo':
+          exec { 'update-apt-wazuh-repo':
             command     => '/usr/bin/apt-get update',
             refreshonly => true
           }
