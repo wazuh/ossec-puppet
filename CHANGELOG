@@ -109,3 +109,11 @@ Jose Luis Ruiz <jose@wazuh.com>:
   * Update Windows Agent to version 2.8.3
   * Update packaget to Ubuntu Vivid and Wily
   * Update packages to Debian Stretch and Sid
+
+2015-12-02 Jose Luis Ruiz <jose@wazuh.com> - 2.0.3
+===========================================================
+
+Jose Luis Ruiz <jose@wazuh.com>:
+
+  * Fix server package name for Ubuntu (thanks to @HielkeJ for Pull request)
+  * Add full fingerprint for Ubuntu and Debian (thanks to @HielkeJ for Pull request)
