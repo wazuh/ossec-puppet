@@ -5,7 +5,7 @@ class ossec::repo (
     'Debian' : {
       case $::lsbdistcodename {
         /(precise|trusty|vivid|wily)/: {
-        
+
           apt::source { 'wazuh':
             ensure      => present,
             comment     => 'This is the WAZUH Ubuntu repository for Ossec',
@@ -14,7 +14,7 @@ class ossec::repo (
             repos       => 'main',
             include_src => false,
             include_deb => true,
-            key         => '9A1B1C65',
+            key         => '9FE55537D1713CA519DFB85114B9C8DB9A1B1C65',
             key_source  => 'http://ossec.wazuh.com/repos/apt/conf/ossec-key.gpg.key',
           }
           ~>
@@ -33,7 +33,7 @@ class ossec::repo (
             repos       => 'main',
             include_src => false,
             include_deb => true,
-            key         => '9A1B1C65',
+            key         => '9FE55537D1713CA519DFB85114B9C8DB9A1B1C65',
             key_source  => 'http://ossec.wazuh.com/repos/apt/conf/ossec-key.gpg.key',
           }
           ~>
