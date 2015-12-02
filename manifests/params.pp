@@ -32,8 +32,8 @@ class ossec::params {
 
           case $::lsbdistcodename {
             /(precise|trusty|vivid|wily)/: {
-              $server_service = 'ossec-hids-server'
-              $server_package = 'ossec-hids-server'
+              $server_service = 'ossec'
+              $server_package = 'ossec-hids'
             }
             /^(jessie|wheezy|stretch|sid)$/: {
               $server_service = 'ossec'
@@ -71,7 +71,7 @@ class ossec::params {
       $config_file = regsubst(sprintf('c:/Program Files (x86)/ossec-agent/ossec.conf'), '\\', '/')
       $config_owner = 'Administrator'
       $config_group = 'Administrators'
- 
+
       $keys_file = regsubst(sprintf('c:/Program Files (x86)/ossec-agent/client.keys'), '\\', '/')
       $keys_mode = '0440'
       $keys_owner = 'Administrator'
