@@ -57,7 +57,7 @@ class ossec::repo (
           priority => 1,
           protect  => false,
         }
-      }  
+      }
       else {
         # Set up OSSEC repo
         yumrepo { 'ossec':

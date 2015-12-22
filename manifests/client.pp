@@ -26,14 +26,14 @@ class ossec::client(
       include ossec::repo
       Class['ossec::repo'] -> Package[$ossec::params::agent_package]
         package { $ossec::params::agent_package:
-           ensure  => installed
+          ensure  => installed
       }
 
       } else {
       package { $ossec::params::agent_package:
-	ensure => installed
+        ensure => installed
       }
-     }
+      }
     }
     'windows' : {
           
@@ -44,7 +44,7 @@ class ossec::client(
           mode               => '0774',
           source             => 'puppet:///modules/ossec/ossec-win32-agent-2.8.3.exe',
           source_permissions => ignore
-	  }
+          }
 
       package { $ossec::params::agent_package:
         ensure          => installed,
