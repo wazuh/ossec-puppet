@@ -46,26 +46,29 @@ class ossec::repo (
       }
     }
     'Redhat' : {
-      # Set up OSSEC rpm gpg key
-      file { 'RPM-GPG-KEY.ossec.txt':
-        path   => '/etc/pki/rpm-gpg/RPM-GPG-KEY.ossec.txt',
-        source => 'puppet:///modules/ossec/RPM-GPG-KEY.ossec.txt',
-        owner  => 'root',
-        group  => 'root',
-        mode   => '0664',
+      if $operatingsystemrelease =~ /^5.*/ {
+        # Set up OSSEC repo
+        yumrepo { 'ossec':
+          descr    => 'WAZUH OSSEC Repository - www.wazuh.com',
+          enabled  => true,
+          gpgcheck => 1,
+          gpgkey   => 'http://ossec.wazuh.com/key/RPM-GPG-KEY-OSSEC-RHEL5',
+          baseurl  => 'http://ossec.wazuh.com/el/$releasever/$basearch',
+          priority => 1,
+          protect  => false,
+        }
+      }  
+      else {
+        # Set up OSSEC repo
+        yumrepo { 'ossec':
+          descr    => 'WAZUH OSSEC Repository - www.wazuh.com',
+          enabled  => true,
+          gpgkey   => 'http://ossec.wazuh.com/key/RPM-GPG-KEY-OSSEC',
+          baseurl  => 'http://ossec.wazuh.com/el/$releasever/$basearch',
+          priority => 1,
+          protect  => false,
+        }
       }
-
-      # Set up OSSEC repo
-      yumrepo { 'ossec':
-        descr      => 'WAZUH OSSEC Repository - www.wazuh.com',
-        enabled    => true,
-        gpgkey     => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY.ossec.txt',
-        baseurl    => 'http://ossec.wazuh.com/el/$releasever/$basearch',
-        priority   => 1,
-        protect    => false,
-        require    => [ File['RPM-GPG-KEY.ossec.txt'] ]
-      }
-
       package { 'inotify-tools':
         ensure  => present
       }
