@@ -117,3 +117,11 @@ Jose Luis Ruiz <jose@wazuh.com>:
 
   * Fix server package name for Ubuntu (thanks to @HielkeJ for Pull request)
   * Add full fingerprint for Ubuntu and Debian (thanks to @HielkeJ for Pull request)
+
+2015-12-21 Jose Luis Ruiz <jose@wazuh.com> - 2.0.4
+===========================================================
+
+Jose Luis Ruiz <jose@wazuh.com>:
+
+  * Add manage_repo option on client.pp (issue #2 reported by @cudgel)
+  * Add new repo for RHEL5 and CentOS5 have different rpm signature.
