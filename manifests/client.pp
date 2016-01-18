@@ -2,7 +2,8 @@
 class ossec::client(
   $ossec_active_response   = true,
   $ossec_rootcheck         = true,
-  $ossec_server_ip,
+  $ossec_server_ip         = undef,
+  $ossec_server_hostname   = undef,
   $ossec_emailnotification = 'yes',
   $ossec_ignorepaths       = [],
   $ossec_local_files       = {},
@@ -19,6 +20,9 @@ class ossec::client(
   #validate_integer($ossec_check_frequency, undef, 1800)
   validate_array($ossec_ignorepaths)
 
+  if ( ( $ossec_server_ip == undef ) and ( $ossec_server_hostname == undef ) ) {
+    fail('Either $ossec_server_ip or $ossec_server_hostname must be defined.')
+  }
 
   case $::kernel {
     'Linux' : {
@@ -36,7 +40,7 @@ class ossec::client(
       }
     }
     'windows' : {
-          
+
           file {
           'C:/ossec-win32-agent-2.8.3.exe':
           owner              => 'Administrators',
