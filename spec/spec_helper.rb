@@ -7,6 +7,8 @@ require 'rspec'
 require 'rspec-puppet-facts'
 require 'puppetlabs_spec_helper/module_spec_helper'
 
+include RspecPuppetFacts
+
 #require 'spec/autorun'
 
 #Spec::Runner.configure do |config|

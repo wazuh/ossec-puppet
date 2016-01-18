@@ -21,7 +21,7 @@ class ossec::client(
   validate_array($ossec_ignorepaths)
 
   if ( ( $ossec_server_ip == undef ) and ( $ossec_server_hostname == undef ) ) {
-    fail('Either $ossec_server_ip or $ossec_server_hostname must be defined.')
+    fail('must pass either $ossec_server_ip or $ossec_server_hostname to Class[\'ossec::client\'].')
   }
 
   case $::kernel {
