@@ -133,4 +133,4 @@ Jose Luis Ruiz <jose@wazuh.com>:
 
   * Add multiple email_to addresses
   * Adding support for server-hostname in agent config (pull request #3 thanks @alustenberg)
-  * Adding ossec_scanpaths configuration thanks to @djjudas21 repo
+  * Adding ossec_scanpaths configuration thanks to @djjudas21 repository
