@@ -125,3 +125,12 @@ Jose Luis Ruiz <jose@wazuh.com>:
 
   * Add manage_repo option on client.pp (issue #2 reported by @cudgel)
   * Add new repo for RHEL5 and CentOS5 have different rpm signature.
+
+2016-01-19 Jose Luis Ruiz <jose@wazuh.com> - 2.0.5
+===========================================================
+
+Jose Luis Ruiz <jose@wazuh.com>:
+
+  * Add multiple email_to addresses
+  * Adding support for server-hostname in agent config (pull request #3 thanks @alustenberg)
+  * Adding ossec_scanpaths configuration thanks to @djjudas21 repo
