@@ -1,0 +1,7 @@
+fixtures:
+  forge_modules:
+    stdlib: puppetlabs/stdlib
+    concat: puppetlabs/concat
+    epel: stahnma/epel
+  symlinks:
+    ossec: "#{source_dir}"
