@@ -32,7 +32,7 @@ class ossec::server (
 
   if $manage_repos {
     # TODO: Allow filtering of EPEL requirement
-    include ossec::repo
+    class { 'ossec::repo': redhat_manage_epel => $manage_epel_repo }
     Class['ossec::repo'] -> Package[$ossec::params::server_package]
   }
 

@@ -11,10 +11,11 @@ class ossec::client(
   $ossec_check_frequency   = 79200,
   $selinux                 = false,
   $manage_repo             = true,
+  $manage_epel_repo        = true,
 ) inherits ossec::params {
   validate_bool(
     $ossec_active_response, $ossec_rootcheck,
-    $selinux, $manage_repo
+    $selinux, $manage_repo, $manage_epel_repo
   )
   # This allows arrays of integers, sadly
   # (commented due to stdlib version requirement)
@@ -28,7 +29,7 @@ class ossec::client(
   case $::kernel {
     'Linux' : {
       if $manage_repo {
-      include ossec::repo
+      class { 'ossec::repo': redhat_manage_epel => $manage_epel_repo }
       Class['ossec::repo'] -> Package[$ossec::params::agent_package]
         package { $ossec::params::agent_package:
           ensure  => installed

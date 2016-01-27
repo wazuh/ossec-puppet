@@ -1,5 +1,5 @@
 class ossec::repo (
-  $redhat_manage_epel = $::ossec::manage_epel_repo
+  $redhat_manage_epel = true,
 ) {
   case $::osfamily {
     'Debian' : {
