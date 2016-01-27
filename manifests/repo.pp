@@ -69,13 +69,13 @@ class ossec::repo (
           protect  => false,
         }
       }
-      package { 'inotify-tools':
-        ensure  => present
-      }
 
       if $redhat_manage_epel {
         # Set up EPEL repo
         # NOTE: This relies on the 'epel' module referenced in metadata.json
+        package { 'inotify-tools':
+          ensure  => present
+        }
         include epel
 
         Class['epel'] -> Package['inotify-tools']
