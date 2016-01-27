@@ -14,11 +14,12 @@ class ossec::server (
   $ossec_emailnotification             = 'yes',
   $ossec_check_frequency               = 79200,
   $use_mysql                           = false,
-  $manage_repos                        = true
+  $manage_repos                        = true,
+  $manage_epel_repo                    = true,
 ) inherits ossec::params {
   validate_bool(
     $ossec_active_response, $ossec_rootcheck,
-    $use_mysql, $manage_repos
+    $use_mysql, $manage_repos, $manage_epel_repo
   )
   # This allows arrays of integers, sadly
   # (commented due to stdlib version requirement)
@@ -31,7 +32,7 @@ class ossec::server (
 
   if $manage_repos {
     # TODO: Allow filtering of EPEL requirement
-    include ossec::repo
+    class { 'ossec::repo': redhat_manage_epel => $manage_epel_repo }
     Class['ossec::repo'] -> Package[$ossec::params::server_package]
   }
 
