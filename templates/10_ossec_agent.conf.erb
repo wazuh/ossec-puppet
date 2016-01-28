@@ -18,7 +18,7 @@
 <% end %>
 
     <!-- Files/directories to ignore (parameterized) -->
-<% @ossec_ignorepaths.each do |path| -%>    <ignore><%= @path %></ignore>
+<% @ossec_ignorepaths.each do |path| -%>    <ignore><%= path %></ignore>
 <% end %>
   </syscheck>
 
