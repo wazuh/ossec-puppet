@@ -135,9 +135,10 @@ Jose Luis Ruiz <jose@wazuh.com>:
   * Adding support for server-hostname in agent config (pull request #3 thanks @alustenberg)
   * Adding ossec_scanpaths configuration thanks to @djjudas21 repository
 
-2016-01-19 Jose Luis Ruiz <jose@wazuh.com> - 2.0.6
+2016-01-28 Jose Luis Ruiz <jose@wazuh.com> - 2.0.6
 ===========================================================
 
 Jose Luis Ruiz <jose@wazuh.com>:
 
   * Add ability to manage epel repo to master/client configs (pull request #4 thanks @justicel)
+  * The @path uses the puppet level path variable (pull request #5 thanks @justicel)
