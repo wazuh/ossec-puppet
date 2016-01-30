@@ -8,7 +8,9 @@
     <email_from><%= @ossec_emailfrom %></email_from>
     <stats><%= @ossec_global_stat_level %></stats>
     <host_information><%= @ossec_global_host_information_level %></host_information>
-  </global>
+    <% @ossec_white_list.each do |ipaddress| -%><white_list><%= ipaddress %></white_list>
+    <% end %>
+   </global>
 
   <!-- Included rules (static) -->
   <rules>

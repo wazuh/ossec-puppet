@@ -10,6 +10,7 @@ class ossec::server (
   $ossec_email_alert_level             = 7,
   $ossec_ignorepaths                   = [],
   $ossec_scanpaths                     = [ {'path' => '/etc,/usr/bin,/usr/sbin', 'report_changes' => 'no', 'realtime' => 'no'}, {'path' => '/bin,/sbin', 'report_changes' => 'yes', 'realtime' => 'yes'} ],
+  $ossec_white_list                    = [],
   $ossec_local_files                   = {},
   $ossec_emailnotification             = 'yes',
   $ossec_check_frequency               = 79200,

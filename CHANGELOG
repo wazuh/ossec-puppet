@@ -142,3 +142,4 @@ Jose Luis Ruiz <jose@wazuh.com>:
 
   * Add ability to manage epel repo to master/client configs (pull request #4 thanks @justicel)
   * The @path uses the puppet level path variable (pull request #5 thanks @justicel)
+  * Allow whitelisting of IP addreses (thanks @chaordix)
