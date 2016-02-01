@@ -12,6 +12,7 @@ class ossec::client(
   $selinux                 = false,
   $manage_repo             = true,
   $manage_epel_repo        = true,
+  $manage_client_keys      = true,
 ) inherits ossec::params {
   validate_bool(
     $ossec_active_response, $ossec_rootcheck,
@@ -92,7 +93,7 @@ class ossec::client(
     notify  => Service[$ossec::params::agent_service]
   }
 
-  if ( $ossec::params::manage_client_keys == true ) {
+  if ( $manage_client_keys == true ) {
     concat { $ossec::params::keys_file:
       owner   => $ossec::params::keys_owner,
       group   => $ossec::params::keys_group,

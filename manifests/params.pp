@@ -1,6 +1,4 @@
-class ossec::params (
-  $manage_client_keys = true,
-) {
+class ossec::params {
   case $::kernel {
     'Linux': {
 
