@@ -77,18 +77,20 @@ class ossec::server (
     notify  => Service[$ossec::params::server_service]
   }
 
-  concat { $ossec::params::keys_file:
-    owner   => $ossec::params::keys_owner,
-    group   => $ossec::params::keys_group,
-    mode    => $ossec::params::keys_mode,
-    notify  => Service[$ossec::params::server_service],
-    require => Package[$ossec::params::server_package],
-  }
-  concat::fragment { 'var_ossec_etc_client.keys_end' :
-    target  => $ossec::params::keys_file,
-    order   => 99,
-    content => "\n",
-    notify  => Service[$ossec::params::server_service]
+  if ( $ossec::params::manage_client_keys == true ) {
+    concat { $ossec::params::keys_file:
+      owner   => $ossec::params::keys_owner,
+      group   => $ossec::params::keys_group,
+      mode    => $ossec::params::keys_mode,
+      notify  => Service[$ossec::params::server_service],
+      require => Package[$ossec::params::server_package],
+    }
+    concat::fragment { 'var_ossec_etc_client.keys_end' :
+      target  => $ossec::params::keys_file,
+      order   => 99,
+      content => "\n",
+      notify  => Service[$ossec::params::server_service]
+    }
   }
 
   file { '/var/ossec/etc/shared/agent.conf':
