@@ -12,6 +12,7 @@ class ossec::client(
   $selinux                 = false,
   $manage_repo             = true,
   $manage_epel_repo        = true,
+  $manage_client_keys      = true,
 ) inherits ossec::params {
   validate_bool(
     $ossec_active_response, $ossec_rootcheck,
@@ -92,24 +93,26 @@ class ossec::client(
     notify  => Service[$ossec::params::agent_service]
   }
 
-  concat { $ossec::params::keys_file:
-    owner   => $ossec::params::keys_owner,
-    group   => $ossec::params::keys_group,
-    mode    => $ossec::params::keys_mode,
-    notify  => Service[$ossec::params::agent_service],
-    require => Package[$ossec::params::agent_package]
-  }
+  if ( $manage_client_keys == true ) {
+    concat { $ossec::params::keys_file:
+      owner   => $ossec::params::keys_owner,
+      group   => $ossec::params::keys_group,
+      mode    => $ossec::params::keys_mode,
+      notify  => Service[$ossec::params::agent_service],
+      require => Package[$ossec::params::agent_package]
+    }
 
-  ossec::agentkey{ "ossec_agent_${::fqdn}_client":
-    agent_id         => fqdn_rand(3000),
-    agent_name       => $::hostname,
-    agent_ip_address => $::ipaddress,
-  }
+    ossec::agentkey{ "ossec_agent_${::fqdn}_client":
+      agent_id         => fqdn_rand(3000),
+      agent_name       => $::hostname,
+      agent_ip_address => $::ipaddress,
+    }
 
-  @@ossec::agentkey{ "ossec_agent_${::fqdn}_server":
-    agent_id         => fqdn_rand(3000),
-    agent_name       => $::hostname,
-    agent_ip_address => $::ipaddress
+    @@ossec::agentkey{ "ossec_agent_${::fqdn}_server":
+      agent_id         => fqdn_rand(3000),
+      agent_name       => $::hostname,
+      agent_ip_address => $::ipaddress
+    }
   }
 
   if ($::kernel == 'Linux') {
