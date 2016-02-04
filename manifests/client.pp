@@ -126,6 +126,13 @@ class ossec::client(
       mode    => '0755',
     }
 
+    # If client.keys doesn't exist on agent, register it with the OSSEC server
+    exec { "agent-auth":
+      command   	=> "/var/ossec/bin/agent-auth -m $ossec_server_ip -A $::fqdn -D /var/ossec/",
+      creates   	=> "/var/ossec/etc/client.keys",
+      require => Package[$ossec::params::agent_package],
+    }
+
     # SELinux
     # Requires selinux module specified in metadata.json
     if ($::osfamily == 'RedHat' and $selinux == true) {
