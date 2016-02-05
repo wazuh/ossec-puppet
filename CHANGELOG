@@ -144,3 +144,10 @@ Jose Luis Ruiz <jose@wazuh.com>:
   * The @path uses the puppet level path variable (pull request #5 thanks @justicel)
   * Allow whitelisting of IP addreses (thanks @chaordix)
   * Provides an option to tell the puppet module to not manage the client.keys file at all. (pull request #7 thanks @TravellingGuy)
+
+2016-02-05 Jose Luis Ruiz <jose@wazuh.com> - 2.0.7
+===========================================================
+
+Jose Luis Ruiz <jose@wazuh.com>:
+
+  * Run agent-auth if client.keys doesn't exist an agent. (pull request #9 thanks @TravellingGuy)
