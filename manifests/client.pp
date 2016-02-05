@@ -126,6 +126,21 @@ class ossec::client(
       mode    => '0755',
     }
 
+    # If client.keys doesn't exist on agent, register it with the OSSEC server
+    if ( ( $ossec_server_ip != undef ) ) {
+      exec { "agent-auth":
+        command   	=> "/var/ossec/bin/agent-auth -m $ossec_server_ip -A $::fqdn -D /var/ossec/",
+        creates   	=> "/var/ossec/etc/client.keys",
+        require => Package[$ossec::params::agent_package],
+      }
+    } elsif ( ( $ossec_server_hostname != undef ) ) {
+      exec { "agent-auth":
+        command   	=> "/var/ossec/bin/agent-auth -m $ossec_server_hostname -A $::fqdn -D /var/ossec/",
+        creates   	=> "/var/ossec/etc/client.keys",
+        require => Package[$ossec::params::agent_package],
+      }
+    }
+
     # SELinux
     # Requires selinux module specified in metadata.json
     if ($::osfamily == 'RedHat' and $selinux == true) {
