@@ -10,6 +10,8 @@ class ossec::client(
   $ossec_local_files       = {},
   $ossec_check_frequency   = 79200,
   $selinux                 = false,
+  $agent_name              = $::hostname,
+  $agent_ip_address        = $::ipaddress,
   $manage_repo             = true,
   $manage_epel_repo        = true,
   $manage_client_keys      = true,
@@ -104,14 +106,14 @@ class ossec::client(
 
     ossec::agentkey{ "ossec_agent_${::fqdn}_client":
       agent_id         => fqdn_rand(3000),
-      agent_name       => $::hostname,
-      agent_ip_address => $::ipaddress,
+      agent_name       => $agent_name,
+      agent_ip_address => $agent_ip_address,
     }
 
     @@ossec::agentkey{ "ossec_agent_${::fqdn}_server":
       agent_id         => fqdn_rand(3000),
-      agent_name       => $::hostname,
-      agent_ip_address => $::ipaddress
+      agent_name       => $agent_name,
+      agent_ip_address => $agent_ip_address
     }
   }
 
