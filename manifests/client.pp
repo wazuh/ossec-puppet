@@ -123,7 +123,7 @@ class ossec::client(
       require => Package[$ossec::params::agent_package],
       owner   => 'ossec',
       group   => 'ossec',
-      mode    => '0755',
+      mode    => '0750',
     }
 
     # If client.keys doesn't exist on agent, register it with the OSSEC server
