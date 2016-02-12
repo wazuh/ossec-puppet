@@ -113,6 +113,14 @@ class ossec::client(
       agent_name       => $::hostname,
       agent_ip_address => $::ipaddress
     }
+  } elsif ($::kernel == 'Linux') {
+    # Is this really Linux only?
+    $ossec_server_address = pick($ossec_server_ip, $ossec_server_hostname)
+    exec { 'agent-auth':
+      command => "/var/ossec/bin/agent-auth -m ${ossec_server_address} -A ${::fqdn} -D /var/ossec/",
+      creates => '/var/ossec/etc/client.keys',
+      require => Package[$ossec::params::agent_package],
+    }
   }
 
   if ($::kernel == 'Linux') {
@@ -124,21 +132,6 @@ class ossec::client(
       owner   => 'ossec',
       group   => 'ossec',
       mode    => '0755',
-    }
-
-    # If client.keys doesn't exist on agent, register it with the OSSEC server
-    if ( ( $ossec_server_ip != undef ) ) {
-      exec { 'agent-auth':
-        command => "/var/ossec/bin/agent-auth -m ${ossec_server_ip} -A ${::fqdn} -D /var/ossec/",
-        creates => '/var/ossec/etc/client.keys',
-        require => Package[$ossec::params::agent_package],
-      }
-    } elsif ( ( $ossec_server_hostname != undef ) ) {
-      exec { 'agent-auth':
-        command => "/var/ossec/bin/agent-auth -m ${ossec_server_hostname} -A ${::fqdn} -D /var/ossec/",
-        creates => '/var/ossec/etc/client.keys',
-        require => Package[$ossec::params::agent_package],
-      }
     }
 
     # SELinux
