@@ -12,6 +12,11 @@ class ossec::params {
       $keys_owner = 'root'
       $keys_group = 'ossec'
 
+      $processlist_file = '/var/ossec/bin/.process_list'
+      $processlist_mode = '0440'
+      $processlist_owner = 'root'
+      $processlist_group = 'ossec'
+
       case $::osfamily {
         'Debian': {
 
