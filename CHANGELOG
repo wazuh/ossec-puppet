@@ -159,7 +159,7 @@ Jose Luis Ruiz :
 
   * Fix some typos with puppet-lint.
 
-2016-02-12 Jose Luis Ruiz  - 2.0.9
+2016-02-23 Jose Luis Ruiz  - 2.0.9
 ===========================================================
 
   * Allow the agent identity to be modified. (pull request #10 thanks @damoxc)
