@@ -15,6 +15,10 @@ class ossec::server (
   $ossec_emailnotification             = 'yes',
   $ossec_check_frequency               = 79200,
   $use_mysql                           = false,
+  $mysql_hostname                      = undef,
+  $mysql_name                          = undef,
+  $mysql_password                      = undef,
+  $mysql_username                      = undef,
   $manage_repos                        = true,
   $manage_epel_repo                    = true,
   $manage_client_keys                  = true,
@@ -57,6 +61,21 @@ class ossec::server (
     require   => Package[$ossec::params::server_package],
   }
 
+  # configure ossec process list
+  concat { $ossec::params::processlist_file:
+    owner   => $ossec::params::config_owner,
+    group   => $ossec::params::config_group,
+    mode    => $ossec::params::config_mode,
+    require => Package[$ossec::params::server_package],
+    notify  => Service[$ossec::params::server_service]
+  }
+  concat::fragment { 'ossec_process_list_10' :
+    target  => $ossec::params::processlist_file,
+    content => template('ossec/10_process_list.erb'),
+    order   => 10,
+    notify  => Service[$ossec::params::server_service]
+  }
+
   # configure ossec
   concat { $ossec::params::config_file:
     owner   => $ossec::params::config_owner,
@@ -71,6 +90,30 @@ class ossec::server (
     order   => 10,
     notify  => Service[$ossec::params::server_service]
   }
+
+  if $use_mysql {
+    validate_string($mysql_hostname)
+    validate_string($mysql_name)
+    validate_string($mysql_password)
+    validate_string($mysql_username)
+
+    # Enable the database in the config
+    concat::fragment { 'ossec.conf_80' :
+      target  => $ossec::params::config_file,
+      content => template('ossec/80_ossec.conf.erb'),
+      order   => 80,
+      notify  => Service[$ossec::params::server_service]
+    }
+
+    # Enable the database daemon in the .process_list
+    concat::fragment { 'ossec_process_list_20' :
+      target  => $ossec::params::processlist_file,
+      content => template('ossec/20_process_list.erb'),
+      order   => 20,
+      notify  => Service[$ossec::params::server_service]
+    }
+  }
+
   concat::fragment { 'ossec.conf_90' :
     target  => $ossec::params::config_file,
     content => template('ossec/90_ossec.conf.erb'),
