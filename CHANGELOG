@@ -165,4 +165,4 @@ Jose Luis Ruiz :
   * Allow the agent identity to be modified. (pull request #10 thanks @damoxc)
   * prevent the agent-auth command being used. (pull request #11 thanks @damoxc)
   * Change log directory to only be readable by user and group. (pull request #12 thanks @damoxc)
-
+  * Add the ability to configure a MySQL database with OSSEC server. (pull request #14 thanks @coreone)
