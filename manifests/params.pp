@@ -84,7 +84,7 @@ class ossec::params {
 
       $agent_service  = 'OssecSvc'
 
-      $agent_package  = 'OSSEC HIDS 2.8'
+      $agent_package  = 'OSSEC HIDS 2.8.3'
 
       $server_service = ''
 
