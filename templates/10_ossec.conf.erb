@@ -10,7 +10,7 @@
     <host_information><%= @ossec_global_host_information_level %></host_information>
     <% @ossec_white_list.each do |ipaddress| -%><white_list><%= ipaddress %></white_list>
     <% end %>
-   </global>
+  </global>
 
   <!-- Included rules (static) -->
   <rules>
@@ -81,23 +81,24 @@
 
    <!-- Directories to check  (perform all possible verifications) -->
    <% @ossec_scanpaths.each do |scanpath| -%>    <directories check_all="yes" report_changes="<%= scanpath["report_changes"] %>" realtime="<%= scanpath['realtime'] %>"><%= scanpath['path']  %></directories>
-<% end %>
+<% end -%>
 
     <!-- Files/directories to ignore (parameterized) -->
-<% @ossec_ignorepaths.each do |path| -%>    <ignore><%= path %></ignore>
-<% end %>
+<% @ossec_ignorepaths.each do |path| -%>
+    <ignore><%= path %></ignore>
+<% end -%>
   </syscheck>
 
-<% if @ossec_rootcheck == false then %>
+<% if @ossec_rootcheck == false then -%>
   <rootcheck>
     <disabled>yes</disabled>
   </rootcheck>
-<% end %>
-<% if @ossec_active_response == false then %>
+<% end -%>
+<% if @ossec_active_response == false then -%>
   <active-response>
     <disabled>yes</disabled>
   </active-response>
-<% end %>
+<% end -%>
 
   <remote>
     <connection>secure</connection>
@@ -109,9 +110,9 @@
   </alerts>
 
   <!-- Files to monitor (localfiles) -->
-<% @ossec_local_files.each do |path, format| %>
+<% @ossec_local_files.each do |path, format| -%>
   <localfile>
     <log_format><%= format %></log_format>
     <location><%= path %></location>
   </localfile>
-<% end %>
+<% end -%>
