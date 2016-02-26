@@ -70,6 +70,9 @@
     <include>asterisk_rules.xml</include>
     <include>ossec_rules.xml</include>
     <include>attack_rules.xml</include>
+    <% @ossec_extra_rules_config.each do |rule_config| -%>
+    <%= rule_config %>
+    <% end -%>
     <include>local_rules.xml</include>
   </rules>
 
