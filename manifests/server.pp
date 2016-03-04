@@ -14,6 +14,8 @@ class ossec::server (
   $ossec_extra_rules_config            = [],
   $ossec_local_files                   = {},
   $ossec_emailnotification             = 'yes',
+  $ossec_email_maxperhour              = '12',
+  $ossec_email_idsname                 = undef,
   $ossec_check_frequency               = 79200,
   $use_mysql                           = false,
   $mysql_hostname                      = undef,
