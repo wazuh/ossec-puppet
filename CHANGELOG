@@ -169,9 +169,10 @@ Jose Luis Ruiz <jose@wazuh.com>:
   * Change log directory to only be readable by user and group. (pull request #12 thanks @damoxc)
   * Add the ability to configure a MySQL database with OSSEC server. (pull request #14 thanks @coreone)
 
-2016-02-26 Jose Luis Ruiz  - 2.0.10
+2016-03-07 Jose Luis Ruiz  - 2.0.10
 ===========================================================
 
 Jose Luis Ruiz <jose@wazuh.com>:
 
   * Extra rules config to integrate Wazuh ruleset. (pull request #17 thanks @TravellingGUy)
+  * Allow configuration of the email_maxperhour and email_idsname configuration items. (pull request #18 thanks @TravellingGUy)
