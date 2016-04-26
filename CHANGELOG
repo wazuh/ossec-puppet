@@ -176,4 +176,4 @@ Jose Luis Ruiz <jose@wazuh.com>:
 
   * Extra rules config to integrate Wazuh ruleset. (pull request #17 thanks @TravellingGUy)
   * Allow configuration of the email_maxperhour and email_idsname configuration items. (pull request #18 thanks @TravellingGUy)
-  * Fix bug in client exported resources. (pull request #19 thanks @scottcunningham)
+  * Fix bug in client exported resources (pull request #19 thanks @scottcunningham)
