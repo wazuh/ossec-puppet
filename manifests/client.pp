@@ -104,13 +104,13 @@ class ossec::client(
       require => Package[$ossec::params::agent_package]
     }
 
-    ossec::agentkey{ "ossec_agent_${::fqdn}_client":
+    ossec::agentkey{ "ossec_agent_${agent_name}_client":
       agent_id         => fqdn_rand(3000),
       agent_name       => $agent_name,
       agent_ip_address => $agent_ip_address,
     }
 
-    @@ossec::agentkey{ "ossec_agent_${::fqdn}_server":
+    @@ossec::agentkey{ "ossec_agent_${agent_name}_server":
       agent_id         => fqdn_rand(3000),
       agent_name       => $agent_name,
       agent_ip_address => $agent_ip_address
