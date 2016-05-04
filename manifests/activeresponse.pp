@@ -5,7 +5,7 @@ define ossec::activeresponse(
   $ar_level              = 7,
   $ar_rules_id           = [],
   $ar_timeout            = 300,
-  $ar_repeated_offenders = false,
+  $ar_repeated_offenders = '',
 ) {
   require ossec::params
 
