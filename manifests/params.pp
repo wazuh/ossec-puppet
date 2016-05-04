@@ -73,11 +73,11 @@ class ossec::params {
       }
     }
     'windows': {
-      $config_file = regsubst(sprintf('c:/Program Files (x86)/ossec-agent/ossec.conf'), '\\', '/')
+      $config_file = regsubst(sprintf('c:/Program Files (x86)/ossec-agent/ossec.conf'), '\\\\', '/')
       $config_owner = 'Administrator'
       $config_group = 'Administrators'
 
-      $keys_file = regsubst(sprintf('c:/Program Files (x86)/ossec-agent/client.keys'), '\\', '/')
+      $keys_file = regsubst(sprintf('c:/Program Files (x86)/ossec-agent/client.keys'), '\\\\', '/')
       $keys_mode = '0440'
       $keys_owner = 'Administrator'
       $keys_group = 'Administrators'
