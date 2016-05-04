@@ -183,4 +183,5 @@ Jose Luis Ruiz <jose@wazuh.com>:
 
 Jose Luis Ruiz <jose@wazuh.com>:
 
+  * Fix windows installation error in params. (pull reques #20 thanks @cmblong)
   * Added support for repeated_offenders in activeresponse (pull request #21 thanks @ialokin)
