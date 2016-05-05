@@ -185,3 +185,10 @@ Jose Luis Ruiz <jose@wazuh.com>:
 
   * Fix windows installation error in params. (pull reques #20 thanks @cmblong)
   * Added support for repeated_offenders in activeresponse (pull request #21 thanks @ialokin)
+
+2016-05-04 Jose Luis Ruiz  - 2.0.12
+===========================================================
+
+Jose Luis Ruiz <jose@wazuh.com>:
+
+  * Add MariaDB support ( (pull reques #3 thanks @ialokin)
