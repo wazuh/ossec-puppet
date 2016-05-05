@@ -18,6 +18,7 @@ class ossec::server (
   $ossec_email_idsname                 = undef,
   $ossec_check_frequency               = 79200,
   $use_mysql                           = false,
+  $mariadb                             = false,
   $mysql_hostname                      = undef,
   $mysql_name                          = undef,
   $mysql_password                      = undef,
@@ -47,7 +48,12 @@ class ossec::server (
 
   if $use_mysql {
     # Relies on mysql module specified in metadata.json
-    include mysql::client
+    if $mariadb {
+      # if mariadb is true, then force the usage of the mariadb-client package
+      class { 'mysql::client': package_name => 'mariadb-client' }
+    } else {
+      include mysql::client
+    }
     Class['mysql::client'] ~> Service[$ossec::params::server_service]
   }
 
