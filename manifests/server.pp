@@ -17,6 +17,7 @@ class ossec::server (
   $ossec_email_maxperhour              = '12',
   $ossec_email_idsname                 = undef,
   $ossec_check_frequency               = 79200,
+  $ossec_auto_ignore                   = 'yes',
   $use_mysql                           = false,
   $mariadb                             = false,
   $mysql_hostname                      = undef,
