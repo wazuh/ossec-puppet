@@ -15,6 +15,7 @@ class ossec::client(
   $manage_repo             = true,
   $manage_epel_repo        = true,
   $manage_client_keys      = true,
+  $max_clients             = 3000,
 ) inherits ossec::params {
   validate_bool(
     $ossec_active_response, $ossec_rootcheck,
@@ -105,13 +106,13 @@ class ossec::client(
     }
 
     ossec::agentkey{ "ossec_agent_${agent_name}_client":
-      agent_id         => fqdn_rand(3000),
+      agent_id         => fqdn_rand($max_clients),
       agent_name       => $agent_name,
       agent_ip_address => $agent_ip_address,
     }
 
     @@ossec::agentkey{ "ossec_agent_${agent_name}_server":
-      agent_id         => fqdn_rand(3000),
+      agent_id         => fqdn_rand($max_clients),
       agent_name       => $agent_name,
       agent_ip_address => $agent_ip_address
     }
