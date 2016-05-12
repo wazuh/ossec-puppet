@@ -191,5 +191,6 @@ Jose Luis Ruiz <jose@wazuh.com>:
 
 Jose Luis Ruiz <jose@wazuh.com>:
 
-  * Ppermit admin to disable auto_ignore for files which change more than three times. (pull request #24 thanks @cmblong)
   * Add MariaDB support ( (pull reques #3 thanks @ialokin)
+  * Permit admin to disable auto_ignore for files which change more than three times. (pull request #24 thanks @cmblong)
+  * Change fqdn_rand(3000) to a variable to allow us to increase the number of available clients. (pull request #25 thanks @cmblong)
