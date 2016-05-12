@@ -15,6 +15,7 @@ class ossec::client(
   $manage_repo             = true,
   $manage_epel_repo        = true,
   $manage_client_keys      = true,
+
   $max_clients             = 3000,
 ) inherits ossec::params {
   validate_bool(
