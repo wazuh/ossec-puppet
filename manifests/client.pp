@@ -86,6 +86,7 @@ class ossec::client(
     target  => $ossec::params::config_file,
     content => template('ossec/10_ossec_agent.conf.erb'),
     order   => 10,
+    notify  => Service[$ossec::params::agent_service]
   }
 
   if ( $ar_repeated_offenders != '' ) {
