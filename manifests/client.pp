@@ -15,8 +15,12 @@ class ossec::client(
   $manage_repo             = true,
   $manage_epel_repo        = true,
   $manage_client_keys      = true,
+<<<<<<< HEAD
 
   $max_clients             = 3000,
+=======
+  $ar_repeated_offenders   = '',
+>>>>>>> 6622aa7096acb798db86c8d0518113bb412a1551
 ) inherits ossec::params {
   validate_bool(
     $ossec_active_response, $ossec_rootcheck,
@@ -90,6 +94,15 @@ class ossec::client(
     notify  => Service[$ossec::params::agent_service]
   }
 
+  if ( $ar_repeated_offenders != '' ) {
+    concat::fragment { 'repeated_offenders' :
+      target  => $ossec::params::config_file,
+      content => template('ossec/ar_repeated_offenders.erb'),
+      order   => 55,
+      notify  => Service[$ossec::params::agent_service]
+    }
+  }
+  
   concat::fragment { 'ossec.conf_99' :
     target  => $ossec::params::config_file,
     content => template('ossec/99_ossec_agent.conf.erb'),
