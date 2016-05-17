@@ -9,6 +9,7 @@ class ossec::client(
   $ossec_ignorepaths       = [],
   $ossec_local_files       = {},
   $ossec_check_frequency   = 79200,
+  $ossec_prefilter         = false,
   $selinux                 = false,
   $agent_name              = $::hostname,
   $agent_ip_address        = $::ipaddress,
