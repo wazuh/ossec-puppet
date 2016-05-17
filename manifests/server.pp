@@ -18,6 +18,7 @@ class ossec::server (
   $ossec_email_idsname                 = undef,
   $ossec_check_frequency               = 79200,
   $ossec_auto_ignore                   = 'yes',
+  $ossec_prefilter                     = false,
   $use_mysql                           = false,
   $mariadb                             = false,
   $mysql_hostname                      = undef,
