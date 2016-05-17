@@ -90,7 +90,7 @@ class ossec::client(
     notify  => Service[$ossec::params::agent_service]
   }
 
-  if ( $ar_repeated_offenders != '' ) {
+  if ( $ar_repeated_offenders != '' and $ossec_active_response == true ) {
     concat::fragment { 'repeated_offenders' :
       target  => $ossec::params::config_file,
       content => template('ossec/ar_repeated_offenders.erb'),
