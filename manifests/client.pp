@@ -10,6 +10,7 @@ class ossec::client(
   $ossec_local_files       = {},
   $ossec_check_frequency   = 79200,
   $ossec_prefilter         = false,
+  $ossec_service_provider  = $::ossec::params::ossec_service_provider,
   $selinux                 = false,
   $agent_name              = $::hostname,
   $agent_ip_address        = $::ipaddress,
@@ -73,6 +74,7 @@ class ossec::client(
     enable    => true,
     hasstatus => $ossec::params::service_has_status,
     pattern   => $ossec::params::agent_service,
+    provider  => $ossec_service_provider,
     require   => Package[$ossec::params::agent_package],
   }
 
