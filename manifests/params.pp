@@ -26,6 +26,8 @@ class ossec::params {
 
           $service_has_status  = false
 
+          $ossec_service_provider = undef
+
           $default_local_files = {
             '/var/log/syslog'             => 'syslog',
             '/var/log/auth.log'           => 'syslog',
@@ -59,6 +61,8 @@ class ossec::params {
           $server_package = 'ossec-hids'
 
           $service_has_status  = true
+
+          $ossec_service_provider = 'redhat'
 
           $default_local_files = {
             '/var/log/messages'         => 'syslog',

@@ -19,6 +19,7 @@ class ossec::server (
   $ossec_check_frequency               = 79200,
   $ossec_auto_ignore                   = 'yes',
   $ossec_prefilter                     = false,
+  $ossec_service_provider              = $::ossec::params::ossec_service_provider,
   $use_mysql                           = false,
   $mariadb                             = false,
   $mysql_hostname                      = undef,
@@ -69,6 +70,7 @@ class ossec::server (
     enable    => true,
     hasstatus => $ossec::params::service_has_status,
     pattern   => $ossec::params::server_service,
+    provider  => $ossec_service_provider,
     require   => Package[$ossec::params::server_package],
   }
 
