@@ -4,7 +4,7 @@ class ossec::repo (
   case $::osfamily {
     'Debian' : {
       case $::lsbdistcodename {
-        /(precise|trusty|vivid|wily)/: {
+        /(precise|trusty|vivid|wily|xenial)/: {
 
           apt::source { 'wazuh':
             ensure      => present,
