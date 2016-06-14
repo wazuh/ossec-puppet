@@ -197,3 +197,8 @@ Jose Luis Ruiz <jose@wazuh.com>:
   * Can now set a minimal activeresponse entry containing just repeated_offenders by defining $ar_repeated_offenders in the ossec::client. (pull request #26 thanks @ialokin)
   * Add variable to enable prefilter command.  (pull request #27 thanks @cmblong)
   * Set service provider to redhat on Redhat systems. (pull request #28 thanks @cmblong))
+
+  2016-06-14 Jose Luis Ruiz  - 2.0.13
+  ===========================================================
+
+  * Adding xenial to the supported distributions.(pull request #31 thanks @stephen-kainos) 
