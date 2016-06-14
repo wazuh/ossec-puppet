@@ -21,6 +21,9 @@
 <% @ossec_ignorepaths.each do |path| -%>
     <ignore><%= path %></ignore>
 <% end -%>
+<% if @ossec_prefilter == true then %>
+    <prefilter_cmd>/usr/sbin/prelink -y</prefilter_cmd>
+<% end %>
   </syscheck>
 
 <% if @ossec_rootcheck == false then -%>
