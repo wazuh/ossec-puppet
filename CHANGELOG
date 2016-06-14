@@ -201,4 +201,9 @@ Jose Luis Ruiz <jose@wazuh.com>:
   2016-06-14 Jose Luis Ruiz  - 2.0.13
   ===========================================================
 
-  * Adding xenial to the supported distributions.(pull request #31 thanks @stephen-kainos) 
+  * Adding xenial to the supported distributions.(pull request #31 thanks @stephen-kainos)
+
+  2016-06-14 Jose Luis Ruiz  - 2.0.14
+  ===========================================================
+
+  * Add prefilter to agent config. (pull request #32 thanks @cmblong )
