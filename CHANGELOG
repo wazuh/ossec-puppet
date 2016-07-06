@@ -208,3 +208,4 @@ Jose Luis Ruiz <jose@wazuh.com>:
 
   * Add prefilter to agent config. (pull request #32 thanks @cmblong )
   * Add function addlog to the agent. (issue #30 thanks @paul-cs)
+  * Add the apt::key can set a proxy and the key add process could be done. (issue #34 thanks @drequena)
