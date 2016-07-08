@@ -1,3 +1,4 @@
+# Repo installation
 class ossec::repo (
   $redhat_manage_epel = true,
 ) {
@@ -5,8 +6,8 @@ class ossec::repo (
     'Debian' : {
       # apt-key added by issue #34
       apt::key { 'puppetlabs':
-        id      => '9FE55537D1713CA519DFB85114B9C8DB9A1B1C65',
-        source  => 'http://ossec.wazuh.com/repos/apt/conf/ossec-key.gpg.key'
+        id     => '9FE55537D1713CA519DFB85114B9C8DB9A1B1C65',
+        source => 'http://ossec.wazuh.com/repos/apt/conf/ossec-key.gpg.key'
       }
       case $::lsbdistcodename {
         /(precise|trusty|vivid|wily|xenial)/: {

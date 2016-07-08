@@ -1,3 +1,4 @@
+# Paramas file
 class ossec::params {
   case $::kernel {
     'Linux': {
