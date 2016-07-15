@@ -29,10 +29,13 @@ class ossec::server (
   $manage_repos                        = true,
   $manage_epel_repo                    = true,
   $manage_client_keys                  = true,
+  $syslog_output                       = false,
+  $syslog_output_server                = undef,
+  $syslog_output_format                = undef,
 ) inherits ossec::params {
   validate_bool(
     $ossec_active_response, $ossec_rootcheck,
-    $use_mysql, $manage_repos, $manage_epel_repo
+    $use_mysql, $manage_repos, $manage_epel_repo, $syslog_output
   )
   # This allows arrays of integers, sadly
   # (commented due to stdlib version requirement)

@@ -1,1 +1,4 @@
 DB_DAEMON=ossec-dbd
+<% if @syslog_output == true then -%>
+CSYSLOG_DAEMON=ossec-csyslogd
+<% end -%>
