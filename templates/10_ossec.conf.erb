@@ -17,6 +17,13 @@
     <% end %>
   </global>
 
+<% if @syslog_output == true then -%>
+  <syslog_output>
+    <server><%= @syslog_output_server %></server>
+    <format><%= @syslog_output_format %></format>
+  </syslog_output>
+<% end -%>
+
   <!-- Included rules (static) -->
   <rules>
     <include>rules_config.xml</include>
