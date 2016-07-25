@@ -1,5 +1,5 @@
 # Puppetize the instructions on http://documentation.wazuh.com/en/latest/ossec_ruleset.html#automatic-installation
-class ossec::wazuh_rulessets {
+class ossec::wazuh_ruleset {
 
   file { '/var/cache/wget':
     ensure => directory
@@ -25,7 +25,7 @@ class ossec::wazuh_rulessets {
   }
 
   cron { 'cron_update_rules':
-    command => 'cd /var/ossec/update/ruleset && ./ossec_ruleset.py -s',
+    command => 'cd /var/ossec/update/rulesets && ./ossec_ruleset.py -s',
     user    => 'root',
     weekday => '6',
     hour    => '3',
