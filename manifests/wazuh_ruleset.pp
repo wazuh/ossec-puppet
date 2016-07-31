@@ -7,11 +7,11 @@ class ossec::wazuh_ruleset {
   file { '/var/ossec/update':
     ensure => directory
   } ->
-  file { '/var/ossec/update/rulesets':
+  file { '/var/ossec/update/ruleset':
     ensure => directory
   } ->
   wget::fetch { 'https://raw.githubusercontent.com/wazuh/ossec-rules/stable/ossec_ruleset.py':
-    destination => '/var/ossec/update/rulesets/',
+    destination => '/var/ossec/update/ruleset/',
     cache_dir   => '/var/cache/wget',
     mode        => '0755',
     verbose     => false,
@@ -19,13 +19,13 @@ class ossec::wazuh_ruleset {
   }
 
   exec { 'get ossec_ruleset':
-    command     => '/var/ossec/update/rulesets/ossec_ruleset.py -s',
-    cwd         => '/var/ossec/update/rulesets/',
+    command     => '/var/ossec/update/ruleset/ossec_ruleset.py -s',
+    cwd         => '/var/ossec/update/ruleset/',
     refreshonly => true
   }
 
   cron { 'cron_update_rules':
-    command => 'cd /var/ossec/update/rulesets && ./ossec_ruleset.py -s',
+    command => 'cd /var/ossec/update/ruleset && ./ossec_ruleset.py -s',
     user    => 'root',
     weekday => '6',
     hour    => '3',
