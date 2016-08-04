@@ -23,15 +23,4 @@ class ossec::wazuh_ruleset {
     cwd         => '/var/ossec/update/ruleset/',
     refreshonly => true
   }
-
-#  cron { 'cron_update_rules':
-#    command => 'cd /var/ossec/update/ruleset && ./ossec_ruleset.py -s',
-#    user    => 'root',
-#    weekday => '6',
-#    hour    => '3',
-#    minute  => '23'
-#  }
 }
-
-
-
