@@ -48,7 +48,17 @@ class ossec::repo (
       }
     }
     'Redhat' : {
-      if $operatingsystemrelease =~ /^5.*/ {
+      if ( $::facts['os']['name'] == 'Amazon' ) {
+        yumrepo { 'ossec':
+          descr    => 'WAZUH OSSEC Repository - www.wazuh.com',
+          enabled  => true,
+          gpgcheck => 1,
+          gpgkey   => 'http://ossec.wazuh.com/key/RPM-GPG-KEY-OSSEC',
+          baseurl  => 'http://ossec.wazuh.com/el/6Server/$basearch',
+          priority => 1,
+          protect  => false,
+        }
+      } elsif $operatingsystemrelease =~ /^5.*/ {
         # Set up OSSEC repo
         yumrepo { 'ossec':
           descr    => 'WAZUH OSSEC Repository - www.wazuh.com',
