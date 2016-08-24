@@ -48,7 +48,7 @@ class ossec::repo (
       }
     }
     'Redhat' : {
-      if ( $::facts['os']['operatingsystem'] == 'Amazon' ) {
+      if ( $::operatingsystem == 'Amazon' ) {
         yumrepo { 'ossec':
           descr    => 'WAZUH OSSEC Repository - www.wazuh.com',
           enabled  => true,
