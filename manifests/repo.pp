@@ -47,7 +47,7 @@ class ossec::repo (
         default: { fail('This ossec module has not been tested on your distribution (or lsb package not installed)') }
       }
     }
-    'Redhat' : {
+    'Redhat', 'RedHat' : {
       if ( $::operatingsystem == 'Amazon' ) {
         yumrepo { 'ossec':
           descr    => 'WAZUH OSSEC Repository - www.wazuh.com',
