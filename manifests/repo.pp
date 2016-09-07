@@ -48,15 +48,36 @@ class ossec::repo (
       }
     }
     'Redhat' : {
+      file { "/usr/src/ossec":
+        ensure => directory,
+      }
+
+      file { "/usr/src/ossec/RPM-GPG-KEY-OSSEC":
+        ensure  => present,
+        source  => 'puppet:///modules/ossec/RPM-GPG-KEY-OSSEC',
+        owner   => root,
+        group   => root,
+        mode    => 0744,
+        require => File["/usr/src/ossec"]
+      }
+
+      file { "/usr/src/ossec/RPM-GPG-KEY-OSSEC-RHEL5":
+        ensure  => present,
+        source  => 'puppet:///modules/ossec/RPM-GPG-KEY-OSSEC-RHEL5',
+        owner   => root,
+        group   => root,
+        mode    => 0744,
+        require => File["/usr/src/ossec"]
+      }
+
       if ( $::operatingsystem == 'Amazon' ) {
         yumrepo { 'ossec':
           descr    => 'WAZUH OSSEC Repository - www.wazuh.com',
           enabled  => true,
           gpgcheck => 1,
-          gpgkey   => 'http://ossec.wazuh.com/key/RPM-GPG-KEY-OSSEC',
+          gpgkey   => 'file:///src/ossec/RPM-GPG-KEY-OSSEC',
           baseurl  => 'http://ossec.wazuh.com/el/6Server/$basearch',
-          priority => 1,
-          protect  => false,
+          require  => File["/usr/src/ossec/RPM-GPG-KEY-OSSEC"]
         }
       } elsif $operatingsystemrelease =~ /^5.*/ {
         # Set up OSSEC repo
@@ -64,10 +85,9 @@ class ossec::repo (
           descr    => 'WAZUH OSSEC Repository - www.wazuh.com',
           enabled  => true,
           gpgcheck => 1,
-          gpgkey   => 'http://ossec.wazuh.com/key/RPM-GPG-KEY-OSSEC-RHEL5',
+          gpgkey   => 'file:///src/ossec/RPM-GPG-KEY-OSSEC-RHEL5',
           baseurl  => 'http://ossec.wazuh.com/el/$releasever/$basearch',
-          priority => 1,
-          protect  => false,
+          require  => File["/usr/src/ossec/RPM-GPG-KEY-OSSEC"],
         }
       }
       else {
@@ -75,10 +95,9 @@ class ossec::repo (
         yumrepo { 'ossec':
           descr    => 'WAZUH OSSEC Repository - www.wazuh.com',
           enabled  => true,
-          gpgkey   => 'http://ossec.wazuh.com/key/RPM-GPG-KEY-OSSEC',
+          gpgkey   => 'file:///src/ossec/RPM-GPG-KEY-OSSEC',
           baseurl  => 'http://ossec.wazuh.com/el/$releasever/$basearch',
-          priority => 1,
-          protect  => false,
+          require  => File["/usr/src/ossec/RPM-GPG-KEY-OSSEC"],
         }
       }
 
