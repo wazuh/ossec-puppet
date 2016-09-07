@@ -215,3 +215,4 @@ Jose Luis Ruiz <jose@wazuh.com>:
 
   * Add option to enable syslog output. (pull request #35 thanks @TravellingGUy )
   * Add Add Amazon Linux support. (pull request #37 thanks @seefood)
+  * Hard-coded GPG key for RHEL-like systems. (pull request #37 thanks @tobowers)
