@@ -61,6 +61,15 @@ class ossec::repo (
         require => File["/usr/src/ossec"]
       }
 
+      file { "/usr/src/ossec/RPM-GPG-KEY-OSSEC-RHEL5":
+        ensure  => present,
+        source  => 'puppet:///modules/ossec/RPM-GPG-KEY-OSSEC-RHEL5',
+        owner   => root,
+        group   => root,
+        mode    => 0744,
+        require => File["/usr/src/ossec"]
+      }
+
       if ( $::operatingsystem == 'Amazon' ) {
         yumrepo { 'ossec':
           descr    => 'WAZUH OSSEC Repository - www.wazuh.com',
@@ -76,7 +85,7 @@ class ossec::repo (
           descr    => 'WAZUH OSSEC Repository - www.wazuh.com',
           enabled  => true,
           gpgcheck => 1,
-          gpgkey   => 'file:///src/ossec/RPM-GPG-KEY-OSSEC',
+          gpgkey   => 'file:///src/ossec/RPM-GPG-KEY-OSSEC-RHEL5',
           baseurl  => 'http://ossec.wazuh.com/el/$releasever/$basearch',
           require  => File["/usr/src/ossec/RPM-GPG-KEY-OSSEC"],
         }
