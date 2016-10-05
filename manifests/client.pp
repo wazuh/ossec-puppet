@@ -117,7 +117,7 @@ class ossec::client(
       group   => $ossec::params::keys_group,
       mode    => $ossec::params::keys_mode,
       notify  => Service[$ossec::params::agent_service],
-      require => Package[$ossec::params::agent_package]
+      require => Package[$agent_package_name]
     }
 
     ossec::agentkey{ "ossec_agent_${agent_name}_client":
@@ -137,7 +137,7 @@ class ossec::client(
     exec { 'agent-auth':
       command => "/var/ossec/bin/agent-auth -m ${ossec_server_address} -A ${::fqdn} -D /var/ossec/",
       creates => '/var/ossec/etc/client.keys',
-      require => Package[$ossec::params::agent_package],
+      require => Package[$agent_package_name],
     }
   }
 
@@ -146,7 +146,7 @@ class ossec::client(
     # https://github.com/djjudas21/puppet-ossec/issues/20
     file { '/var/ossec/logs':
       ensure  => directory,
-      require => Package[$ossec::params::agent_package],
+      require => Package[$agent_package_name],
       owner   => 'ossec',
       group   => 'ossec',
       mode    => '0750',
