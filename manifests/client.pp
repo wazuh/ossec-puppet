@@ -16,6 +16,7 @@ class ossec::client(
   $agent_ip_address        = $::ipaddress,
   $manage_repo             = true,
   $manage_epel_repo        = true,
+  $agent_package_name      = $::ossec::params::agent_package,
   $manage_client_keys      = true,
   $max_clients             = 3000,
   $ar_repeated_offenders   = '',
@@ -28,6 +29,7 @@ class ossec::client(
   # (commented due to stdlib version requirement)
   #validate_integer($ossec_check_frequency, undef, 1800)
   validate_array($ossec_ignorepaths)
+  validate_string($agent_package_name)
 
   if ( ( $ossec_server_ip == undef ) and ( $ossec_server_hostname == undef ) ) {
     fail('must pass either $ossec_server_ip or $ossec_server_hostname to Class[\'ossec::client\'].')
@@ -37,13 +39,13 @@ class ossec::client(
     'Linux' : {
       if $manage_repo {
       class { 'ossec::repo': redhat_manage_epel => $manage_epel_repo }
-      Class['ossec::repo'] -> Package[$ossec::params::agent_package]
-        package { $ossec::params::agent_package:
+      Class['ossec::repo'] -> Package[$agent_package_name]
+        package { $agent_package_name:
           ensure  => installed
       }
 
       } else {
-      package { $ossec::params::agent_package:
+      package { $agent_package_name:
         ensure => installed
       }
       }
@@ -59,7 +61,7 @@ class ossec::client(
           source_permissions => ignore
           }
 
-      package { $ossec::params::agent_package:
+      package { $agent_package_name:
         ensure          => installed,
         source          => 'C:/ossec-win32-agent-2.8.3.exe',
         install_options => [ '/S' ],  # Nullsoft installer silent installation
@@ -75,14 +77,14 @@ class ossec::client(
     hasstatus => $ossec::params::service_has_status,
     pattern   => $ossec::params::agent_service,
     provider  => $ossec_service_provider,
-    require   => Package[$ossec::params::agent_package],
+    require   => Package[$agent_package_name],
   }
 
   concat { $ossec::params::config_file:
     owner   => $ossec::params::config_owner,
     group   => $ossec::params::config_group,
     mode    => $ossec::params::config_mode,
-    require => Package[$ossec::params::agent_package],
+    require => Package[$agent_package_name],
     notify  => Service[$ossec::params::agent_service],
   }
 
