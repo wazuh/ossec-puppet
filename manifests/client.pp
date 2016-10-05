@@ -17,6 +17,8 @@ class ossec::client(
   $manage_repo             = true,
   $manage_epel_repo        = true,
   $agent_package_name      = $::ossec::params::agent_package,
+  $agent_service_name      = $::ossec::params::agent_service,
+
   $manage_client_keys      = true,
   $max_clients             = 3000,
   $ar_repeated_offenders   = '',
@@ -71,11 +73,11 @@ class ossec::client(
     default: { fail('OS not supported') }
   }
 
-  service { $ossec::params::agent_service:
+  service { $agent_service_name:
     ensure    => running,
     enable    => true,
     hasstatus => $ossec::params::service_has_status,
-    pattern   => $ossec::params::agent_service,
+    pattern   => $agent_service_name,
     provider  => $ossec_service_provider,
     require   => Package[$agent_package_name],
   }
@@ -85,14 +87,14 @@ class ossec::client(
     group   => $ossec::params::config_group,
     mode    => $ossec::params::config_mode,
     require => Package[$agent_package_name],
-    notify  => Service[$ossec::params::agent_service],
+    notify  => Service[$agent_service_name],
   }
 
   concat::fragment { 'ossec.conf_10' :
     target  => $ossec::params::config_file,
     content => template('ossec/10_ossec_agent.conf.erb'),
     order   => 10,
-    notify  => Service[$ossec::params::agent_service]
+    notify  => Service[$agent_service_name]
   }
 
   if ( $ar_repeated_offenders != '' and $ossec_active_response == true ) {
@@ -100,15 +102,15 @@ class ossec::client(
       target  => $ossec::params::config_file,
       content => template('ossec/ar_repeated_offenders.erb'),
       order   => 55,
-      notify  => Service[$ossec::params::agent_service]
+      notify  => Service[$agent_service_name]
     }
   }
-  
+
   concat::fragment { 'ossec.conf_99' :
     target  => $ossec::params::config_file,
     content => template('ossec/99_ossec_agent.conf.erb'),
     order   => 99,
-    notify  => Service[$ossec::params::agent_service]
+    notify  => Service[$agent_service_name]
   }
 
   if ( $manage_client_keys == true ) {
@@ -116,7 +118,7 @@ class ossec::client(
       owner   => $ossec::params::keys_owner,
       group   => $ossec::params::keys_group,
       mode    => $ossec::params::keys_mode,
-      notify  => Service[$ossec::params::agent_service],
+      notify  => Service[$agent_service_name],
       require => Package[$agent_package_name]
     }
 
