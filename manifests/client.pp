@@ -31,6 +31,7 @@ class ossec::client(
   #validate_integer($ossec_check_frequency, undef, 1800)
   validate_array($ossec_ignorepaths)
   validate_string($agent_package_name)
+  validate_string($agent_service_name)
 
   if ( ( $ossec_server_ip == undef ) and ( $ossec_server_hostname == undef ) ) {
     fail('must pass either $ossec_server_ip or $ossec_server_hostname to Class[\'ossec::client\'].')
