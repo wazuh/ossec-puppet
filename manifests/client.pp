@@ -18,7 +18,6 @@ class ossec::client(
   $manage_epel_repo        = true,
   $agent_package_name      = $::ossec::params::agent_package,
   $agent_service_name      = $::ossec::params::agent_service,
-
   $manage_client_keys      = true,
   $max_clients             = 3000,
   $ar_repeated_offenders   = '',
