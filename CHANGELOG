@@ -210,7 +210,7 @@ Jose Luis Ruiz <jose@wazuh.com>:
   * Add function addlog to the agent. (issue #30 thanks @paul-cs)
   * Add the apt::key can set a proxy and the key add process could be done. (issue #34 thanks @drequena)
 
-  2016-xx-xx Jose Luis Ruiz  - 2.0.15
+  2016-10-15 Jose Luis Ruiz  - 2.0.15
   ===========================================================
 
   * Add option to enable syslog output. (pull request #35 thanks @TravellingGUy )
