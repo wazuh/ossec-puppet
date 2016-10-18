@@ -217,3 +217,9 @@ Jose Luis Ruiz <jose@wazuh.com>:
   * Add Add Amazon Linux support. (pull request #37 thanks @seefood)
   * Hard-coded GPG key for RHEL-like systems. (pull request #37 thanks @tobowers)
   * Override package & service name for client installation. (pull request #43 thanks MrSecure)
+
+ 2016-xx-xx Jose Luis Ruiz  - 2.0.16
+  ===========================================================
+
+  * Add local_decoder.xml and local_rules.xml templates
+
