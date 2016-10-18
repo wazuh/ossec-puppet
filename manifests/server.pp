@@ -162,6 +162,25 @@ class ossec::server (
     require => Package[$ossec::params::server_package]
   }
 
+  file { '/var/ossec/rules/local_rules.xml':
+    content => template('ossec/local_rules.xml.erb'),
+    owner   => $ossec::params::config_owner,
+    group   => $ossec::params::config_group,
+    mode    => $ossec::params::config_mode,
+    notify  => Service[$ossec::params::server_service],
+    require => Package[$ossec::params::server_package]
+  }
+
+  file { '/var/ossec/etc/local_decoder.xml':
+    content => template('ossec/local_decoder.xml.erb'),
+    owner   => $ossec::params::config_owner,
+    group   => $ossec::params::config_group,
+    mode    => $ossec::params::config_mode,
+    notify  => Service[$ossec::params::server_service],
+    require => Package[$ossec::params::server_package]
+  }
+
+
   Ossec::Agentkey<<| |>>
 
 }
