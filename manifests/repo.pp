@@ -66,7 +66,7 @@ class ossec::repo (
           descr    => 'WAZUH OSSEC Repository - www.wazuh.com',
           enabled  => true,
           gpgcheck => 1,
-          gpgkey   => 'file:///src/ossec/RPM-GPG-KEY-OSSEC',
+          gpgkey   => 'file:///usr/src/ossec/RPM-GPG-KEY-OSSEC',
           baseurl  => 'http://ossec.wazuh.com/el/6Server/$basearch',
           require  => File['/usr/src/ossec/RPM-GPG-KEY-OSSEC']
         }
@@ -84,7 +84,7 @@ class ossec::repo (
           descr    => 'WAZUH OSSEC Repository - www.wazuh.com',
           enabled  => true,
           gpgcheck => 1,
-          gpgkey   => 'file:///src/ossec/RPM-GPG-KEY-OSSEC-RHEL5',
+          gpgkey   => 'file:///usr/src/ossec/RPM-GPG-KEY-OSSEC-RHEL5',
           baseurl  => 'http://ossec.wazuh.com/el/$releasever/$basearch',
           require  => File['/usr/src/ossec/RPM-GPG-KEY-OSSEC-RHEL5'],
         }
@@ -94,7 +94,7 @@ class ossec::repo (
         yumrepo { 'ossec':
           descr   => 'WAZUH OSSEC Repository - www.wazuh.com',
           enabled => true,
-          gpgkey  => 'file:///src/ossec/RPM-GPG-KEY-OSSEC',
+          gpgkey  => 'file:///usr/src/ossec/RPM-GPG-KEY-OSSEC',
           baseurl => 'http://ossec.wazuh.com/el/$releasever/$basearch',
           require => File['/usr/src/ossec/RPM-GPG-KEY-OSSEC'],
         }
