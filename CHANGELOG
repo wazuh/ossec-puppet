@@ -198,20 +198,32 @@ Jose Luis Ruiz <jose@wazuh.com>:
   * Add variable to enable prefilter command.  (pull request #27 thanks @cmblong)
   * Set service provider to redhat on Redhat systems. (pull request #28 thanks @cmblong))
 
-  2016-06-14 Jose Luis Ruiz  - 2.0.13
-  ===========================================================
+2016-06-14 Jose Luis Ruiz  - 2.0.13
+===========================================================
 
   * Adding xenial to the supported distributions.(pull request #31 thanks @stephen-kainos)
 
-  2016-06-14 Jose Luis Ruiz  - 2.0.14
-  ===========================================================
+2016-06-14 Jose Luis Ruiz  - 2.0.14
+===========================================================
 
   * Add prefilter to agent config. (pull request #32 thanks @cmblong )
   * Add function addlog to the agent. (issue #30 thanks @paul-cs)
   * Add the apt::key can set a proxy and the key add process could be done. (issue #34 thanks @drequena)
 
-  2016-xx-xx Jose Luis Ruiz  - 2.0.15
-  ===========================================================
+2016-10-15 Jose Luis Ruiz  - 2.0.15
+===========================================================
 
   * Add option to enable syslog output. (pull request #35 thanks @TravellingGUy )
   * Add Add Amazon Linux support. (pull request #37 thanks @seefood)
+  * Hard-coded GPG key for RHEL-like systems. (pull request #37 thanks @tobowers)
+  * Override package & service name for client installation. (pull request #43 thanks MrSecure)
+
+2016-10-18 Jose Luis Ruiz  - 2.0.16
+===========================================================
+
+  * Add local_decoder.xml and local_rules.xml templates
+
+2016-10-18 Jose Luis Ruiz  - 2.0.17
+===========================================================
+
+  * Fixed gpgkey path under CentOS and RHEL
