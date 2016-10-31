@@ -63,7 +63,7 @@ class ossec::repo (
 
       if ( $::operatingsystem == 'Amazon' ) {
         yumrepo { 'ossec':
-          descr    => 'WAZUH OSSEC Repository - www.wazuh.com',
+          descr    => 'WAZUH OSSEC Repository - www.wazuh.com # Amazon Linux',
           enabled  => true,
           gpgcheck => 1,
           gpgkey   => 'http://ossec.wazuh.com/key/RPM-GPG-KEY-OSSEC',
@@ -82,7 +82,7 @@ class ossec::repo (
         }
         # Set up OSSEC repo
         yumrepo { 'ossec':
-          descr    => 'WAZUH OSSEC Repository - www.wazuh.com',
+          descr    => 'WAZUH OSSEC Repository - www.wazuh.com # RHEL5',
           enabled  => true,
           gpgcheck => 1,
           gpgkey   => 'http://ossec.wazuh.com/key/RPM-GPG-KEY-OSSEC-RHEL5',
@@ -94,7 +94,7 @@ class ossec::repo (
       else {
         # Set up OSSEC repo
         yumrepo { 'ossec':
-          descr    => 'WAZUH OSSEC Repository - www.wazuh.com',
+          descr    => 'WAZUH OSSEC Repository - www.wazuh.com # RHEL > 5',
           enabled  => true,
           gpgkey   => 'http://ossec.wazuh.com/key/RPM-GPG-KEY-OSSEC',
           baseurl  => 'http://ossec.wazuh.com/el/$releasever/$basearch',
@@ -112,6 +112,18 @@ class ossec::repo (
         include epel
 
         Class['epel'] -> Package['inotify-tools']
+      }
+    }
+    'Linux' : {
+      if ( $::operatingsystem == 'Amazon' ) {
+        yumrepo { 'ossec':
+          descr    => 'WAZUH OSSEC Repository - www.wazuh.com # Amazon Linux',
+          enabled  => 1,
+          gpgcheck => 1,
+          gpgkey   => 'http://ossec.wazuh.com/key/RPM-GPG-KEY-OSSEC',
+          baseurl  => 'http://ossec.wazuh.com/el/6Server/$basearch',
+          priority => 1,
+        }
       }
     }
     default: { fail('This ossec module has not been tested on your distribution') }
