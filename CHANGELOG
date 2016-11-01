@@ -227,3 +227,8 @@ Jose Luis Ruiz <jose@wazuh.com>:
 ===========================================================
 
   * Fixed gpgkey path under CentOS and RHEL
+
+2016-10-20 Jose Luis Ruiz  - 2.0.18
+===========================================================
+
+  * Fixed 10_ossec.conf.erb template, "local_decoder" added to rules configuration
