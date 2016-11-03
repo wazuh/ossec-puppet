@@ -15,7 +15,7 @@ define ossec::addlog(
   }
 
 
-  concat::fragment { "ossec.conf_20-${logfile}":
+  concat::fragment { "ossec.conf_20-${logfile}${command}":
     target  => $ossec::params::config_file,
     content => template('ossec/20_ossecLogfile.conf.erb'),
     order   => 20,
