@@ -1,8 +1,9 @@
 #Define a log-file to add to ossec
 define ossec::addlog(
-  $logfile,
+  $logfile   = false,
+  $command   = false,
   $agent_log = false,
-  $logtype = 'syslog',
+  $logtype   = 'syslog',
 ) {
   require ossec::params
 # Issue #30
