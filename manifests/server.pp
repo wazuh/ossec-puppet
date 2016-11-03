@@ -31,7 +31,8 @@ class ossec::server (
   $manage_client_keys                  = true,
   $syslog_output                       = false,
   $syslog_output_server                = undef,
-  $syslog_output_format                = undef,
+  $syslog_output_format                = 'default',
+  $syslog_output_port                  = '514',
 ) inherits ossec::params {
   validate_bool(
     $ossec_active_response, $ossec_rootcheck,
