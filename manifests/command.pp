@@ -8,7 +8,7 @@ define ossec::command(
   require ossec::params
 
   if ($timeout_allowed) { $command_timeout_allowed='yes' } else { $command_timeout_allowed='no' }
-  concat::fragment { $name:
+  concat::fragment { "$name-command":
     target  => $ossec::params::config_file,
     order   => 45,
     content => template('ossec/command.erb'),
