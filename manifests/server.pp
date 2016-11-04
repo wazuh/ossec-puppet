@@ -42,6 +42,8 @@ class ossec::server (
   # (commented due to stdlib version requirement)
   #validate_integer($ossec_check_frequency, undef, 1800)
   validate_array($ossec_ignorepaths)
+  
+  $local_files = merge( $::ossec::params::default_local_files, $ossec_local_files )
 
   if $::osfamily == 'windows' {
     fail('The ossec module does not yet support installing the OSSEC HIDS server on Windows')
