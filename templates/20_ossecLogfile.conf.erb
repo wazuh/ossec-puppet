@@ -1,4 +1,9 @@
   <localfile>
     <log_format><%= @logtype %></log_format>
+<% if @logfile -%>
     <location><%= @logfile %></location>
+<% end -%>
+<% if @command -%>
+    <command><%= @command %></command>
+<% end -%>
   </localfile>

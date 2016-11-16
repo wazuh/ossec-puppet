@@ -31,7 +31,8 @@ class ossec::server (
   $manage_client_keys                  = true,
   $syslog_output                       = false,
   $syslog_output_server                = undef,
-  $syslog_output_format                = undef,
+  $syslog_output_format                = 'default',
+  $syslog_output_port                  = '514',
 ) inherits ossec::params {
   validate_bool(
     $ossec_active_response, $ossec_rootcheck,
@@ -41,6 +42,8 @@ class ossec::server (
   # (commented due to stdlib version requirement)
   #validate_integer($ossec_check_frequency, undef, 1800)
   validate_array($ossec_ignorepaths)
+  
+  $local_files = merge( $::ossec::params::default_local_files, $ossec_local_files )
 
   if $::osfamily == 'windows' {
     fail('The ossec module does not yet support installing the OSSEC HIDS server on Windows')

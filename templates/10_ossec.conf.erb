@@ -1,9 +1,9 @@
 <ossec_config>
   <global>
     <email_notification><%= @ossec_emailnotification %></email_notification>
-    <% @ossec_emailto.each do |emailto| -%>
+<% @ossec_emailto.each do |emailto| -%>
     <email_to><%= emailto %></email_to>
-    <% end -%>
+<% end -%>
     <smtp_server><%= @mailserver_ip %></smtp_server>
     <email_from><%= @ossec_emailfrom %></email_from>
     <email_maxperhour><%= @ossec_email_maxperhour %></email_maxperhour>
@@ -21,6 +21,7 @@
   <syslog_output>
     <server><%= @syslog_output_server %></server>
     <format><%= @syslog_output_format %></format>
+    <port><%= @syslog_output_port %></port>
   </syslog_output>
 <% end -%>
 
@@ -84,7 +85,7 @@
     <include>asterisk_rules.xml</include>
     <include>ossec_rules.xml</include>
     <include>attack_rules.xml</include>
-    <% @ossec_extra_rules_config.each do |rule_config| -%>
+<% @ossec_extra_rules_config.each do |rule_config| -%>
     <%= rule_config %>
 <% end -%>
     <include>local_rules.xml</include>
@@ -98,7 +99,7 @@
     <auto_ignore><%= @ossec_auto_ignore %></auto_ignore>
 
    <!-- Directories to check  (perform all possible verifications) -->
-   <% @ossec_scanpaths.each do |scanpath| -%>    <directories check_all="yes" report_changes="<%= scanpath["report_changes"] %>" realtime="<%= scanpath['realtime'] %>"><%= scanpath['path']  %></directories>
+<% @ossec_scanpaths.each do |scanpath| -%>    <directories check_all="yes" report_changes="<%= scanpath["report_changes"] %>" realtime="<%= scanpath['realtime'] %>"><%= scanpath['path']  %></directories>
 <% end -%>
 
     <!-- Files/directories to ignore (parameterized) -->
@@ -127,11 +128,11 @@
 
   <alerts>
     <log_alert_level>1</log_alert_level>
-	<email_alert_level><%= @ossec_email_alert_level %></email_alert_level>
+    <email_alert_level><%= @ossec_email_alert_level %></email_alert_level>
   </alerts>
 
   <!-- Files to monitor (localfiles) -->
-<% @ossec_local_files.each do |path, format| -%>
+<% @local_files.sort.each do |path, format| -%>
   <localfile>
     <log_format><%= format %></log_format>
     <location><%= path %></location>

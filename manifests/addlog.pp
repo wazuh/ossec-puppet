@@ -1,8 +1,9 @@
 #Define a log-file to add to ossec
 define ossec::addlog(
-  $logfile,
+  $logfile   = false,
+  $command   = false,
   $agent_log = false,
-  $logtype = 'syslog',
+  $logtype   = 'syslog',
 ) {
   require ossec::params
 # Issue #30
@@ -14,7 +15,7 @@ define ossec::addlog(
   }
 
 
-  concat::fragment { "ossec.conf_20-${logfile}":
+  concat::fragment { "ossec.conf_20-${logfile}${command}":
     target  => $ossec::params::config_file,
     content => template('ossec/20_ossecLogfile.conf.erb'),
     order   => 20,
