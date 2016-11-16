@@ -132,7 +132,7 @@
   </alerts>
 
   <!-- Files to monitor (localfiles) -->
-<% @local_files.each do |path, format| -%>
+<% @local_files.sort.each do |path, format| -%>
   <localfile>
     <log_format><%= format %></log_format>
     <location><%= path %></location>
