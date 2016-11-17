@@ -2,6 +2,28 @@
 class ossec::repo (
   $redhat_manage_epel = true,
 ) {
+  file { '/usr/src/ossec':
+    ensure => directory,
+  }
+
+  file { '/usr/src/ossec/RPM-GPG-KEY-OSSEC':
+    ensure  => present,
+    source  => 'puppet:///modules/ossec/RPM-GPG-KEY-OSSEC',
+    owner   => root,
+    group   => root,
+    mode    => '0744',
+    require => File['/usr/src/ossec']
+  }
+
+  file { '/usr/src/ossec/RPM-GPG-KEY-OSSEC-RHEL5':
+    ensure  => present,
+    source  => 'puppet:///modules/ossec/RPM-GPG-KEY-OSSEC-RHEL5',
+    owner   => root,
+    group   => root,
+    mode    => '0744',
+    require => File['/usr/src/ossec']
+  }
+
   case $::osfamily {
     'Debian' : {
       # apt-key added by issue #34
@@ -27,7 +49,7 @@ class ossec::repo (
             refreshonly => true
           }
 
-    }
+        }
         /^(jessie|wheezy|stretch|sid)$/: {
           apt::source { 'wazuh':
             ensure      => present,
@@ -47,57 +69,29 @@ class ossec::repo (
         default: { fail('This ossec module has not been tested on your distribution (or lsb package not installed)') }
       }
     }
-    'Redhat' : {
-      file { '/usr/src/ossec':
-        ensure => directory,
-      }
-
-      file { '/usr/src/ossec/RPM-GPG-KEY-OSSEC':
-        ensure  => present,
-        source  => 'puppet:///modules/ossec/RPM-GPG-KEY-OSSEC',
-        owner   => root,
-        group   => root,
-        mode    => '0744',
-        require => File['/usr/src/ossec']
-      }
-
+    'Linux', 'Redhat' : {
       if ( $::operatingsystem == 'Amazon' ) {
-        yumrepo { 'ossec':
-          descr    => 'WAZUH OSSEC Repository - www.wazuh.com # Amazon Linux',
-          enabled  => true,
-          gpgcheck => 1,
-          gpgkey   => 'file:///usr/src/ossec/RPM-GPG-KEY-OSSEC',
-          baseurl  => 'http://ossec.wazuh.com/el/6Server/$basearch',
-          require  => File['/usr/src/ossec/RPM-GPG-KEY-OSSEC']
-        }
-      } elsif $operatingsystemrelease =~ /^5.*/ {
-        file { '/usr/src/ossec/RPM-GPG-KEY-OSSEC-RHEL5':
-          ensure  => present,
-          source  => 'puppet:///modules/ossec/RPM-GPG-KEY-OSSEC-RHEL5',
-          owner   => root,
-          group   => root,
-          mode    => '0744',
-          require => File['/usr/src/ossec']
-        }
-        # Set up OSSEC repo
-        yumrepo { 'ossec':
-          descr    => 'WAZUH OSSEC Repository - www.wazuh.com # RHEL5',
-          enabled  => true,
-          gpgcheck => 1,
-          gpgkey   => 'file:///usr/src/ossec/RPM-GPG-KEY-OSSEC-RHEL5',
-          baseurl  => 'http://ossec.wazuh.com/el/$releasever/$basearch',
-          require  => File['/usr/src/ossec/RPM-GPG-KEY-OSSEC-RHEL5'],
-        }
+        $repotype = "Amazon Linux"
+        $baseurl  = 'http://ossec.wazuh.com/el/6Server/$basearch'
+        $gpgkey   = 'file:///usr/src/ossec/RPM-GPG-KEY-OSSEC'
+      } elsif ( $operatingsystemrelease =~ /^5.*/ ) {
+        $repotype = "RHEL5"
+        $baseurl  = 'http://ossec.wazuh.com/el/$releasever/$basearch'
+        $gpgkey   = 'file:///usr/src/ossec/RPM-GPG-KEY-OSSEC-RHEL5'
+      } else {
+        $repotype = "RHEL > 5"
+        $baseurl  = 'http://ossec.wazuh.com/el/$releasever/$basearch'
+        $gpgkey   = 'file:///usr/src/ossec/RPM-GPG-KEY-OSSEC'
       }
-      else {
-        # Set up OSSEC repo
-        yumrepo { 'ossec':
-          descr   => 'WAZUH OSSEC Repository - www.wazuh.com # RHEL > 5',
-          enabled => true,
-          gpgkey  => 'file:///usr/src/ossec/RPM-GPG-KEY-OSSEC',
-          baseurl => 'http://ossec.wazuh.com/el/$releasever/$basearch',
-          require => File['/usr/src/ossec/RPM-GPG-KEY-OSSEC'],
-        }
+
+      # Set up OSSEC repo
+      yumrepo { 'ossec':
+        descr    => "WAZUH OSSEC Repository - www.wazuh.com # ${repotype}"',
+        enabled  => true,
+        gpgcheck => 1,
+        gpgkey   => $gpgkey,
+        baseurl  => $baseurl,
+        require  => [ File['/usr/src/ossec/RPM-GPG-KEY-OSSEC'], File['/usr/src/ossec/RPM-GPG-KEY-OSSEC-RHEL5'] ]
       }
 
       if $redhat_manage_epel {
@@ -109,30 +103,6 @@ class ossec::repo (
         include epel
 
         Class['epel'] -> Package['inotify-tools']
-      }
-    }
-    'Linux' : {
-      file { '/usr/src/ossec':
-        ensure => directory,
-      }
-
-      file { '/usr/src/ossec/RPM-GPG-KEY-OSSEC':
-        ensure  => present,
-        source  => 'puppet:///modules/ossec/RPM-GPG-KEY-OSSEC',
-        owner   => root,
-        group   => root,
-        mode    => '0744',
-        require => File['/usr/src/ossec']
-      }
-
-      if ( $::operatingsystem == 'Amazon' ) {
-        yumrepo { 'ossec':
-          descr    => 'WAZUH OSSEC Repository - www.wazuh.com # Amazon Linux',
-          enabled  => 1,
-          gpgcheck => 1,
-          require  => File['/usr/src/ossec/RPM-GPG-KEY-OSSEC'],
-          baseurl  => 'http://ossec.wazuh.com/el/6Server/$basearch',
-        }
       }
     }
     default: { fail('This ossec module has not been tested on your distribution') }
