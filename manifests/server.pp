@@ -32,6 +32,8 @@ class ossec::server (
   $syslog_output                       = false,
   $syslog_output_server                = undef,
   $syslog_output_format                = undef,
+  $local_decoder_template              = 'ossec/local_decoder.xml.erb',
+  $local_rules_template                = 'ossec/local_rules.xml.erb'
 ) inherits ossec::params {
   validate_bool(
     $ossec_active_response, $ossec_rootcheck,
@@ -163,7 +165,7 @@ class ossec::server (
   }
 
   file { '/var/ossec/rules/local_rules.xml':
-    content => template('ossec/local_rules.xml.erb'),
+    content => template($local_rules_template),
     owner   => $ossec::params::config_owner,
     group   => $ossec::params::config_group,
     mode    => $ossec::params::config_mode,
@@ -172,7 +174,7 @@ class ossec::server (
   }
 
   file { '/var/ossec/etc/local_decoder.xml':
-    content => template('ossec/local_decoder.xml.erb'),
+    content => template($local_decoder_template),
     owner   => $ossec::params::config_owner,
     group   => $ossec::params::config_group,
     mode    => $ossec::params::config_mode,
