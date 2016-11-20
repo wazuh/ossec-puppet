@@ -21,6 +21,7 @@ class ossec::client(
   $manage_client_keys      = true,
   $max_clients             = 3000,
   $ar_repeated_offenders   = '',
+  $service_has_status      = $::ossec::params::service_has_status,
 ) inherits ossec::params {
   validate_bool(
     $ossec_active_response, $ossec_rootcheck,
@@ -76,7 +77,7 @@ class ossec::client(
   service { $agent_service_name:
     ensure    => running,
     enable    => true,
-    hasstatus => $ossec::params::service_has_status,
+    hasstatus => $service_has_status,
     pattern   => $agent_service_name,
     provider  => $ossec_service_provider,
     require   => Package[$agent_package_name],
