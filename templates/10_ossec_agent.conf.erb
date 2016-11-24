@@ -40,7 +40,7 @@
 
   <!-- Files to monitor (localfiles) -->
 
-<% @ossec_local_files.each do |path, format| -%>
+<% @ossec_local_files.sort.each do |path, format| -%>
   <localfile>
     <log_format><%= format %></log_format>
     <location><%= path %></location>
