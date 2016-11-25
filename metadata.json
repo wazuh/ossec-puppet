@@ -76,6 +76,10 @@
     {
       "name": "jfryman/selinux",
       "version_range": ">= 0.2.3"
+    },
+    { 
+      "name": "puppetlabs/mysql",
+      "version_range": ">= 2.0.0"
     }
   ]
 }
