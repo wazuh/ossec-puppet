@@ -236,5 +236,7 @@ Jose Luis Ruiz <jose@wazuh.com>:
 2016-xx-xx Jose Luis Ruiz  - 2.0.19
 ===========================================================
 
+  * Compat with Older versions facter. (pull request #47 thanks @seefood)
   * Template paths as parameters. (pull request #48 thanks @seefood )
   * Client: allow configurable service_has_status, default to params. (pull request #51 thanks @josephholsten )
+  * Added Yakketi to the supported distributions.

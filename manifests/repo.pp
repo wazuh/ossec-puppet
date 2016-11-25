@@ -32,7 +32,7 @@ class ossec::repo (
         source => 'http://ossec.wazuh.com/repos/apt/conf/ossec-key.gpg.key'
       }
       case $::lsbdistcodename {
-        /(precise|trusty|vivid|wily|xenial)/: {
+        /(precise|trusty|vivid|wily|xenial|yakketi)/: {
 
           apt::source { 'wazuh':
             ensure      => present,
@@ -86,7 +86,7 @@ class ossec::repo (
 
       # Set up OSSEC repo
       yumrepo { 'ossec':
-        descr    => "WAZUH OSSEC Repository - www.wazuh.com # ${repotype}"',
+        descr    => "WAZUH OSSEC Repository - www.wazuh.com # ${repotype}",
         enabled  => true,
         gpgcheck => 1,
         gpgkey   => $gpgkey,
