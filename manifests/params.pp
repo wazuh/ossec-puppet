@@ -51,7 +51,7 @@ class ossec::params {
           }
 
         }
-        'Redhat': {
+        'Linux', 'Redhat': {
 
           $agent_service  = 'ossec-hids-agent'
 
