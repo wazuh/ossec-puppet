@@ -17,6 +17,7 @@ class ossec::client(
   $manage_repo             = true,
   $manage_epel_repo        = true,
   $agent_package_name      = $::ossec::params::agent_package,
+  $agent_package_version   = 'installed',
   $agent_service_name      = $::ossec::params::agent_service,
   $manage_client_keys      = true,
   $max_clients             = 3000,
@@ -44,12 +45,12 @@ class ossec::client(
       class { 'ossec::repo': redhat_manage_epel => $manage_epel_repo }
       Class['ossec::repo'] -> Package[$agent_package_name]
         package { $agent_package_name:
-          ensure  => installed
+          ensure  => $agent_package_version
       }
 
       } else {
       package { $agent_package_name:
-        ensure => installed
+        ensure => $agent_package_version
       }
       }
     }
@@ -65,7 +66,7 @@ class ossec::client(
           }
 
       package { $agent_package_name:
-        ensure          => installed,
+        ensure          => $agent_package_version
         source          => 'C:/ossec-win32-agent-2.8.3.exe',
         install_options => [ '/S' ],  # Nullsoft installer silent installation
         require         => File['C:/ossec-win32-agent-2.8.3.exe'],
