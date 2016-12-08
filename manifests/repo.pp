@@ -71,15 +71,15 @@ class ossec::repo (
     }
     'Linux', 'Redhat' : {
       if ( $::operatingsystem == 'Amazon' ) {
-        $repotype = "Amazon Linux"
+        $repotype = 'Amazon Linux'
         $baseurl  = 'http://ossec.wazuh.com/el/6Server/$basearch'
         $gpgkey   = 'file:///usr/src/ossec/RPM-GPG-KEY-OSSEC'
-      } elsif ( $operatingsystemrelease =~ /^5.*/ ) {
-        $repotype = "RHEL5"
+      } elsif ( $::operatingsystemrelease =~ /^5.*/ ) {
+        $repotype = 'RHEL5'
         $baseurl  = 'http://ossec.wazuh.com/el/$releasever/$basearch'
         $gpgkey   = 'file:///usr/src/ossec/RPM-GPG-KEY-OSSEC-RHEL5'
       } else {
-        $repotype = "RHEL > 5"
+        $repotype = 'RHEL > 5'
         $baseurl  = 'http://ossec.wazuh.com/el/$releasever/$basearch'
         $gpgkey   = 'file:///usr/src/ossec/RPM-GPG-KEY-OSSEC'
       }
