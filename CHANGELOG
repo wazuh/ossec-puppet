@@ -242,3 +242,8 @@ Jose Luis Ruiz <jose@wazuh.com>:
   * Added Yakketi to the supported distributions.
   * Modified activeresponse.erb to include <rules_id></rules_id> tags (pull request #56 thanks @MatthewRBruce)
   * Modified client.pp and server.pp to accept package versions as parameter. (pull request #57 thanks @MatthewRBruce)
+
+2016-12-08 Jose Luis Ruiz  - 2.0.20
+===========================================================
+
+  * Fixed typo in the windows package, this type made the deploy fails under windows.
