@@ -66,7 +66,7 @@ class ossec::client(
           }
 
       package { $agent_package_name:
-        ensure          => $agent_package_version
+        ensure          => $agent_package_version,
         source          => 'C:/ossec-win32-agent-2.8.3.exe',
         install_options => [ '/S' ],  # Nullsoft installer silent installation
         require         => File['C:/ossec-win32-agent-2.8.3.exe'],
