@@ -123,17 +123,11 @@ class ossec::client(
       notify  => Service[$agent_service_name],
       require => Package[$agent_package_name]
     }
-
-    ossec::agentkey{ "ossec_agent_${agent_name}_client":
-      agent_id         => fqdn_rand($max_clients),
+    # A separate module to avoid storeconfigs warnings when not managing keys
+    class { 'ossec::export_agent_key':
+      max_clients      => $max_clients,
       agent_name       => $agent_name,
       agent_ip_address => $agent_ip_address,
-    }
-
-    @@ossec::agentkey{ "ossec_agent_${agent_name}_server":
-      agent_id         => fqdn_rand($max_clients),
-      agent_name       => $agent_name,
-      agent_ip_address => $agent_ip_address
     }
   } elsif ($::kernel == 'Linux') {
     # Is this really Linux only?
