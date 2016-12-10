@@ -81,6 +81,10 @@
     { 
       "name": "puppetlabs/mysql",
       "version_range": ">= 2.0.0"
+    },
+    { 
+      "name": "maestrodev/wget",
+      "version_range": ">= 1.7.3"
     }
   ]
 }

@@ -12,6 +12,7 @@ class ossec::server (
   $ossec_scanpaths                     = [ {'path' => '/etc,/usr/bin,/usr/sbin', 'report_changes' => 'no', 'realtime' => 'no'}, {'path' => '/bin,/sbin', 'report_changes' => 'yes', 'realtime' => 'yes'} ],
   $ossec_white_list                    = [],
   $ossec_extra_rules_config            = [],
+  $ossec_install_wazuh_rules           = false,
   $ossec_local_files                   = {},
   $ossec_emailnotification             = 'yes',
   $ossec_email_maxperhour              = '12',
@@ -185,5 +186,9 @@ class ossec::server (
 
 
   Ossec::Agentkey<<| |>>
+
+  if $ossec_install_wazuh_rules {
+    include ossec::wazuh_ruleset
+  }
 
 }
