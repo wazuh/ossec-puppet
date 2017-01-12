@@ -20,6 +20,7 @@ class ossec::server (
   $ossec_auto_ignore                   = 'yes',
   $ossec_prefilter                     = false,
   $ossec_service_provider              = $::ossec::params::ossec_service_provider,
+  $ossec_server_port                   = '1514',
   $use_mysql                           = false,
   $mariadb                             = false,
   $mysql_hostname                      = undef,
