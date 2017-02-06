@@ -183,7 +183,8 @@ class ossec::server (
     require => Package[$ossec::params::server_package]
   }
 
-
-  Ossec::Agentkey<<| |>>
-
+  if ( $manage_client_keys == true ) {
+    # A separate module to avoid storeconfigs warnings when not managing keys
+    include ossec::collect_agent_keys
+  }
 }
