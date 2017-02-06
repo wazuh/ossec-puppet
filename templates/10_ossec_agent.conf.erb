@@ -6,6 +6,7 @@
 <% if @ossec_server_hostname then -%>
     <server-hostname><%= @ossec_server_hostname %></server-hostname>
 <% end -%>
+    <port><%= @ossec_server_port %></port>
   </client>
 
   <syscheck>
