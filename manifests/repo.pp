@@ -40,8 +40,10 @@ class ossec::repo (
             location    => 'http://ossec.wazuh.com/repos/apt/ubuntu',
             release     => $::lsbdistcodename,
             repos       => 'main',
-            include_src => false,
-            include_deb => true,
+            include     => {
+              'src' => false,
+              'deb' => true,
+            },
           }
           ~>
           exec { 'update-apt-wazuh-repo':
@@ -57,8 +59,10 @@ class ossec::repo (
             location    => 'http://ossec.wazuh.com/repos/apt/debian',
             release     => $::lsbdistcodename,
             repos       => 'main',
-            include_src => false,
-            include_deb => true,
+            include     => {
+              'src' => false,
+              'deb' => true,
+            },
           }
           ~>
           exec { 'update-apt-wazuh-repo':
