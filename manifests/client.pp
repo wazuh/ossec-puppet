@@ -7,7 +7,7 @@ class ossec::client(
   $ossec_scanpaths         = [],
   $ossec_emailnotification = 'yes',
   $ossec_ignorepaths       = [],
-  $ossec_local_files       = {},
+  $ossec_local_files       = $::ossec::params::default_local_files,
   $ossec_check_frequency   = 79200,
   $ossec_prefilter         = false,
   $ossec_service_provider  = $::ossec::params::ossec_service_provider,
