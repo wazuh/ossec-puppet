@@ -35,12 +35,12 @@ class ossec::repo (
         /(precise|trusty|vivid|wily|xenial|yakketi)/: {
 
           apt::source { 'wazuh':
-            ensure      => present,
-            comment     => 'This is the WAZUH Ubuntu repository for Ossec',
-            location    => 'http://ossec.wazuh.com/repos/apt/ubuntu',
-            release     => $::lsbdistcodename,
-            repos       => 'main',
-            include     => {
+            ensure   => present,
+            comment  => 'This is the WAZUH Ubuntu repository for Ossec',
+            location => 'http://ossec.wazuh.com/repos/apt/ubuntu',
+            release  => $::lsbdistcodename,
+            repos    => 'main',
+            include  => {
               'src' => false,
               'deb' => true,
             },
@@ -54,12 +54,12 @@ class ossec::repo (
         }
         /^(jessie|wheezy|stretch|sid)$/: {
           apt::source { 'wazuh':
-            ensure      => present,
-            comment     => 'This is the WAZUH Debian repository for Ossec',
-            location    => 'http://ossec.wazuh.com/repos/apt/debian',
-            release     => $::lsbdistcodename,
-            repos       => 'main',
-            include     => {
+            ensure   => present,
+            comment  => 'This is the WAZUH Debian repository for Ossec',
+            location => 'http://ossec.wazuh.com/repos/apt/debian',
+            release  => $::lsbdistcodename,
+            repos    => 'main',
+            include  => {
               'src' => false,
               'deb' => true,
             },

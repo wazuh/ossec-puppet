@@ -247,3 +247,8 @@ Jose Luis Ruiz <jose@wazuh.com>:
 ===========================================================
 
   * Fixed typo in the windows package, this type made the deploy fails under windows.
+
+2017-02-xx Jose Luis Ruiz  - 2.0.21
+===========================================================
+
+  * Fix apt deprecation warnings. (pull request #58 thanks @kdole)
