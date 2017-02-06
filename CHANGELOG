@@ -252,3 +252,6 @@ Jose Luis Ruiz <jose@wazuh.com>:
 ===========================================================
 
   * Fix apt deprecation warnings. (pull request #58 thanks @kdole)
+  * Avoid warnings when storeconfigs are not available. (pull request #59 thanks @kdole)
+  * Use default local_files setting. (pull request #60 thanks @kdole)
+  * Making ossec server port configurable. (pull request #62 thanks @edge-records)
