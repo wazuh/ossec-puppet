@@ -35,7 +35,8 @@ class ossec::server (
   $syslog_output_server                = undef,
   $syslog_output_format                = undef,
   $local_decoder_template              = 'ossec/local_decoder.xml.erb',
-  $local_rules_template                = 'ossec/local_rules.xml.erb'
+  $local_rules_template                = 'ossec/local_rules.xml.erb',
+  $shared_agent_template               = 'ossec/ossec_shared_agent.conf.erb',
 ) inherits ossec::params {
   validate_bool(
     $ossec_active_response, $ossec_rootcheck,
@@ -158,7 +159,7 @@ class ossec::server (
   }
 
   file { '/var/ossec/etc/shared/agent.conf':
-    content => template('ossec/ossec_shared_agent.conf.erb'),
+    content => template($shared_agent_template),
     owner   => $ossec::params::config_owner,
     group   => $ossec::params::config_group,
     mode    => $ossec::params::config_mode,
