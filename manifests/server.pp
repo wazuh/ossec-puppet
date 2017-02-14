@@ -35,7 +35,10 @@ class ossec::server (
   $syslog_output_server                = undef,
   $syslog_output_format                = undef,
   $local_decoder_template              = 'ossec/local_decoder.xml.erb',
-  $local_rules_template                = 'ossec/local_rules.xml.erb'
+  $local_rules_template                = 'ossec/local_rules.xml.erb',
+  $rootkit_files                       = $::ossec::params::rootkit_files,
+  $rootkit_trojans                     = $::ossec::params::rootkit_trojans,
+  $rootcheck_frequency                 = 36000,
 ) inherits ossec::params {
   validate_bool(
     $ossec_active_response, $ossec_rootcheck,

@@ -24,6 +24,9 @@ class ossec::client(
   $max_clients             = 3000,
   $ar_repeated_offenders   = '',
   $service_has_status      = $::ossec::params::service_has_status,
+  $rootkit_files           = $::ossec::params::rootkit_files,
+  $rootkit_trojans         = $::ossec::params::rootkit_trojans,
+  $rootcheck_frequency     = 36000,
 ) inherits ossec::params {
   validate_bool(
     $ossec_active_response, $ossec_rootcheck,

@@ -27,11 +27,19 @@
 <% end %>
   </syscheck>
 
-<% if @ossec_rootcheck == false then -%>
   <rootcheck>
+<% if @ossec_rootcheck == false then -%>
     <disabled>yes</disabled>
+<% else -%>
+    <frequency><%= @rootcheck_frequency %></frequency>
+  <%- if @rootkit_files then -%>
+    <rootkit_files><%= @rootkit_files %></rootkit_files>
+  <%- end -%>
+  <%- if @rootkit_trojans then -%>
+    <rootkit_trojans><%= @rootkit_trojans %></rootkit_trojans>
+  <%- end -%>
+<%- end -%>
   </rootcheck>
-<% end -%>
 
 <% if @ossec_active_response == false then -%>
   <active-response>
