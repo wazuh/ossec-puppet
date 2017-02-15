@@ -12,7 +12,7 @@
   <syscheck>
     <!-- Frequency that syscheck is executed -->
     <frequency><%= @ossec_check_frequency %></frequency>
-    <alert_new_files>yes</alert_new_files>
+    <alert_new_files><%= @ossec_alert_new_files %></alert_new_files>
 
     <!-- Directories to check  (perform all possible verifications) -->
 <% @ossec_scanpaths.each do |scanpath| -%>    <directories check_all="yes" report_changes="<%= scanpath["report_changes"] %>" realtime="<%= scanpath['realtime'] %>"><%= scanpath['path']  %></directories>

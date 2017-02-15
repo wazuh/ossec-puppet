@@ -94,7 +94,7 @@
   <syscheck>
     <!-- Frequency that syscheck is executed -->
     <frequency><%= @ossec_check_frequency %></frequency>
-    <alert_new_files>yes</alert_new_files>
+    <alert_new_files><%= @ossec_alert_new_files %></alert_new_files>
     <auto_ignore><%= @ossec_auto_ignore %></auto_ignore>
 
    <!-- Directories to check  (perform all possible verifications) -->

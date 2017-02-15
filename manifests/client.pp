@@ -6,6 +6,7 @@ class ossec::client(
   $ossec_server_hostname   = undef,
   $ossec_server_port       = '1514',
   $ossec_scanpaths         = [],
+  $ossec_alert_new_files   = 'yes',
   $ossec_emailnotification = 'yes',
   $ossec_ignorepaths       = [],
   $ossec_local_files       = $::ossec::params::default_local_files,
