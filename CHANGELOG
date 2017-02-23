@@ -255,3 +255,5 @@ Jose Luis Ruiz <jose@wazuh.com>:
   * Avoid warnings when storeconfigs are not available. (pull request #59 thanks @kdole)
   * Use default local_files setting. (pull request #60 thanks @kdole)
   * Making ossec server port configurable. (pull request #62 thanks @edge-records)
+  * Allow custom agent configurations (pull request #64 thanks @ffleming)
+  * Fixed issec #66 (thanks @thedawidbalut)
