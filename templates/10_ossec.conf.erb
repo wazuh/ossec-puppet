@@ -114,6 +114,18 @@
   <rootcheck>
     <disabled>yes</disabled>
   </rootcheck>
+<% else -%>
+  <rootcheck>
+  <%- if @ossec_rootcheck_frequency then -%>
+    <frequency><%= @ossec_rootcheck_frequency %></frequency>
+  <%- end -%>
+  <%- if @ossec_rootcheck_checkports == false then -%>
+    <check_ports><%= @ossec_rootcheck_checkports %></check_ports>
+  <%- end -%>
+  <%- if @ossec_rootcheck_checkfiles == false then -%>
+    <check_files><%= @ossec_rootcheck_checkfiles %></check_files>
+  <%- end -%>
+  </rootcheck>
 <% end -%>
 <% if @ossec_active_response == false then -%>
   <active-response>
