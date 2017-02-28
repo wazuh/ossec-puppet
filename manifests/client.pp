@@ -24,7 +24,7 @@ class ossec::client(
   $max_clients                = 3000,
   $ar_repeated_offenders      = '',
   $service_has_status         = $::ossec::params::service_has_status,
-  $ossec_rootcheck_frequency  = undef,
+  $ossec_rootcheck_frequency  = 36000,
   $ossec_rootcheck_checkports = true,
   $ossec_rootcheck_checkfiles = true,
 ) inherits ossec::params {
