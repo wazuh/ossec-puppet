@@ -120,10 +120,10 @@
     <frequency><%= @ossec_rootcheck_frequency %></frequency>
   <%- end -%>
   <%- if @ossec_rootcheck_checkports == false then -%>
-    <check_ports><%= @ossec_rootcheck_checkports %></check_ports>
+    <check_ports>no</check_ports>
   <%- end -%>
   <%- if @ossec_rootcheck_checkfiles == false then -%>
-    <check_files><%= @ossec_rootcheck_checkfiles %></check_files>
+    <check_files>no</check_files>
   <%- end -%>
   </rootcheck>
 <% end -%>
