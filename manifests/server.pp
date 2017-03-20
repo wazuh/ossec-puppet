@@ -40,6 +40,7 @@ class ossec::server (
   $rootkit_files                       = $::ossec::params::rootkit_files,
   $rootkit_trojans                     = $::ossec::params::rootkit_trojans,
   $rootcheck_frequency                 = 36000,
+  $shared_agent_template               = 'ossec/ossec_shared_agent.conf.erb',
 ) inherits ossec::params {
   validate_bool(
     $ossec_active_response, $ossec_rootcheck,
@@ -162,7 +163,7 @@ class ossec::server (
   }
 
   file { '/var/ossec/etc/shared/agent.conf':
-    content => template('ossec/ossec_shared_agent.conf.erb'),
+    content => template($shared_agent_template),
     owner   => $ossec::params::config_owner,
     group   => $ossec::params::config_group,
     mode    => $ossec::params::config_mode,
