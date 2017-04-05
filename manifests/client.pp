@@ -27,6 +27,7 @@ class ossec::client(
   $ossec_rootcheck_frequency  = 36000,
   $ossec_rootcheck_checkports = true,
   $ossec_rootcheck_checkfiles = true,
+  $ossec_conf_template        = 'ossec/10_ossec_agent.conf.erb',
 ) inherits ossec::params {
   validate_bool(
     $ossec_active_response, $ossec_rootcheck,
@@ -98,7 +99,7 @@ class ossec::client(
 
   concat::fragment { 'ossec.conf_10' :
     target  => $ossec::params::config_file,
-    content => template('ossec/10_ossec_agent.conf.erb'),
+    content => template($ossec_conf_template),
     order   => 10,
     notify  => Service[$agent_service_name]
   }
