@@ -37,6 +37,7 @@ class ossec::server (
   $local_decoder_template              = 'ossec/local_decoder.xml.erb',
   $local_rules_template                = 'ossec/local_rules.xml.erb',
   $shared_agent_template               = 'ossec/ossec_shared_agent.conf.erb',
+  $ossec_conf_template                 = 'ossec/10_ossec.conf.erb',
 ) inherits ossec::params {
   validate_bool(
     $ossec_active_response, $ossec_rootcheck,
@@ -107,7 +108,7 @@ class ossec::server (
   }
   concat::fragment { 'ossec.conf_10' :
     target  => $ossec::params::config_file,
-    content => template('ossec/10_ossec.conf.erb'),
+    content => template($ossec_conf_template),
     order   => 10,
     notify  => Service[$ossec::params::server_service]
   }
