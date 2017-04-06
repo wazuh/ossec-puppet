@@ -35,7 +35,7 @@ class ossec::params {
             '/var/log/mail.log'           => 'syslog',
             '/var/log/dpkg.log'           => 'syslog',
             '/var/log/apache2/access.log' => 'apache',
-            '/var/log/apache2/error.log'  => 'apache'
+            '/var/log/apache2/error.log'  => 'apache',
           }
 
           case $::lsbdistcodename {
@@ -71,9 +71,12 @@ class ossec::params {
             '/var/log/maillog'          => 'syslog',
             '/var/log/yum.log'          => 'syslog',
             '/var/log/httpd/access_log' => 'apache',
-            '/var/log/httpd/error_log'  => 'apache'
+            '/var/log/httpd/error_log'  => 'apache',
           }
 
+        }
+        default: {
+          fail("${::osfamily}/${::operatingsystem} ${::operatingsystemrelease} not supported")
         }
       }
     }

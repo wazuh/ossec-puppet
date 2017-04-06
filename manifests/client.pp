@@ -46,15 +46,15 @@ class ossec::client(
   case $::kernel {
     'Linux' : {
       if $manage_repo {
-      class { 'ossec::repo': redhat_manage_epel => $manage_epel_repo }
+      class { '::ossec::repo': redhat_manage_epel => $manage_epel_repo }
       Class['ossec::repo'] -> Package[$agent_package_name]
         package { $agent_package_name:
-          ensure  => $agent_package_version
+          ensure  => $agent_package_version,
       }
 
       } else {
       package { $agent_package_name:
-        ensure => $agent_package_version
+        ensure => $agent_package_version,
       }
       }
     }
@@ -66,7 +66,7 @@ class ossec::client(
           group              => 'Administrators',
           mode               => '0774',
           source             => 'puppet:///modules/ossec/ossec-win32-agent-2.8.3.exe',
-          source_permissions => ignore
+          source_permissions => ignore,
           }
 
       package { $agent_package_name:
@@ -100,7 +100,7 @@ class ossec::client(
     target  => $ossec::params::config_file,
     content => template('ossec/10_ossec_agent.conf.erb'),
     order   => 10,
-    notify  => Service[$agent_service_name]
+    notify  => Service[$agent_service_name],
   }
 
   if ( $ar_repeated_offenders != '' and $ossec_active_response == true ) {
@@ -108,7 +108,7 @@ class ossec::client(
       target  => $ossec::params::config_file,
       content => template('ossec/ar_repeated_offenders.erb'),
       order   => 55,
-      notify  => Service[$agent_service_name]
+      notify  => Service[$agent_service_name],
     }
   }
 
@@ -116,7 +116,7 @@ class ossec::client(
     target  => $ossec::params::config_file,
     content => template('ossec/99_ossec_agent.conf.erb'),
     order   => 99,
-    notify  => Service[$agent_service_name]
+    notify  => Service[$agent_service_name],
   }
 
   if ( $manage_client_keys == true ) {
@@ -125,10 +125,10 @@ class ossec::client(
       group   => $ossec::params::keys_group,
       mode    => $ossec::params::keys_mode,
       notify  => Service[$agent_service_name],
-      require => Package[$agent_package_name]
+      require => Package[$agent_package_name],
     }
     # A separate module to avoid storeconfigs warnings when not managing keys
-    class { 'ossec::export_agent_key':
+    class { '::ossec::export_agent_key':
       max_clients      => $max_clients,
       agent_name       => $agent_name,
       agent_ip_address => $agent_ip_address,
