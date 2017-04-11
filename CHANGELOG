@@ -258,5 +258,6 @@ Jose Luis Ruiz <jose@wazuh.com>:
   * Allow custom agent configurations (pull request #64 thanks @ffleming)
   * Fixed issec #66 (thanks @thedawidbalut)
   * Adds options to control rootcheck feature. (pull request #67 thanks @netman2k)
-  * use puppet-selinux instead of jfryman-selinux (pull request #68 thanks @netman2k)
-  * allow custom ossec.conf in agent and server template (pull request #69 thanks @sam-wouters)
+  * Use puppet-selinux instead of jfryman-selinux (pull request #68 thanks @netman2k)
+  * Allow custom ossec.conf in agent and server template (pull request #69 thanks @sam-wouters)
+  * Fixed issue #71. (Thanks for reporting it @sc-chad)
