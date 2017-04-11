@@ -261,3 +261,4 @@ Jose Luis Ruiz <jose@wazuh.com>:
   * Use puppet-selinux instead of jfryman-selinux (pull request #68 thanks @netman2k)
   * Allow custom ossec.conf in agent and server template (pull request #69 thanks @sam-wouters)
   * Fixed issue #71. (Thanks for reporting it @sc-chad)
+  * Fixed issue #72. (Thanks for reporting it @sc-chad)
