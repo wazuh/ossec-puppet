@@ -25,12 +25,12 @@ class ossec::server (
   $ossec_prefilter                     = false,
   $ossec_service_provider              = $::ossec::params::ossec_service_provider,
   $ossec_server_port                   = '1514',
-  $use_mysql                           = false,
-  $mariadb                             = false,
-  $mysql_hostname                      = undef,
-  $mysql_name                          = undef,
-  $mysql_password                      = undef,
-  $mysql_username                      = undef,
+  $use_db                              = false,
+  $db_type                             = undef,
+  $db_hostname                         = undef,
+  $db_name                             = undef,
+  $db_password                         = undef,
+  $db_username                         = undef,
   $server_package_version              = 'installed',
   $manage_repos                        = true,
   $manage_epel_repo                    = true,
@@ -45,7 +45,7 @@ class ossec::server (
 ) inherits ossec::params {
   validate_bool(
     $ossec_active_response, $ossec_rootcheck,
-    $use_mysql, $manage_repos, $manage_epel_repo, $syslog_output
+    $use_db, $manage_repos, $manage_epel_repo, $syslog_output
   )
   # This allows arrays of integers, sadly
   # (commented due to stdlib version requirement)
@@ -60,17 +60,6 @@ class ossec::server (
     # TODO: Allow filtering of EPEL requirement
     class { 'ossec::repo': redhat_manage_epel => $manage_epel_repo }
     Class['ossec::repo'] -> Package[$ossec::params::server_package]
-  }
-
-  if $use_mysql {
-    # Relies on mysql module specified in metadata.json
-    if $mariadb {
-      # if mariadb is true, then force the usage of the mariadb-client package
-      class { 'mysql::client': package_name => 'mariadb-client' }
-    } else {
-      include mysql::client
-    }
-    Class['mysql::client'] ~> Service[$ossec::params::server_service]
   }
 
   # install package
@@ -117,11 +106,30 @@ class ossec::server (
     notify  => Service[$ossec::params::server_service]
   }
 
-  if $use_mysql {
-    validate_string($mysql_hostname)
-    validate_string($mysql_name)
-    validate_string($mysql_password)
-    validate_string($mysql_username)
+  if $use_db {
+    validate_string($db_type)
+    validate_string($db_hostname)
+    validate_string($db_name)
+    validate_string($db_password)
+    validate_string($db_username)
+
+    case $db_type {
+      'mariadb': {
+        class { 'mysql::client': package_name => 'mariadb-client' }
+        Class['mysql::client'] ~> Service[$ossec::params::server_service]
+      }
+      'mysql': {
+        include mysql::client
+        Class['mysql::client'] ~> Service[$ossec::params::server_service]
+      }
+      'postgresql': {
+        include postgresql::client
+        Class['postgresql::client'] ~> Service[$ossec::params::server_service]
+      }
+      default: {
+        fail('$db_type must either be mysql, maridb or postgresl')
+      }
+    }
 
     # Enable the database in the config
     concat::fragment { 'ossec.conf_80' :
