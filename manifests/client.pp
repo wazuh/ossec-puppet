@@ -77,6 +77,11 @@ class ossec::client(
         require         => File['C:/ossec-win32-agent-2.8.3.exe'],
       }
     }
+    'FreeBSD' : {
+        package { $agent_package_name:
+            ensure => $agent_package_version
+        }
+    }
     default: { fail('OS not supported') }
   }
 

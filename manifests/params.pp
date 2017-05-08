@@ -101,6 +101,32 @@ class ossec::params {
       $default_local_files = {}
 
     }
+    'FreeBSD' : {
+      $config_file = '/usr/local/ossec-hids/etc/ossec.conf'
+      $config_mode = '0440'
+      $config_owner = 'root'
+      $config_group = 'ossec'
+
+      $keys_file = '/usr/local/ossec-hids/etc/client.keys'
+      $keys_mode = '0440'
+      $keys_owner = 'root'
+      $keys_group = 'ossec'
+
+      $processlist_file = '/usr/local/ossec-hids/bin/.process_list'
+      $processlist_mode = '0440'
+      $processlist_owner = 'root'
+      $processlist_group = 'ossec'
+      $agent_service  = 'ossec-hids'
+      $agent_package  = 'ossec-hids-client'
+      $server_service = 'ossec-hids'
+      $server_package = 'ossec-hids-server'
+      $service_has_status  = true
+      $ossec_service_provider = 'freebsd'
+      $default_local_files = {
+        '/var/log/auth.log' => 'syslog',
+        '/var/log/security' => 'syslog',
+      }
+    }
     default: { fail('This ossec module has not been tested on your distribution') }
   }
 }
