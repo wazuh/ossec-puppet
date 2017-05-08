@@ -262,4 +262,8 @@ Jose Luis Ruiz <jose@wazuh.com>:
   * Allow custom ossec.conf in agent and server template (pull request #69 thanks @sam-wouters)
   * Fixed issue #71. (Thanks for reporting it @sc-chad)
   * Fixed issue #72. (Thanks for reporting it @sc-chad)
+ 
+2017-xx-xx Jose Luis Ruiz  - 2.0.22
+===========================================================
+
   * Add FreeBSD support for client (pull request #73 thanks @zados)
