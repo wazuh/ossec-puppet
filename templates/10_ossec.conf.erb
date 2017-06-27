@@ -20,6 +20,7 @@
 <% if @syslog_output == true then -%>
   <syslog_output>
     <server><%= @syslog_output_server %></server>
+    <port><%= @syslog_output_server_port %></port>
     <format><%= @syslog_output_format %></format>
   </syslog_output>
 <% end -%>

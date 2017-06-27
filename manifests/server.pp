@@ -37,6 +37,7 @@ class ossec::server (
   $manage_client_keys                  = true,
   $syslog_output                       = false,
   $syslog_output_server                = undef,
+  $syslog_output_server_port           = 514,
   $syslog_output_format                = undef,
   $local_decoder_template              = 'ossec/local_decoder.xml.erb',
   $local_rules_template                = 'ossec/local_rules.xml.erb',
