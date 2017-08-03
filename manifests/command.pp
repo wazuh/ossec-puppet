@@ -5,7 +5,7 @@ define ossec::command(
   $command_expect = 'srcip',
   $timeout_allowed = true,
 ) {
-  require ossec::params
+  require ::ossec::params
 
   if ($timeout_allowed) { $command_timeout_allowed='yes' } else { $command_timeout_allowed='no' }
   concat::fragment { $name:

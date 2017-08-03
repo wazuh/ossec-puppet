@@ -7,11 +7,11 @@ define ossec::activeresponse(
   $ar_timeout            = 300,
   $ar_repeated_offenders = '',
 ) {
-  require ossec::params
+  require ::ossec::params
 
   concat::fragment { $name:
     target  => $ossec::params::config_file,
     order   => 55,
-    content => template('ossec/activeresponse.erb')
+    content => template('ossec/activeresponse.erb'),
   }
 }

@@ -4,7 +4,7 @@ define ossec::addlog(
   $agent_log = false,
   $logtype = 'syslog',
 ) {
-  require ossec::params
+  require ::ossec::params
 # Issue #30
   if $agent_log
   {
@@ -18,7 +18,7 @@ define ossec::addlog(
     target  => $ossec::params::config_file,
     content => template('ossec/20_ossecLogfile.conf.erb'),
     order   => 20,
-    notify  => $ossec_notify
+    notify  => $ossec_notify,
   }
 
 }

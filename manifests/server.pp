@@ -12,7 +12,18 @@ class ossec::server (
   $ossec_global_stat_level             = 8,
   $ossec_email_alert_level             = 7,
   $ossec_ignorepaths                   = [],
-  $ossec_scanpaths                     = [ {'path' => '/etc,/usr/bin,/usr/sbin', 'report_changes' => 'no', 'realtime' => 'no'}, {'path' => '/bin,/sbin', 'report_changes' => 'yes', 'realtime' => 'yes'} ],
+  $ossec_scanpaths                     = [
+                                            {
+                                              'path'           => '/etc,/usr/bin,/usr/sbin',
+                                              'report_changes' => 'no',
+                                              'realtime'       => 'no'
+                                            },
+                                            {
+                                              'path'           => '/bin,/sbin',
+                                              'report_changes' => 'yes',
+                                              'realtime'       => 'yes'
+                                            },
+                                          ],
   $ossec_white_list                    = [],
   $ossec_extra_rules_config            = [],
   $ossec_extra_rules_folder_config     = [],
@@ -59,7 +70,7 @@ class ossec::server (
 
   if $manage_repos {
     # TODO: Allow filtering of EPEL requirement
-    class { 'ossec::repo': redhat_manage_epel => $manage_epel_repo }
+    class { '::ossec::repo': redhat_manage_epel => $manage_epel_repo }
     Class['ossec::repo'] -> Package[$ossec::params::server_package]
   }
 
@@ -67,16 +78,16 @@ class ossec::server (
     # Relies on mysql module specified in metadata.json
     if $mariadb {
       # if mariadb is true, then force the usage of the mariadb-client package
-      class { 'mysql::client': package_name => 'mariadb-client' }
+      class { '::mysql::client': package_name => 'mariadb-client' }
     } else {
-      include mysql::client
+      include ::mysql::client
     }
     Class['mysql::client'] ~> Service[$ossec::params::server_service]
   }
 
   # install package
   package { $ossec::params::server_package:
-    ensure  => $server_package_version
+    ensure  => $server_package_version,
   }
 
   service { $ossec::params::server_service:
@@ -94,13 +105,13 @@ class ossec::server (
     group   => $ossec::params::config_group,
     mode    => $ossec::params::config_mode,
     require => Package[$ossec::params::server_package],
-    notify  => Service[$ossec::params::server_service]
+    notify  => Service[$ossec::params::server_service],
   }
   concat::fragment { 'ossec_process_list_10' :
     target  => $ossec::params::processlist_file,
     content => template('ossec/10_process_list.erb'),
     order   => 10,
-    notify  => Service[$ossec::params::server_service]
+    notify  => Service[$ossec::params::server_service],
   }
 
   # configure ossec
@@ -109,13 +120,13 @@ class ossec::server (
     group   => $ossec::params::config_group,
     mode    => $ossec::params::config_mode,
     require => Package[$ossec::params::server_package],
-    notify  => Service[$ossec::params::server_service]
+    notify  => Service[$ossec::params::server_service],
   }
   concat::fragment { 'ossec.conf_10' :
     target  => $ossec::params::config_file,
     content => template($ossec_conf_template),
     order   => 10,
-    notify  => Service[$ossec::params::server_service]
+    notify  => Service[$ossec::params::server_service],
   }
 
   if $use_mysql {
@@ -129,7 +140,7 @@ class ossec::server (
       target  => $ossec::params::config_file,
       content => template('ossec/80_ossec.conf.erb'),
       order   => 80,
-      notify  => Service[$ossec::params::server_service]
+      notify  => Service[$ossec::params::server_service],
     }
 
     # Enable the database daemon in the .process_list
@@ -137,7 +148,7 @@ class ossec::server (
       target  => $ossec::params::processlist_file,
       content => template('ossec/20_process_list.erb'),
       order   => 20,
-      notify  => Service[$ossec::params::server_service]
+      notify  => Service[$ossec::params::server_service],
     }
   }
 
@@ -145,7 +156,7 @@ class ossec::server (
     target  => $ossec::params::config_file,
     content => template('ossec/90_ossec.conf.erb'),
     order   => 90,
-    notify  => Service[$ossec::params::server_service]
+    notify  => Service[$ossec::params::server_service],
   }
 
   if ( $manage_client_keys == true ) {
@@ -160,7 +171,7 @@ class ossec::server (
       target  => $ossec::params::keys_file,
       order   => 99,
       content => "\n",
-      notify  => Service[$ossec::params::server_service]
+      notify  => Service[$ossec::params::server_service],
     }
   }
 
@@ -170,7 +181,7 @@ class ossec::server (
     group   => $ossec::params::config_group,
     mode    => $ossec::params::config_mode,
     notify  => Service[$ossec::params::server_service],
-    require => Package[$ossec::params::server_package]
+    require => Package[$ossec::params::server_package],
   }
 
   file { '/var/ossec/rules/local_rules.xml':
@@ -179,7 +190,7 @@ class ossec::server (
     group   => $ossec::params::config_group,
     mode    => $ossec::params::config_mode,
     notify  => Service[$ossec::params::server_service],
-    require => Package[$ossec::params::server_package]
+    require => Package[$ossec::params::server_package],
   }
 
   file { '/var/ossec/etc/local_decoder.xml':
@@ -188,11 +199,11 @@ class ossec::server (
     group   => $ossec::params::config_group,
     mode    => $ossec::params::config_mode,
     notify  => Service[$ossec::params::server_service],
-    require => Package[$ossec::params::server_package]
+    require => Package[$ossec::params::server_package],
   }
 
   if ( $manage_client_keys == true ) {
     # A separate module to avoid storeconfigs warnings when not managing keys
-    include ossec::collect_agent_keys
+    include ::ossec::collect_agent_keys
   }
 }

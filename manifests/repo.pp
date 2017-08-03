@@ -12,7 +12,7 @@ class ossec::repo (
     owner   => root,
     group   => root,
     mode    => '0744',
-    require => File['/usr/src/ossec']
+    require => File['/usr/src/ossec'],
   }
 
   file { '/usr/src/ossec/RPM-GPG-KEY-OSSEC-RHEL5':
@@ -21,7 +21,7 @@ class ossec::repo (
     owner   => root,
     group   => root,
     mode    => '0744',
-    require => File['/usr/src/ossec']
+    require => File['/usr/src/ossec'],
   }
 
   case $::osfamily {
@@ -29,7 +29,7 @@ class ossec::repo (
       # apt-key added by issue #34
       apt::key { 'puppetlabs':
         id     => '9FE55537D1713CA519DFB85114B9C8DB9A1B1C65',
-        source => 'https://ossec.wazuh.com/repos/apt/conf/ossec-key.gpg.key'
+        source => 'https://ossec.wazuh.com/repos/apt/conf/ossec-key.gpg.key',
       }
       case $::lsbdistcodename {
         /(precise|trusty|vivid|wily|xenial|yakketi)/: {
@@ -45,10 +45,10 @@ class ossec::repo (
               'deb' => true,
             },
           }
-          ~>
-          exec { 'update-apt-wazuh-repo':
+
+          ~> exec { 'update-apt-wazuh-repo':
             command     => '/usr/bin/apt-get update',
-            refreshonly => true
+            refreshonly => true,
           }
 
         }
@@ -64,10 +64,10 @@ class ossec::repo (
               'deb' => true,
             },
           }
-          ~>
-          exec { 'update-apt-wazuh-repo':
+
+          ~> exec { 'update-apt-wazuh-repo':
             command     => '/usr/bin/apt-get update',
-            refreshonly => true
+            refreshonly => true,
           }
         }
         default: { fail('This ossec module has not been tested on your distribution (or lsb package not installed)') }
@@ -95,16 +95,16 @@ class ossec::repo (
         gpgcheck => 1,
         gpgkey   => $gpgkey,
         baseurl  => $baseurl,
-        require  => [ File['/usr/src/ossec/RPM-GPG-KEY-OSSEC'], File['/usr/src/ossec/RPM-GPG-KEY-OSSEC-RHEL5'] ]
+        require  => [ File['/usr/src/ossec/RPM-GPG-KEY-OSSEC'], File['/usr/src/ossec/RPM-GPG-KEY-OSSEC-RHEL5'] ],
       }
 
       if $redhat_manage_epel {
         # Set up EPEL repo
         # NOTE: This relies on the 'epel' module referenced in metadata.json
         package { 'inotify-tools':
-          ensure  => present
+          ensure  => present,
         }
-        include epel
+        include ::epel
 
         Class['epel'] -> Package['inotify-tools']
       }

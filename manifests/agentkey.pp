@@ -5,7 +5,7 @@ define ossec::agentkey(
   $agent_ip_address,
   $agent_seed = 'xaeS7ahf',
 ) {
-  require ossec::params
+  require ::ossec::params
 
   if ! $agent_id { fail("ossec::agentkey: ${agent_id} is missing")}
 
