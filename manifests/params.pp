@@ -91,6 +91,8 @@ class ossec::params {
 
       $agent_package  = 'ossec-agent'
 
+      $agent_source_url = 'https://chocolatey.org/api/v2/'
+
       $server_service = ''
 
       $server_package = ''

@@ -17,6 +17,7 @@ class ossec::client(
   $agent_ip_address           = $::ipaddress,
   $manage_repo                = true,
   $manage_epel_repo           = true,
+  $agent_source_url           = $::ossec::params::agent_source_url,
   $agent_package_name         = $::ossec::params::agent_package,
   $agent_package_version      = 'installed',
   $agent_service_name         = $::ossec::params::agent_service,
@@ -63,6 +64,7 @@ class ossec::client(
 
       package { $agent_package_name:
         ensure   => $agent_package_version,
+        source   => $agent_source_url,
         provider => 'chocolatey',
       }
     }
