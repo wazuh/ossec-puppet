@@ -61,20 +61,9 @@ class ossec::client(
     }
     'windows' : {
 
-          file {
-          'C:/ossec-win32-agent-2.8.3.exe':
-          owner              => 'Administrators',
-          group              => 'Administrators',
-          mode               => '0774',
-          source             => 'puppet:///modules/ossec/ossec-win32-agent-2.8.3.exe',
-          source_permissions => ignore
-          }
-
       package { $agent_package_name:
-        ensure          => $agent_package_version,
-        source          => 'C:/ossec-win32-agent-2.8.3.exe',
-        install_options => [ '/S' ],  # Nullsoft installer silent installation
-        require         => File['C:/ossec-win32-agent-2.8.3.exe'],
+        ensure   => $agent_package_version,
+        provider => 'chocolatey',
       }
     }
     'FreeBSD' : {
