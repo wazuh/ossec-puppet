@@ -27,6 +27,8 @@ class ossec::params {
 
           $service_has_status  = false
 
+          $agent_source_url = undef
+
           $ossec_service_provider = undef
 
           $default_local_files = {
@@ -60,6 +62,8 @@ class ossec::params {
           $server_service = 'ossec-hids'
 
           $server_package = 'ossec-hids'
+
+          $agent_source_url = undef
 
           $service_has_status  = true
 
@@ -122,6 +126,7 @@ class ossec::params {
       $agent_package  = 'ossec-hids-client'
       $server_service = 'ossec-hids'
       $server_package = 'ossec-hids-server'
+      $agent_source_url = undef
       $service_has_status  = true
       $ossec_service_provider = 'freebsd'
       $default_local_files = {
