@@ -1,4 +1,7 @@
 *.swp
+.vagrant/
+log/
 pkg/
 spec/fixures/
 .gemfile.lock
+Gemfile.lock

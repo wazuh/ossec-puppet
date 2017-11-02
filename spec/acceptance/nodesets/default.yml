@@ -1,0 +1,14 @@
+HOSTS:
+  windows-2012r2-x64-agent:
+    roles:
+      - default
+      - agent
+    platform: windows-2012_r2-amd64
+    box: opentable/win-2012-standard-amd64-nocm
+    hypervisor: vagrant
+    user: vagrant
+    ip: 10.10.11.10
+    vagrant_memsize: 4096
+    is_cygwin: false
+CONFIG:
+  type: git
