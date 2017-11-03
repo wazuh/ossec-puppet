@@ -27,19 +27,8 @@ GEOTRUST_GLOBAL_CA = <<-EOM.freeze
   -----END CERTIFICATE-----
 EOM
 # Install Puppet on all hosts
-hosts.each do |host|
-  #version = ENV['PUPPET_GEM_VERSION'] || '1.8.3'
-  #install_puppet(version: version)
-  run_puppet_install_helper_on(host, 'agent', '1.9.3')
-  install_cert_on_windows(host, 'geotrustglobal', GEOTRUST_GLOBAL_CA)
-  on(host, puppet('module', 'install', 'puppetlabs-stdlib'))
-  on(host, puppet('module', 'install', 'puppetlabs-concat')) 
-  on(host, puppet('module', 'install', 'puppetlabs-registry'))
-  on(host, puppet('module', 'install', 'puppetlabs-powershell'))
-  on(host, puppet('module', 'install', 'puppetlabs-chocolatey'))
 
-end
-
+run_puppet_install_helper
 
 RSpec.configure do |c|
   module_root = File.expand_path(File.join(File.dirname(__FILE__), '..'))
@@ -48,8 +37,37 @@ RSpec.configure do |c|
 
   c.before :suite do
     hosts.each do |host|
-      install_dev_puppet_module_on(host, :source => module_root, :module_name => 'ossec',
+ 
+      if host.name == 'ossecserver'
+        install_dev_puppet_module_on(host, :source => module_root, :module_name => 'ossec',
+          :target_module_path => '/etc/puppetlabs/code/environments/production/modules')
+        on(host, puppet('module', 'install', 'puppetlabs-stdlib'))
+        on(host, puppet('module', 'install', 'puppetlabs-concat')) 
+        on(host, puppet('module', 'install', 'puppetlabs-apt'))               
+        on(host, puppet('module', 'install', 'puppetlabs-mysql'))
+        on(host, puppet('module', 'install', 'puppet-selinux'))
+
+        pp = <<-EOS
+          class { 'ossec::server':
+            mailserver_ip           => '127.0.0.1',
+            ossec_emailto           => ['nobody@nowhere.com'],
+            manage_repos            => true,
+            ossec_emailnotification => 'no',
+            syslog_output           => false,
+          }
+        EOS
+
+        apply_manifest_on(host, pp, :catch_failures => false)                 
+      else
+        install_cert_on_windows(host, 'geotrustglobal', GEOTRUST_GLOBAL_CA)
+        install_dev_puppet_module_on(host, :source => module_root, :module_name => 'ossec',
           :target_module_path => 'C:\ProgramData\PuppetLabs\code\environments\production\modules')
+        on(host, puppet('module', 'install', 'puppetlabs-stdlib'))
+        on(host, puppet('module', 'install', 'puppetlabs-concat')) 
+        on(host, puppet('module', 'install', 'puppetlabs-registry'))
+        on(host, puppet('module', 'install', 'puppetlabs-powershell'))
+        on(host, puppet('module', 'install', 'puppetlabs-chocolatey'))
+      end
     end
   end
 end

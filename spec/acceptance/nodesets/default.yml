@@ -1,5 +1,13 @@
 HOSTS:
-  windows-2012r2-x64-agent:
+  ossecserver:
+    roles:
+      - agent
+    platform: ubuntu-1404-x86_64
+    box: puppetlabs/ubuntu-14.04-64-nocm
+    hypervisor: vagrant
+    ip: 10.10.11.10
+    vagrant_memsize: 2048
+  ossecagent:
     roles:
       - default
       - agent
@@ -7,8 +15,9 @@ HOSTS:
     box: opentable/win-2012-standard-amd64-nocm
     hypervisor: vagrant
     user: vagrant
-    ip: 10.10.11.10
-    vagrant_memsize: 4096
+    ip: 10.10.11.11
+    vagrant_memsize: 2048
     is_cygwin: false
 CONFIG:
-  type: git
+  type: foss
+  log_level: debug
