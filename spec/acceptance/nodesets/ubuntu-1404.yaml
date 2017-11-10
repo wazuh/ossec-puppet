@@ -7,18 +7,16 @@ HOSTS:
     hypervisor: vagrant
     ip: 10.10.11.10
     vagrant_memsize: 2048
-  ossecagent-windows:
+  ossecagent-ubuntu:
     roles:
       - agent
-      - ossecwin
+      - ossecubuntu
       - default
-    platform: windows-2012_r2-amd64
-    box: opentable/win-2012-standard-amd64-nocm
+    platform: ubuntu-1404-x86_64
+    box:  puppetlabs/ubuntu-14.04-64-nocm
     hypervisor: vagrant
-    user: vagrant
-    ip: 10.10.11.11
-    vagrant_memsize: 2048
-    is_cygwin: false
+    ip: 10.10.11.12
+    vagrant_memsize: 1024
 CONFIG:
   type: foss
   log_level: verbose

@@ -37,13 +37,13 @@ RSpec.configure do |c|
 
   c.before :suite do
     hosts.each do |host|
- 
+
       if host.name == 'ossecserver'
         install_dev_puppet_module_on(host, :source => module_root, :module_name => 'ossec',
           :target_module_path => '/etc/puppetlabs/code/environments/production/modules')
         on(host, puppet('module', 'install', 'puppetlabs-stdlib'))
-        on(host, puppet('module', 'install', 'puppetlabs-concat')) 
-        on(host, puppet('module', 'install', 'puppetlabs-apt'))               
+        on(host, puppet('module', 'install', 'puppetlabs-concat'))
+        on(host, puppet('module', 'install', 'puppetlabs-apt'))
         on(host, puppet('module', 'install', 'puppetlabs-mysql'))
         on(host, puppet('module', 'install', 'puppet-selinux'))
 
@@ -57,8 +57,8 @@ RSpec.configure do |c|
           }
         EOS
 
-        apply_manifest_on(host, pp, :catch_failures => false)                 
-      else
+        apply_manifest_on(host, pp, :catch_failures => false)
+      elsif host.name =='ossecagent-windows'
         install_cert_on_windows(host, 'geotrustglobal', GEOTRUST_GLOBAL_CA)
         install_dev_puppet_module_on(host, :source => module_root, :module_name => 'ossec',
           :target_module_path => 'C:\ProgramData\PuppetLabs\code\environments\production\modules')
@@ -67,6 +67,13 @@ RSpec.configure do |c|
         on(host, puppet('module', 'install', 'puppetlabs-registry'))
         on(host, puppet('module', 'install', 'puppetlabs-powershell'))
         on(host, puppet('module', 'install', 'puppetlabs-chocolatey'))
+      else
+        install_dev_puppet_module_on(host, :source => module_root, :module_name => 'ossec',
+          :target_module_path => '/etc/puppetlabs/code/environments/production/modules')
+        on(host, puppet('module', 'install', 'puppetlabs-stdlib'))
+        on(host, puppet('module', 'install', 'puppetlabs-concat'))
+        on(host, puppet('module', 'install', 'puppetlabs-apt'))
+        on(host, puppet('module', 'install', 'puppet-selinux'))
       end
     end
   end

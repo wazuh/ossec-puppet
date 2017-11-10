@@ -1,7 +1,10 @@
 require 'spec_helper_acceptance'
 
 #Note: ossec-agent from chocolatey.org is outdated. Use ossec-client for newer versions of ossec for windows
+if hosts.length > 1
 
+  hosts_as('ossecwin').each do |ossecwin|
+    
   describe 'ossec::client' do
     context 'ossec client 2.9.2 on windows' do
       it 'should install ossec::client for windows' do
@@ -23,18 +26,23 @@ require 'spec_helper_acceptance'
 
         PP
 
-      apply_manifest(pp, :catch_failures => true)
+      result = apply_manifest_on(ossecwin, pp, :catch_failures => true)
+      expect(result.exit_code).to eq 2
     end
 
-    describe package('OSSEC HIDS 2.9.2') do
-      it { should be_installed }
-    end
+    #if fact('osfamily') == 'windows'
 
-    describe service('OssecSvc') do
-      it { should be_running }
-      it { should be_enabled }
-    end
+      describe package('OSSEC HIDS 2.9.2') do
+        it { should be_installed }
+      end
+
+      describe service('OssecSvc') do
+        it { should be_running }
+        it { should be_enabled }
+      end
+
+    #end
   end
-
-
+  end
+end
 end

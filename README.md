@@ -22,6 +22,7 @@ This Puppet module has been authored by Nicolas Zin, and updated by Jonathan Gaz
   ```
 
 * run acceptance tests `$ bundle exec rake beaker`
+* run ubuntu ossec-agenttest `BEAKER_setfile=spec/acceptance/nodesets/ubuntu-1404.yaml  bundle exec rspec spec/acceptance/`
 
 ## References
 
