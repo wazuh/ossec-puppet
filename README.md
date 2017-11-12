@@ -21,8 +21,9 @@ This Puppet module has been authored by Nicolas Zin, and updated by Jonathan Gaz
   $ export PUPPET_INSTALL_VERSION=1.9.3
   ```
 
-* run acceptance tests `$ bundle exec rake beaker`
-* run ubuntu ossec-agenttest `BEAKER_setfile=spec/acceptance/nodesets/ubuntu-1404.yaml  bundle exec rspec spec/acceptance/`
+* run default acceptance tests `$ bundle exec rake beaker`.
+* run ubuntu agent test `BEAKER_setfile=spec/acceptance/nodesets/ubuntu-1404.yaml bundle exec rspec spec/acceptance/`.
+* run centos agent test `BEAKER_setfile=spec/acceptance/nodesets/centos-72.yaml bundle exec rspec spec/acceptance`
 
 ## References
 

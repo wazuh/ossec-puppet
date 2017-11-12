@@ -3,7 +3,7 @@ require 'spec_helper_acceptance'
 #Note: ossec-agent from chocolatey.org is outdated. Use ossec-client for newer versions of ossec for windows
 if hosts.length > 1
 
-  hosts_as('ossecubuntu').each do |ossecubuntu|
+  hosts_as('osseclinux').each do |ossecubuntu|
 
    describe 'ossec::client' do
      context 'ossec client 2.8 on linux' do
@@ -22,13 +22,19 @@ if hosts.length > 1
        expect(result.exit_code).to eq 2
     end
 
+    describe package('ossec-hids-agent') do
+      it { should be_installed }
+    end
+
     if fact('osfamily') == 'Debian'
-
-      describe package('ossec-hids-agent') do
-        it { should be_installed }
-      end
-
       describe service('ossec') do
+        it { should be_running }
+        it { should be_enabled }
+      end
+    end
+
+    if fact('osfamily') == 'RedHat'
+      describe service('ossec-hids-agent') do
         it { should be_running }
         it { should be_enabled }
       end

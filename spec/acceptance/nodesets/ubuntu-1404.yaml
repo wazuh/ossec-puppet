@@ -10,7 +10,7 @@ HOSTS:
   ossecagent-ubuntu:
     roles:
       - agent
-      - ossecubuntu
+      - osseclinux
       - default
     platform: ubuntu-1404-x86_64
     box:  puppetlabs/ubuntu-14.04-64-nocm
@@ -19,4 +19,3 @@ HOSTS:
     vagrant_memsize: 1024
 CONFIG:
   type: foss
-  log_level: verbose

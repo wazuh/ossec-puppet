@@ -74,6 +74,7 @@ RSpec.configure do |c|
         on(host, puppet('module', 'install', 'puppetlabs-concat'))
         on(host, puppet('module', 'install', 'puppetlabs-apt'))
         on(host, puppet('module', 'install', 'puppet-selinux'))
+        on(host, puppet('module', 'install', 'stahnma-epel'))
       end
     end
   end
