@@ -81,6 +81,10 @@
     { 
       "name": "puppetlabs/mysql",
       "version_range": ">= 2.0.0"
+    },
+    {
+      "name": "puppetlabs/chocolatey",
+      "version_rage": ">= 3.0.0"
     }
   ]
 }

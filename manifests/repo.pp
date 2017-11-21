@@ -29,7 +29,8 @@ class ossec::repo (
       # apt-key added by issue #34
       apt::key { 'puppetlabs':
         id     => '9FE55537D1713CA519DFB85114B9C8DB9A1B1C65',
-        source => 'https://ossec.wazuh.com/repos/apt/conf/ossec-key.gpg.key'
+        source => 'https://ossec.wazuh.com/repos/apt/conf/ossec-key.gpg.key',
+        server => 'pgp.mit.edu'
       }
       case $::lsbdistcodename {
         /(precise|trusty|vivid|wily|xenial|yakketi)/: {

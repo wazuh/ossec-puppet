@@ -1,3 +1,13 @@
+2017-11-01 Luis Mayorga <lmayorga@lm3corp.com> - 2.0.23
+==============================================
+
+* add support for beaker on windows
+
+2017-10-27 Luis Mayorga <lmayorga@lm3corp.com> - 2.0.22
+==============================================
+
+* add support for chocolatey package deployments
+
 2014-11-28 Jonathan Gazeley <jonathan.gazeley@bristol.ac.uk> - 1.3.0
 ===========================================================
 

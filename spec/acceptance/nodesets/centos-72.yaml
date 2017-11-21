@@ -1,0 +1,21 @@
+HOSTS:
+  ossecserver:
+    roles:
+      - agent
+    platform: ubuntu-1404-x86_64
+    box: puppetlabs/ubuntu-14.04-64-nocm
+    hypervisor: vagrant
+    ip: 10.10.11.10
+    vagrant_memsize: 2048
+  ossecagent-centos:
+    roles:
+      - agent
+      - osseclinux
+      - default
+    platform: el-7-x86_64
+    box:  puppetlabs/centos-7.2-64-nocm
+    hypervisor: vagrant
+    ip: 10.10.11.12
+    vagrant_memsize: 1024
+CONFIG:
+  type: foss

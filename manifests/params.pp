@@ -30,6 +30,8 @@ class ossec::params {
 
           $service_has_status  = false
 
+          $agent_source_url = undef
+
           $ossec_service_provider = undef
 
           $default_local_files = {
@@ -64,6 +66,8 @@ class ossec::params {
 
           $server_package = 'ossec-hids'
 
+          $agent_source_url = undef
+
           $service_has_status  = true
 
           $ossec_service_provider = 'redhat'
@@ -92,7 +96,9 @@ class ossec::params {
 
       $agent_service  = 'OssecSvc'
 
-      $agent_package  = 'OSSEC HIDS 2.8.3'
+      $agent_package  = 'ossec-agent'
+
+      $agent_source_url = 'https://chocolatey.org/api/v2/'
 
       $server_service = ''
 
@@ -126,6 +132,7 @@ class ossec::params {
       $agent_package  = 'ossec-hids-client'
       $server_service = 'ossec-hids'
       $server_package = 'ossec-hids-server'
+      $agent_source_url = undef
       $service_has_status  = true
       $ossec_service_provider = 'freebsd'
       $default_local_files = {

@@ -1,8 +1,30 @@
 # Setup for ossec client
 class ossec::client(
-
-  $ossec_active_response   = true,
-  $ossec_rootcheck         = true,
+  $ossec_active_response      = true,
+  $ossec_rootcheck            = true,
+  $ossec_server_ip            = undef,
+  $ossec_server_hostname      = undef,
+  $ossec_server_port          = '1514',
+  $ossec_scanpaths            = [],
+  $ossec_emailnotification    = 'yes',
+  $ossec_ignorepaths          = [],
+  $ossec_local_files          = $::ossec::params::default_local_files,
+  $ossec_check_frequency      = 79200,
+  $ossec_prefilter            = false,
+  $ossec_service_provider     = $::ossec::params::ossec_service_provider,
+  $selinux                    = false,
+  $agent_name                 = $::hostname,
+  $agent_ip_address           = $::ipaddress,
+  $manage_repo                = true,
+  $manage_epel_repo           = true,
+  $agent_source_url           = $::ossec::params::agent_source_url,
+  $agent_package_name         = $::ossec::params::agent_package,
+  $agent_package_version      = 'installed',
+  $agent_service_name         = $::ossec::params::agent_service,
+  $manage_client_keys         = true,
+  $max_clients                = 3000,
+  $ar_repeated_offenders      = '',
+  $service_has_status         = $::ossec::params::service_has_status,
   $ossec_rootcheck_frequency  = 36000,
   $ossec_rootcheck_checkports = true,
   $ossec_rootcheck_checkfiles = true,
@@ -69,20 +91,10 @@ class ossec::client(
     }
     'windows' : {
 
-          file {
-          'C:/ossec-win32-agent-2.8.3.exe':
-          owner              => 'Administrators',
-          group              => 'Administrators',
-          mode               => '0774',
-          source             => 'puppet:///modules/ossec/ossec-win32-agent-2.8.3.exe',
-          source_permissions => ignore
-          }
-
       package { $agent_package_name:
-        ensure          => $agent_package_version,
-        source          => 'C:/ossec-win32-agent-2.8.3.exe',
-        install_options => [ '/S' ],  # Nullsoft installer silent installation
-        require         => File['C:/ossec-win32-agent-2.8.3.exe'],
+        ensure   => $agent_package_version,
+        source   => $agent_source_url,
+        provider => 'chocolatey',
       }
     }
     'FreeBSD' : {
