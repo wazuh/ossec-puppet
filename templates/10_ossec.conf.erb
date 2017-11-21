@@ -98,7 +98,7 @@
   <syscheck>
     <!-- Frequency that syscheck is executed -->
     <frequency><%= @ossec_check_frequency %></frequency>
-    <alert_new_files>yes</alert_new_files>
+    <alert_new_files><%= @ossec_alert_new_files %></alert_new_files>
     <auto_ignore><%= @ossec_auto_ignore %></auto_ignore>
 
    <!-- Directories to check  (perform all possible verifications) -->
@@ -114,23 +114,24 @@
 <% end %>
   </syscheck>
 
+  <rootcheck>
 <% if @ossec_rootcheck == false then -%>
-  <rootcheck>
     <disabled>yes</disabled>
-  </rootcheck>
 <% else -%>
-  <rootcheck>
   <%- if @ossec_rootcheck_frequency then -%>
-    <frequency><%= @ossec_rootcheck_frequency %></frequency>
-  <%- end -%>
-  <%- if @ossec_rootcheck_checkports == false then -%>
+    <frequency><%= @rootcheck_frequency %></frequency>
+  <%- end -%>  
+   <%- if @ossec_rootcheck_checkports == false then -%>
     <check_ports>no</check_ports>
   <%- end -%>
-  <%- if @ossec_rootcheck_checkfiles == false then -%>
+ <%- if @ossec_rootcheck_checkfiles == false then -%>
     <check_files>no</check_files>
   <%- end -%>
+  <%- if @rootkit_trojans then -%>
+    <rootkit_trojans><%= @rootkit_trojans %></rootkit_trojans>
+  <%- end -%>
+<%- end -%>
   </rootcheck>
-<% end -%>
 <% if @ossec_active_response == false then -%>
   <active-response>
     <disabled>yes</disabled>
