@@ -12,7 +12,9 @@ class ossec::server (
   $ossec_global_stat_level             = 8,
   $ossec_email_alert_level             = 7,
   $ossec_ignorepaths                   = [],
+  $ossec_ignorepaths_regex             = [],
   $ossec_scanpaths                     = [ {'path' => '/etc,/usr/bin,/usr/sbin', 'report_changes' => 'no', 'realtime' => 'no'}, {'path' => '/bin,/sbin', 'report_changes' => 'yes', 'realtime' => 'yes'} ],
+  $ossec_alert_new_files               = 'yes',
   $ossec_white_list                    = [],
   $ossec_extra_rules_config            = [],
   $ossec_extra_rules_folder_config     = [],
@@ -41,6 +43,8 @@ class ossec::server (
   $syslog_output_format                = undef,
   $local_decoder_template              = 'ossec/local_decoder.xml.erb',
   $local_rules_template                = 'ossec/local_rules.xml.erb',
+  $rootkit_files                       = $::ossec::params::rootkit_files,
+  $rootkit_trojans                     = $::ossec::params::rootkit_trojans,
   $shared_agent_template               = 'ossec/ossec_shared_agent.conf.erb',
   $ossec_conf_template                 = 'ossec/10_ossec.conf.erb',
 ) inherits ossec::params {

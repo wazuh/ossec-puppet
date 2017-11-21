@@ -278,3 +278,5 @@ Jose Luis Ruiz <jose@wazuh.com>:
 
   * Add FreeBSD support for client (pull request #73 thanks @zados)
   * Adding ability to pass syslog output port (pull request #78 thanks @anujp)
+  * Ability to configure rootkit options and toggle alert_new_files (pull request #65 thanks @adamschleter)
+  * Add ignore path regex in Server and Agent manifest (pull request #79 thanks @vietcgi)

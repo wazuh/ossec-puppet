@@ -12,7 +12,7 @@
   <syscheck>
     <!-- Frequency that syscheck is executed -->
     <frequency><%= @ossec_check_frequency %></frequency>
-    <alert_new_files>yes</alert_new_files>
+    <alert_new_files><%= @ossec_alert_new_files %></alert_new_files>
 
     <!-- Directories to check  (perform all possible verifications) -->
 <% @ossec_scanpaths.each do |scanpath| -%>    <directories check_all="yes" report_changes="<%= scanpath["report_changes"] %>" realtime="<%= scanpath['realtime'] %>"><%= scanpath['path']  %></directories>
@@ -22,16 +22,27 @@
 <% @ossec_ignorepaths.each do |path| -%>
     <ignore><%= path %></ignore>
 <% end -%>
+<% @ossec_ignorepaths_regex.each do |path| -%>
+    <ignore type="sregex"><%= path %></ignore>
+<% end -%>
 <% if @ossec_prefilter == true then %>
     <prefilter_cmd>/usr/sbin/prelink -y</prefilter_cmd>
 <% end %>
   </syscheck>
 
-<% if @ossec_rootcheck == false then -%>
   <rootcheck>
+<% if @ossec_rootcheck == false then -%>
     <disabled>yes</disabled>
+<% else -%>
+    <frequency><%= @rootcheck_frequency %></frequency>
+  <%- if @rootkit_files then -%>
+    <rootkit_files><%= @rootkit_files %></rootkit_files>
+  <%- end -%>
+  <%- if @rootkit_trojans then -%>
+    <rootkit_trojans><%= @rootkit_trojans %></rootkit_trojans>
+  <%- end -%>
+<%- end -%>
   </rootcheck>
-<% end -%>
 
 <% if @ossec_active_response == false then -%>
   <active-response>

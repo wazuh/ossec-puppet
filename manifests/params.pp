@@ -18,6 +18,9 @@ class ossec::params {
       $processlist_owner = 'root'
       $processlist_group = 'ossec'
 
+      $rootkit_files = '/var/ossec/etc/shared/rootkit_files.txt'
+      $rootkit_trojans = '/var/ossec/etc/shared/rootkit_trojans.txt'
+
       case $::osfamily {
         'Debian': {
 
@@ -102,6 +105,9 @@ class ossec::params {
       $server_package = ''
 
       $service_has_status  = true
+
+      $rootkit_files = ''
+      $rootkit_trojans = ''
 
       # Pushed by shared agent config now
       $default_local_files = {}
