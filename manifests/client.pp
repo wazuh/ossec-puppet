@@ -15,6 +15,7 @@ class ossec::client(
   $ossec_alert_new_files   = 'yes',
   $ossec_emailnotification = 'yes',
   $ossec_ignorepaths       = [],
+  $ossec_ignorepaths_regex = [],
   $ossec_local_files       = $::ossec::params::default_local_files,
   $ossec_check_frequency   = 79200,
   $ossec_prefilter         = false,
