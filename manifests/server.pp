@@ -5,6 +5,9 @@ class ossec::server (
   $ossec_emailfrom                     = "ossec@${::domain}",
   $ossec_active_response               = true,
   $ossec_rootcheck                     = true,
+  $ossec_rootcheck_frequency           = 36000,
+  $ossec_rootcheck_checkports          = true,
+  $ossec_rootcheck_checkfiles          = true,
   $ossec_global_host_information_level = 8,
   $ossec_global_stat_level             = 8,
   $ossec_email_alert_level             = 7,
@@ -13,6 +16,7 @@ class ossec::server (
   $ossec_alert_new_files               = 'yes',
   $ossec_white_list                    = [],
   $ossec_extra_rules_config            = [],
+  $ossec_extra_rules_folder_config     = [],
   $ossec_local_files                   = $::ossec::params::default_local_files,
   $ossec_emailnotification             = 'yes',
   $ossec_email_maxperhour              = '12',
@@ -34,6 +38,7 @@ class ossec::server (
   $manage_client_keys                  = true,
   $syslog_output                       = false,
   $syslog_output_server                = undef,
+  $syslog_output_server_port           = 514,
   $syslog_output_format                = undef,
   $local_decoder_template              = 'ossec/local_decoder.xml.erb',
   $local_rules_template                = 'ossec/local_rules.xml.erb',
@@ -41,6 +46,7 @@ class ossec::server (
   $rootkit_trojans                     = $::ossec::params::rootkit_trojans,
   $rootcheck_frequency                 = 36000,
   $shared_agent_template               = 'ossec/ossec_shared_agent.conf.erb',
+  $ossec_conf_template                 = 'ossec/10_ossec.conf.erb',
 ) inherits ossec::params {
   validate_bool(
     $ossec_active_response, $ossec_rootcheck,
@@ -111,7 +117,7 @@ class ossec::server (
   }
   concat::fragment { 'ossec.conf_10' :
     target  => $ossec::params::config_file,
-    content => template('ossec/10_ossec.conf.erb'),
+    content => template($ossec_conf_template),
     order   => 10,
     notify  => Service[$ossec::params::server_service]
   }

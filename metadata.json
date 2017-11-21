@@ -1,6 +1,6 @@
 {
   "name": "wazuh-ossec",
-  "version": "2.0.20",
+  "version": "2.0.22",
   "author": "WAZUH",
   "summary": "Install and configure OSSEC-HIDS client and server",
   "license": "Apache-2.0",
@@ -75,8 +75,8 @@
       "version_range": ">= 2.0.0"
     },
     {
-      "name": "jfryman/selinux",
-      "version_range": ">= 0.2.3"
+      "name": "puppet/selinux",
+      "version_range": ">= 0.8.0"
     },
     { 
       "name": "puppetlabs/mysql",

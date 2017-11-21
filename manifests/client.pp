@@ -1,7 +1,13 @@
 # Setup for ossec client
 class ossec::client(
+
   $ossec_active_response   = true,
   $ossec_rootcheck         = true,
+  $ossec_rootcheck_frequency  = 36000,
+  $ossec_rootcheck_checkports = true,
+  $ossec_rootcheck_checkfiles = true,
+  $rootkit_files           = $::ossec::params::rootkit_files,
+  $rootkit_trojans         = $::ossec::params::rootkit_trojans,
   $ossec_server_ip         = undef,
   $ossec_server_hostname   = undef,
   $ossec_server_port       = '1514',
@@ -25,9 +31,10 @@ class ossec::client(
   $max_clients             = 3000,
   $ar_repeated_offenders   = '',
   $service_has_status      = $::ossec::params::service_has_status,
-  $rootkit_files           = $::ossec::params::rootkit_files,
-  $rootkit_trojans         = $::ossec::params::rootkit_trojans,
-  $rootcheck_frequency     = 36000,
+
+
+  $ossec_conf_template        = 'ossec/10_ossec_agent.conf.erb',
+
 ) inherits ossec::params {
   validate_bool(
     $ossec_active_response, $ossec_rootcheck,
@@ -77,6 +84,11 @@ class ossec::client(
         require         => File['C:/ossec-win32-agent-2.8.3.exe'],
       }
     }
+    'FreeBSD' : {
+        package { $agent_package_name:
+            ensure => $agent_package_version
+        }
+    }
     default: { fail('OS not supported') }
   }
 
@@ -99,7 +111,7 @@ class ossec::client(
 
   concat::fragment { 'ossec.conf_10' :
     target  => $ossec::params::config_file,
-    content => template('ossec/10_ossec_agent.conf.erb'),
+    content => template($ossec_conf_template),
     order   => 10,
     notify  => Service[$agent_service_name]
   }

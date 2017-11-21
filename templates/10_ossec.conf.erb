@@ -20,12 +20,16 @@
 <% if @syslog_output == true then -%>
   <syslog_output>
     <server><%= @syslog_output_server %></server>
+    <port><%= @syslog_output_server_port %></port>
     <format><%= @syslog_output_format %></format>
   </syslog_output>
 <% end -%>
 
   <!-- Included rules (static) -->
   <rules>
+    <% @ossec_extra_rules_folder_config.each do |rule_folder_config| -%>
+    <decoder_dir><%= rule_folder_config %></decoder_dir>
+<% end -%>
     <decoder>etc/decoder.xml</decoder>
     <decoder>etc/local_decoder.xml</decoder>
     <include>rules_config.xml</include>
@@ -85,7 +89,7 @@
     <include>ossec_rules.xml</include>
     <include>attack_rules.xml</include>
     <% @ossec_extra_rules_config.each do |rule_config| -%>
-    <%= rule_config %>
+     <include><%= rule_config %></include>
 <% end -%>
     <include>local_rules.xml</include>
   </rules>
@@ -114,16 +118,20 @@
 <% if @ossec_rootcheck == false then -%>
     <disabled>yes</disabled>
 <% else -%>
+  <%- if @ossec_rootcheck_frequency then -%>
     <frequency><%= @rootcheck_frequency %></frequency>
-  <%- if @rootkit_files then -%>
-    <rootkit_files><%= @rootkit_files %></rootkit_files>
+  <%- end -%>  
+   <%- if @ossec_rootcheck_checkports == false then -%>
+    <check_ports>no</check_ports>
+  <%- end -%>
+ <%- if @ossec_rootcheck_checkfiles == false then -%>
+    <check_files>no</check_files>
   <%- end -%>
   <%- if @rootkit_trojans then -%>
     <rootkit_trojans><%= @rootkit_trojans %></rootkit_trojans>
   <%- end -%>
 <%- end -%>
   </rootcheck>
-
 <% if @ossec_active_response == false then -%>
   <active-response>
     <disabled>yes</disabled>
