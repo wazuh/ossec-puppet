@@ -44,7 +44,6 @@ class ossec::server (
   $local_rules_template                = 'ossec/local_rules.xml.erb',
   $rootkit_files                       = $::ossec::params::rootkit_files,
   $rootkit_trojans                     = $::ossec::params::rootkit_trojans,
-  $rootcheck_frequency                 = 36000,
   $shared_agent_template               = 'ossec/ossec_shared_agent.conf.erb',
   $ossec_conf_template                 = 'ossec/10_ossec.conf.erb',
 ) inherits ossec::params {

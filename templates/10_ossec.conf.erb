@@ -119,13 +119,20 @@
     <disabled>yes</disabled>
 <% else -%>
   <%- if @ossec_rootcheck_frequency then -%>
-    <frequency><%= @rootcheck_frequency %></frequency>
+    <frequency><%= @ossec_rootcheck_frequency %></frequency>
   <%- end -%>  
    <%- if @ossec_rootcheck_checkports == false then -%>
     <check_ports>no</check_ports>
-  <%- end -%>
+   <% else -%>
+    <check_ports>yes</check_ports>  
+<%- end -%>
  <%- if @ossec_rootcheck_checkfiles == false then -%>
     <check_files>no</check_files>
+    <% else -%>
+    <check_files>yes</check_files>
+  <%- end -%>
+  <%- if @rootkit_files then -%>
+    <rootkit_files><%= @rootkit_files %></rootkit_files>
   <%- end -%>
   <%- if @rootkit_trojans then -%>
     <rootkit_trojans><%= @rootkit_trojans %></rootkit_trojans>
