@@ -84,7 +84,7 @@
     },
     {
       "name": "puppetlabs/chocolatey",
-      "version_rage": ">= 3.0.0"
+      "version_range": ">= 3.0.0"
     }
   ]
 }
