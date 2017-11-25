@@ -19,6 +19,8 @@ class ossec::client(
   $manage_epel_repo           = true,
   $agent_source_url           = $::ossec::params::agent_source_url,
   $agent_package_name         = $::ossec::params::agent_package,
+  $agent_chocolatey_enabled   = $::ossec::params::agent_chocolatey_enabled,
+  $agent_download_url         = $::ossec::params::agent_download_url,
   $agent_package_version      = 'installed',
   $agent_service_name         = $::ossec::params::agent_service,
   $manage_client_keys         = true,
@@ -69,11 +71,23 @@ class ossec::client(
     }
     'windows' : {
 
+    if $agent_chocolatey_enabled {
       package { $agent_package_name:
         ensure   => $agent_package_version,
         source   => $agent_source_url,
         provider => 'chocolatey',
       }
+    }else{
+      download_file { "${agent_package_name}-${agent_package_version}" :
+        url                   => "${agent_download_url}/${agent_package_name}-win32-${agent_package_version}.exe",
+        destination_directory => 'c:\temp'
+      }
+      package { $agent_package_name:
+        ensure          => $agent_package_version,
+        source          => "C:\\temp\\${agent_package_name}-${agent_package_version}.exe",
+        install_options => [ '/S' ],  # Nullsoft installer silent installation
+      }
+    }
     }
     'FreeBSD' : {
         package { $agent_package_name:

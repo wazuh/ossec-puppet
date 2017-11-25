@@ -58,7 +58,7 @@ RSpec.configure do |c|
         EOS
 
         apply_manifest_on(host, pp, :catch_failures => false)
-      elsif host.name =='ossecagent-windows'
+      elsif host.name =~ /ossecagent-win*/
         install_cert_on_windows(host, 'geotrustglobal', GEOTRUST_GLOBAL_CA)
         install_dev_puppet_module_on(host, :source => module_root, :module_name => 'ossec',
           :target_module_path => 'C:\ProgramData\PuppetLabs\code\environments\production\modules')
@@ -67,6 +67,7 @@ RSpec.configure do |c|
         on(host, puppet('module', 'install', 'puppetlabs-registry'))
         on(host, puppet('module', 'install', 'puppetlabs-powershell'))
         on(host, puppet('module', 'install', 'puppetlabs-chocolatey'))
+        on(host, puppet('module', 'install', 'puppet-download_file'))
       else
         install_dev_puppet_module_on(host, :source => module_root, :module_name => 'ossec',
           :target_module_path => '/etc/puppetlabs/code/environments/production/modules')

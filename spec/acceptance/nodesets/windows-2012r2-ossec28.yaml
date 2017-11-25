@@ -7,16 +7,16 @@ HOSTS:
     hypervisor: vagrant
     ip: 10.10.11.10
     vagrant_memsize: 2048
-  ossecagent-win-29:
+  ossecagent-win-28:
     roles:
       - agent
-      - ossecwin29
       - default
+      - ossecwin28
     platform: windows-2012_r2-amd64
     box: opentable/win-2012-standard-amd64-nocm
     hypervisor: vagrant
     user: vagrant
-    ip: 10.10.11.11
+    ip: 10.10.11.12
     vagrant_memsize: 2048
     is_cygwin: false
 CONFIG:

@@ -85,6 +85,10 @@
     {
       "name": "puppetlabs/chocolatey",
       "version_range": ">= 3.0.0"
+    },
+    {
+      "name": "puppet/download_file",
+      "version_range": ">= 3.0.0"
     }
   ]
 }
