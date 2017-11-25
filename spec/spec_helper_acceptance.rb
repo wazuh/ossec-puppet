@@ -67,7 +67,7 @@ RSpec.configure do |c|
         on(host, puppet('module', 'install', 'puppetlabs-registry'))
         on(host, puppet('module', 'install', 'puppetlabs-powershell'))
         on(host, puppet('module', 'install', 'puppetlabs-chocolatey'))
-        on(host, puppet('module', 'install', 'puppet-download_file'))
+        on(host, puppet('module', 'install', 'puppet-archive'))
       else
         install_dev_puppet_module_on(host, :source => module_root, :module_name => 'ossec',
           :target_module_path => '/etc/puppetlabs/code/environments/production/modules')

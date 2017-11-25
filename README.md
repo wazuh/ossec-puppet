@@ -14,7 +14,8 @@ This Puppet module has been authored by Nicolas Zin, and updated by Jonathan Gaz
 
 ## Beaker Test
 
-* add puppet environment variables for puppet_spec_helper
+* set chocolatey installation support - `$ export OSSEC_CHOCOLATEY_ENABLED=true`.
+* add puppet environment variables for `spec_helper_acceptance.rb`
 
   ```
   $ export PUPPET_INSTALL_TYPE=agent

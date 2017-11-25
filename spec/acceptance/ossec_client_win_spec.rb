@@ -8,6 +8,8 @@ if hosts.length > 1
       context 'ossec client 2.8 on windows' do
         it 'should install ossec::client for windows' do
 
+        if ENV['OSSEC_CHOCOLATEY_ENABLED'] == 'true'
+
         pp = <<-PP
           class { 'chocolatey': } ->
           chocolateyfeature {'allowEmptyChecksums':
@@ -24,6 +26,22 @@ if hosts.length > 1
           }
 
         PP
+        else
+
+        pp = <<-PP
+
+          class { 'ossec::client':
+            ossec_server_ip          => '10.10.11.10',
+            ossec_server_hostname    => 'ossecserver',
+            agent_chocolatey_enabled => false,
+            agent_package_name       => 'ossec-agent',
+            agent_package_version    => '2.8',
+            agent_name               => $::fqdn
+          }
+
+        PP
+
+        end
 
       result = apply_manifest_on(ossecwin28, pp, :catch_failures => true)
       expect(result.exit_code).to eq 2
@@ -43,6 +61,8 @@ end
       context 'ossec client 2.9.2 on windows' do
         it 'should install ossec::client for windows' do
 
+        if ENV['OSSEC_CHOCOLATEY_ENABLED'] == 'true'
+
         pp = <<-PP
           class { 'chocolatey': } ->
           chocolateyfeature {'allowEmptyChecksums':
@@ -59,6 +79,22 @@ end
           }
 
         PP
+        else
+        pp = <<-PP
+          class { 'ossec::client':
+            ossec_server_ip          => '10.10.11.10',
+            ossec_server_hostname    => 'ossecserver',
+            agent_chocolatey_enabled => false,
+            agent_download_url       => 'https://updates.atomicorp.com/channels/atomic/windows',
+            agent_package_name       => 'ossec-agent',
+            agent_package_version    => '2.9.2-2154',
+            agent_source_url         => 'https://chocolatey.org/api/v2/',
+            agent_name               => $::fqdn
+          }
+
+        PP
+
+        end
 
       result = apply_manifest_on(ossecwin29, pp, :catch_failures => true)
       expect(result.exit_code).to eq 2
