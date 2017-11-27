@@ -24,15 +24,13 @@ class ossec::params {
       case $::osfamily {
         'Debian': {
 
-          $agent_service  = 'ossec'
-
-          $agent_package  = 'ossec-hids-agent'
-
-          $service_has_status  = false
-
-          $agent_source_url = undef
-
-          $ossec_service_provider = undef
+          $agent_service            = 'ossec'
+          $agent_package            = 'ossec-hids-agent'
+          $service_has_status       = false
+          $agent_source_url         = undef
+          $agent_chocolatey_enabled = undef
+          $agent_download_url       = undef
+          $ossec_service_provider   = undef
 
           $default_local_files = {
             '/var/log/syslog'             => 'syslog',
@@ -58,19 +56,15 @@ class ossec::params {
         }
         'Linux', 'RedHat': {
 
-          $agent_service  = 'ossec-hids-agent'
-
-          $agent_package  = 'ossec-hids-agent'
-
-          $server_service = 'ossec-hids'
-
-          $server_package = 'ossec-hids'
-
-          $agent_source_url = undef
-
-          $service_has_status  = true
-
-          $ossec_service_provider = 'redhat'
+          $agent_service            = 'ossec-hids-agent'
+          $agent_package            = 'ossec-hids-agent'
+          $server_service           = 'ossec-hids'
+          $server_package           = 'ossec-hids'
+          $agent_source_url         = undef
+          $agent_chocolatey_enabled = undef
+          $agent_download_url       = undef
+          $service_has_status       = true
+          $ossec_service_provider   = 'redhat'
 
           $default_local_files = {
             '/var/log/messages'         => 'syslog',
@@ -89,21 +83,20 @@ class ossec::params {
       $config_owner = 'Administrator'
       $config_group = 'Administrators'
 
-      $keys_file = regsubst(sprintf('c:/Program Files (x86)/ossec-agent/client.keys'), '\\\\', '/')
-      $keys_mode = '0440'
+      $keys_file  = regsubst(sprintf('c:/Program Files (x86)/ossec-agent/client.keys'), '\\\\', '/')
+      $keys_mode  = '0440'
       $keys_owner = 'Administrator'
       $keys_group = 'Administrators'
 
-      $agent_service  = 'OssecSvc'
+      $agent_service = 'OssecSvc'
+      $agent_package = 'ossec-agent'
 
-      $agent_package  = 'ossec-agent'
-
-      $agent_source_url = 'https://chocolatey.org/api/v2/'
+      $agent_source_url         = 'https://chocolatey.org/api/v2/'
+      $agent_chocolatey_enabled = true
+      $agent_download_url       = 'http://www.ossec.net/files'
 
       $server_service = ''
-
       $server_package = ''
-
       $service_has_status  = true
 
       $rootkit_files = ''
@@ -133,7 +126,9 @@ class ossec::params {
       $server_service = 'ossec-hids'
       $server_package = 'ossec-hids-server'
       $agent_source_url = undef
-      $service_has_status  = true
+      $agent_chocolatey_enabled = undef
+      $agent_download_url = undef
+      $service_has_status = true
       $ossec_service_provider = 'freebsd'
       $default_local_files = {
         '/var/log/auth.log' => 'syslog',
