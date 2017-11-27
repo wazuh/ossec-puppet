@@ -73,6 +73,7 @@ class ossec::client(
     'windows' : {
 
     if $agent_chocolatey_enabled {
+      include chocolatey
       package { $agent_package_name:
         ensure   => $agent_package_version,
         source   => $agent_source_url,

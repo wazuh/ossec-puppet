@@ -76,6 +76,7 @@ class ossec::params {
           }
 
         }
+        default: { fail('This ossec module has not been tested on your distribution') }
       }
     }
     'windows': {
@@ -92,8 +93,8 @@ class ossec::params {
       $agent_package = 'ossec-agent'
 
       $agent_source_url         = 'https://chocolatey.org/api/v2/'
-      $agent_chocolatey_enabled = true
-      $agent_download_url       = 'http://www.ossec.net/files'
+      $agent_chocolatey_enabled = false
+      $agent_download_url       = 'http://ossec.wazuh.com/windows'
 
       $server_service = ''
       $server_package = ''
