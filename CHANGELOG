@@ -263,7 +263,7 @@ Jose Luis Ruiz <jose@wazuh.com>:
   * Fixed issue #71. (Thanks for reporting it @sc-chad)
   * Fixed issue #72. (Thanks for reporting it @sc-chad)
  
-2017-xx-xx Jose Luis Ruiz  - 2.0.22
+2017-11-27 Jose Luis Ruiz  - 2.0.22
 ===========================================================
 
   * Add FreeBSD support for client (pull request #73 thanks @zados)
