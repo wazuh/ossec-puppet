@@ -273,3 +273,8 @@ Jose Luis Ruiz <jose@wazuh.com>:
   * Add support for beaker on windows (pull request #80 thanks @lmayorga1980)
   * Add support for chocolatey package deployments (pull request #80 thanks @lmayorga1980)
   * Add support for non-chocolatey installations. (pull request #81 thanks @lmayorga1980)
+
+201x-xx-xx Jose Luis Ruiz  - 2.0.23
+===========================================================
+
+ *  Add an option for the agent/manager class to manage the firewall automatically with puppetlabs/firewall

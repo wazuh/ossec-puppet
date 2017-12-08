@@ -47,6 +47,7 @@ class ossec::server (
   $rootkit_trojans                     = $::ossec::params::rootkit_trojans,
   $shared_agent_template               = 'ossec/ossec_shared_agent.conf.erb',
   $ossec_conf_template                 = 'ossec/10_ossec.conf.erb',
+  Boolean $manage_firewall             = $::ossec::params::manage_firewall,
 ) inherits ossec::params {
   validate_bool(
     $ossec_active_response, $ossec_rootcheck,
@@ -198,5 +199,18 @@ class ossec::server (
   if ( $manage_client_keys == true ) {
     # A separate module to avoid storeconfigs warnings when not managing keys
     include ossec::collect_agent_keys
+  }
+  # Manage firewall
+   if $manage_firewall {
+     include firewall
+     firewall { '1514 ossec-manager':
+       dport  => $ossec_server_port,
+       proto  => 'udp',
+       action => 'accept',
+       state  => [
+         'NEW',
+         'RELATED',
+         'ESTABLISHED'],
+    }
   }
 }

@@ -21,6 +21,8 @@ class ossec::params {
       $rootkit_files = '/var/ossec/etc/shared/rootkit_files.txt'
       $rootkit_trojans = '/var/ossec/etc/shared/rootkit_trojans.txt'
 
+      $manage_firewall = false
+
       case $::osfamily {
         'Debian': {
 
@@ -76,13 +78,13 @@ class ossec::params {
           }
 
         }
-        default: { fail('This ossec module has not been tested on your distribution') }
       }
     }
     'windows': {
       $config_file = regsubst(sprintf('c:/Program Files (x86)/ossec-agent/ossec.conf'), '\\\\', '/')
       $config_owner = 'Administrator'
       $config_group = 'Administrators'
+      $manage_firewall = false
 
       $keys_file  = regsubst(sprintf('c:/Program Files (x86)/ossec-agent/client.keys'), '\\\\', '/')
       $keys_mode  = '0440'
@@ -93,7 +95,7 @@ class ossec::params {
       $agent_package = 'ossec-agent'
 
       $agent_source_url         = 'https://chocolatey.org/api/v2/'
-      $agent_chocolatey_enabled = false
+      $agent_chocolatey_enabled = true
       $agent_download_url       = 'http://ossec.wazuh.com/windows'
 
       $server_service = ''

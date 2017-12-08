@@ -22,7 +22,7 @@ class ossec::client(
   $agent_chocolatey_enabled   = $::ossec::params::agent_chocolatey_enabled,
   $agent_download_url         = $::ossec::params::agent_download_url,
   $agent_download_directory   = 'C:\Temp',
-  $agent_package_version      = 'installed',
+  $agent_package_version      = '2.8.3',
   $agent_service_name         = $::ossec::params::agent_service,
   $manage_client_keys         = true,
   $max_clients                = 3000,
@@ -31,12 +31,11 @@ class ossec::client(
   $ossec_rootcheck_frequency  = 36000,
   $ossec_rootcheck_checkports = true,
   $ossec_rootcheck_checkfiles = true,
-  $rootkit_files           = $::ossec::params::rootkit_files,
-  $rootkit_trojans         = $::ossec::params::rootkit_trojans,
-  $ossec_alert_new_files   = 'yes',
-  $ossec_ignorepaths_regex = [],
-
-
+  $rootkit_files              = $::ossec::params::rootkit_files,
+  $rootkit_trojans            = $::ossec::params::rootkit_trojans,
+  $ossec_alert_new_files      = 'yes',
+  $ossec_ignorepaths_regex    = [],
+  Boolean $manage_firewall    = $::ossec::params::manage_firewall,
   $ossec_conf_template        = 'ossec/10_ossec_agent.conf.erb',
 
 ) inherits ossec::params {
@@ -188,4 +187,18 @@ class ossec::client(
       }
     }
   }
+  # Manage firewall
+   if $manage_firewall {
+     include firewall
+     firewall { '1514 ossec-agent':
+       dport  => $ossec_server_port,
+       proto  => 'udp',
+       action => 'accept',
+       state  => [
+         'NEW',
+         'RELATED',
+         'ESTABLISHED'],
+    }
+  }
+}
 }
