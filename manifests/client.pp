@@ -22,7 +22,7 @@ class ossec::client(
   $agent_chocolatey_enabled   = $::ossec::params::agent_chocolatey_enabled,
   $agent_download_url         = $::ossec::params::agent_download_url,
   $agent_download_directory   = 'C:\Temp',
-  $agent_package_version      = '2.8.3',
+  $agent_package_version      = 'installed',
   $agent_service_name         = $::ossec::params::agent_service,
   $manage_client_keys         = true,
   $max_clients                = 3000,
