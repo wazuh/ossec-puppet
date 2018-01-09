@@ -9,6 +9,10 @@ class ossec::client(
   $ossec_emailnotification    = 'yes',
   $ossec_ignorepaths          = [],
   $ossec_local_files          = $::ossec::params::default_local_files,
+  $ossec_config_owner         = $::ossec::params::config_owner,
+  $ossec_config_group         = $::ossec::params::config_group,
+  $ossec_keys_owner           = $::ossec::params::keys_owner,
+  $ossec_keys_group           = $::ossec::params::keys_group,
   $ossec_check_frequency      = 79200,
   $ossec_prefilter            = false,
   $ossec_service_provider     = $::ossec::params::ossec_service_provider,
@@ -113,8 +117,8 @@ class ossec::client(
   }
 
   concat { $ossec::params::config_file:
-    owner   => $ossec::params::config_owner,
-    group   => $ossec::params::config_group,
+    owner   => $ossec_config_owner,
+    group   => $ossec_config_group,
     mode    => $ossec::params::config_mode,
     require => Package[$agent_package_name],
     notify  => Service[$agent_service_name],
@@ -145,8 +149,8 @@ class ossec::client(
 
   if ( $manage_client_keys == true ) {
     concat { $ossec::params::keys_file:
-      owner   => $ossec::params::keys_owner,
-      group   => $ossec::params::keys_group,
+      owner   => $ossec_keys_owner,
+      group   => $ossec_keys_group,
       mode    => $ossec::params::keys_mode,
       notify  => Service[$agent_service_name],
       require => Package[$agent_package_name]
@@ -188,17 +192,17 @@ class ossec::client(
     }
   }
   # Manage firewall
-   if $manage_firewall {
-     include firewall
-     firewall { '1514 ossec-agent':
-       dport  => $ossec_server_port,
-       proto  => 'udp',
-       action => 'accept',
-       state  => [
-         'NEW',
-         'RELATED',
-         'ESTABLISHED'],
+  if $manage_firewall {
+    include firewall
+    firewall { '1514 ossec-agent':
+      dport  => $ossec_server_port,
+      proto  => 'udp',
+      action => 'accept',
+      state  => [
+        'NEW',
+        'RELATED',
+        'ESTABLISHED'],
     }
   }
 }
-}
+
