@@ -1,0 +1,22 @@
+HOSTS:
+  ossecserver:
+    roles:
+      - agent
+    platform: ubuntu-1404-x86_64
+    image: ubuntu:14.04
+    hypervisor: docker
+    docker_preserve_image: true
+    ip: 10.10.11.10
+  ossecagent-ubuntu:
+    roles:
+      - agent
+      - osseclinux
+      - default
+    platform: ubuntu-1404-x86_64
+    image: ubuntu:14.04
+    hypervisor: docker
+    docker_preserve_image: true
+    ip: 10.10.11.12
+CONFIG:
+  type: foss
+  trace_limit: 200
