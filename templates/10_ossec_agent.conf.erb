@@ -8,21 +8,22 @@
 <% end -%>
     <port><%= @ossec_server_port %></port>
 <% if @ossec_config_profiles then -%>
-    <config-profiles><%= @ossec_config_profiles.join(',') %></config-profiles>
+    <config-profile><%= @ossec_config_profiles.join(',') %></config-profile>
 <% end -%>
   </client>
 
   <syscheck>
-    <!-- Frequency that syscheck is executed -
-    -> <frequency><%= @ossec_check_frequency %></frequency>
+  <!-- Frequency that syscheck is executed -->
+    <frequency><%= @ossec_check_frequency %></frequency>
     <alert_new_files><%= @ossec_alert_new_files %></alert_new_files>
 
-    <!-- Directories to check  (perform all possible verifications) -
--> <% @ossec_scanpaths.each do |scanpath| -%>    <directories check_all='yes' report_changes='<%= scanpath['report_changes'] %>' realtime="<%= scanpath['realtime'] %>"><%= scanpath['path']  %></directories>
+    <!-- Directories to check  (perform all possible verifications) --> 
+    <% @ossec_scanpaths.each do |scanpath| -%>
+    <directories check_all='yes' report_changes='<%= scanpath['report_changes'] %>' realtime="<%= scanpath['realtime'] %>"><%= scanpath['path']  %></directories>
 <% end -%>
 
-    <!-- Files/directories to ignore (parameterized) -
--> <% @ossec_ignorepaths.each do |path| -%>
+    <!-- Files/directories to ignore (parameterized) -->
+<% @ossec_ignorepaths.each do |path| -%>
     <ignore><%= path %></ignore>
 <% end -%>
 <% @ossec_ignorepaths_regex.each do |path| -%>
@@ -53,9 +54,8 @@
   </active-response>
 <% end -%>
 
-  <!-- Files to monitor (localfiles) -
-
--> <% @ossec_local_files.sort.each do |path, format| -%>
+  <!-- Files to monitor (localfiles) --> 
+<% @ossec_local_files.sort.each do |path, format| -%>
   <localfile>
     <log_format><%= format %></log_format>
     <location><%= path %></location>
