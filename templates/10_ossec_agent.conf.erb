@@ -7,15 +7,19 @@
     <server-hostname><%= @ossec_server_hostname %></server-hostname>
 <% end -%>
     <port><%= @ossec_server_port %></port>
+<% if @ossec_config_profiles then -%>
+    <config-profile><%= @ossec_config_profiles.join(',') %></config-profile>
+<% end -%>
   </client>
 
   <syscheck>
-    <!-- Frequency that syscheck is executed -->
+  <!-- Frequency that syscheck is executed -->
     <frequency><%= @ossec_check_frequency %></frequency>
     <alert_new_files><%= @ossec_alert_new_files %></alert_new_files>
 
-    <!-- Directories to check  (perform all possible verifications) -->
-<% @ossec_scanpaths.each do |scanpath| -%>    <directories check_all="yes" report_changes="<%= scanpath["report_changes"] %>" realtime="<%= scanpath['realtime'] %>"><%= scanpath['path']  %></directories>
+    <!-- Directories to check  (perform all possible verifications) --> 
+    <% @ossec_scanpaths.each do |scanpath| -%>
+    <directories check_all='yes' report_changes='<%= scanpath['report_changes'] %>' realtime="<%= scanpath['realtime'] %>"><%= scanpath['path']  %></directories>
 <% end -%>
 
     <!-- Files/directories to ignore (parameterized) -->
@@ -23,7 +27,7 @@
     <ignore><%= path %></ignore>
 <% end -%>
 <% @ossec_ignorepaths_regex.each do |path| -%>
-    <ignore type="sregex"><%= path %></ignore>
+    <ignore type='sregex'><%= path %></ignore>
 <% end -%>
 <% if @ossec_prefilter == true then %>
     <prefilter_cmd>/usr/sbin/prelink -y</prefilter_cmd>
@@ -50,8 +54,7 @@
   </active-response>
 <% end -%>
 
-  <!-- Files to monitor (localfiles) -->
-
+  <!-- Files to monitor (localfiles) --> 
 <% @ossec_local_files.sort.each do |path, format| -%>
   <localfile>
     <log_format><%= format %></log_format>

@@ -8,6 +8,7 @@ class ossec::client(
   $ossec_scanpaths            = [],
   $ossec_emailnotification    = 'yes',
   $ossec_ignorepaths          = [],
+  $ossec_config_profiles      = [],
   $ossec_local_files          = $::ossec::params::default_local_files,
   $ossec_check_frequency      = 79200,
   $ossec_prefilter            = false,
@@ -57,22 +58,22 @@ class ossec::client(
   case $::kernel {
     'Linux' : {
       if $manage_repo {
-      class { 'ossec::repo': redhat_manage_epel => $manage_epel_repo }
+      class { '::ossec::repo': redhat_manage_epel => $manage_epel_repo }
       Class['ossec::repo'] -> Package[$agent_package_name]
         package { $agent_package_name:
-          ensure  => $agent_package_version
+          ensure  => $agent_package_version,
       }
 
       } else {
       package { $agent_package_name:
-        ensure => $agent_package_version
+        ensure => $agent_package_version,
       }
       }
     }
     'windows' : {
 
     if $agent_chocolatey_enabled {
-      include chocolatey
+      include ::chocolatey
       package { $agent_package_name:
         ensure   => $agent_package_version,
         source   => $agent_source_url,
@@ -85,19 +86,19 @@ class ossec::client(
 
       archive::download { "${agent_download_directory}\\${agent_package_name}-win32-${agent_package_version}.exe" :
         url      => "${agent_download_url}/${agent_package_name}-win32-${agent_package_version}.exe",
-        checksum => false
+        checksum => false,
       }
       package { $agent_package_name:
         ensure          => $agent_package_version,
         source          => "${agent_download_directory}\\${agent_package_name}-win32-${agent_package_version}.exe",
         install_options => [ '/S' ],  # Nullsoft installer silent installation
-        require         => Archive::Download["${agent_download_directory}\\${agent_package_name}-win32-${agent_package_version}.exe"]
+        require         => Archive::Download["${agent_download_directory}\\${agent_package_name}-win32-${agent_package_version}.exe"],
       }
     }
     }
     'FreeBSD' : {
         package { $agent_package_name:
-            ensure => $agent_package_version
+            ensure => $agent_package_version,
         }
     }
     default: { fail('OS not supported') }
@@ -124,7 +125,7 @@ class ossec::client(
     target  => $ossec::params::config_file,
     content => template($ossec_conf_template),
     order   => 10,
-    notify  => Service[$agent_service_name]
+    notify  => Service[$agent_service_name],
   }
 
   if ( $ar_repeated_offenders != '' and $ossec_active_response == true ) {
@@ -132,7 +133,7 @@ class ossec::client(
       target  => $ossec::params::config_file,
       content => template('ossec/ar_repeated_offenders.erb'),
       order   => 55,
-      notify  => Service[$agent_service_name]
+      notify  => Service[$agent_service_name],
     }
   }
 
@@ -140,7 +141,7 @@ class ossec::client(
     target  => $ossec::params::config_file,
     content => template('ossec/99_ossec_agent.conf.erb'),
     order   => 99,
-    notify  => Service[$agent_service_name]
+    notify  => Service[$agent_service_name],
   }
 
   if ( $manage_client_keys == true ) {
@@ -149,10 +150,10 @@ class ossec::client(
       group   => $ossec::params::keys_group,
       mode    => $ossec::params::keys_mode,
       notify  => Service[$agent_service_name],
-      require => Package[$agent_package_name]
+      require => Package[$agent_package_name],
     }
     # A separate module to avoid storeconfigs warnings when not managing keys
-    class { 'ossec::export_agent_key':
+    class { '::ossec::export_agent_key':
       max_clients      => $max_clients,
       agent_name       => $agent_name,
       agent_ip_address => $agent_ip_address,
@@ -188,17 +189,16 @@ class ossec::client(
     }
   }
   # Manage firewall
-   if $manage_firewall {
-     include firewall
-     firewall { '1514 ossec-agent':
-       dport  => $ossec_server_port,
-       proto  => 'udp',
-       action => 'accept',
-       state  => [
-         'NEW',
-         'RELATED',
-         'ESTABLISHED'],
+  if $manage_firewall {
+    include ::firewall
+    firewall { '1514 ossec-agent':
+      dport  => $ossec_server_port,
+      proto  => 'udp',
+      action => 'accept',
+      state  => [
+        'NEW',
+        'RELATED',
+        'ESTABLISHED'],
     }
   }
-}
 }
