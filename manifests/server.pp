@@ -11,6 +11,7 @@ class ossec::server (
   $ossec_global_host_information_level = 8,
   $ossec_global_stat_level             = 8,
   $ossec_email_alert_level             = 7,
+  $ossec_log_alert_level               = 1,
   $ossec_ignorepaths                   = [],
   $ossec_ignorepaths_regex             = [],
   $ossec_scanpaths                     = [ {'path' => '/etc,/usr/bin,/usr/sbin', 'report_changes' => 'no', 'realtime' => 'no'}, {'path' => '/bin,/sbin', 'report_changes' => 'yes', 'realtime' => 'yes'} ],
