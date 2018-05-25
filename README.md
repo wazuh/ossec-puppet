@@ -26,6 +26,7 @@ This Puppet module has been authored by Nicolas Zin, and updated by Jonathan Gaz
 * run ubuntu agent test `BEAKER_setfile=spec/acceptance/nodesets/ubuntu-1404.yaml bundle exec rspec spec/acceptance/`.
 * run centos agent test `BEAKER_setfile=spec/acceptance/nodesets/centos-72.yaml bundle exec rspec spec/acceptance`
 * run windows 2012r2 with agent 2.8 `BEAKER_setfile=spec/acceptance/nodesets/windows-2012r2-ossec28.yaml bundle exec rspec spec/acceptance`
+* run docker beaker-rspec `BEAKER_setdir=spec/acceptance/nodesets/docker BEAKER_set=ubuntu-1404 bundle exec rspec spec/acceptance/`
 
 ## References
 
