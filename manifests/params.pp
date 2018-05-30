@@ -85,6 +85,7 @@ class ossec::params {
       $config_owner = 'Administrator'
       $config_group = 'Administrators'
       $manage_firewall = false
+      $config_mode = '0755'
 
       $keys_file  = regsubst(sprintf('c:/Program Files (x86)/ossec-agent/client.keys'), '\\\\', '/')
       $keys_mode  = '0440'
@@ -98,6 +99,7 @@ class ossec::params {
       $agent_chocolatey_enabled = false
       $agent_download_url       = 'http://ossec.wazuh.com/windows'
 
+      $ossec_service_provider = 'windows'
       $server_service = ''
       $server_package = ''
       $service_has_status  = true

@@ -1,7 +1,7 @@
 # Main ossec server config
 class ossec::server (
-  $mailserver_ip,
-  $ossec_emailto,
+  $mailserver_ip                       = undef,
+  $ossec_emailto                       = undef,
   $ossec_emailfrom                     = "ossec@${::domain}",
   $ossec_active_response               = true,
   $ossec_rootcheck                     = true,
@@ -57,6 +57,11 @@ class ossec::server (
   # (commented due to stdlib version requirement)
   #validate_integer($ossec_check_frequency, undef, 1800)
   validate_array($ossec_ignorepaths)
+
+  if $mailserver_ip == undef {
+    fail('ERROR: Must pass mailserver_ip')
+  }
+
 
   if $::osfamily == 'windows' {
     fail('The ossec module does not yet support installing the OSSEC HIDS server on Windows')
