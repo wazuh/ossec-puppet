@@ -39,6 +39,7 @@
     {
       "operatingsystem": "Ubuntu",
       "operatingsystemrelease": [
+        "Bionic",
         "Precise",
         "Trusty",
         "Vivid",
