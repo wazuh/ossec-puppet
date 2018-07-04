@@ -44,7 +44,7 @@ class ossec::params {
           }
 
           case $::lsbdistcodename {
-            /(precise|trusty|vivid|wily|xenial)/: {
+            /(bionic|precise|trusty|vivid|wily|xenial)/: {
               $server_service = 'ossec'
               $server_package = 'ossec-hids'
             }
