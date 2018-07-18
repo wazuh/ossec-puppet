@@ -163,7 +163,7 @@ class ossec::server (
     }
     concat::fragment { 'var_ossec_etc_client.keys_end' :
       target  => $ossec::params::keys_file,
-      order   => 99,
+      order   => 999999,
       content => "\n",
       notify  => Service[$ossec::params::server_service]
     }
