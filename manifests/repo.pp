@@ -27,6 +27,7 @@ class ossec::repo (
 
   case $::osfamily {
     'Debian' : {
+      notice("The value is: ${apt_key_options}")
       # apt-key added by issue #34
       apt::key { 'puppetlabs':
         id      => '9FE55537D1713CA519DFB85114B9C8DB9A1B1C65',
