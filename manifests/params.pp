@@ -54,7 +54,6 @@ class ossec::params {
             }
             default: { fail('This ossec module has not been tested on your distribution (or lsb package not installed)') }
           }
-
         }
         'Linux', 'RedHat': {
 
@@ -78,6 +77,7 @@ class ossec::params {
           }
 
         }
+        default: { fail('This ossec module has not been tested on your distribution (or lsb package not installed)') }
       }
     }
     'windows': {
