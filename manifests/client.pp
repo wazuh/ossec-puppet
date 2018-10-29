@@ -1,60 +1,50 @@
 # Setup for ossec client
 class ossec::client(
-  $ossec_active_response      = true,
-  $ossec_rootcheck            = true,
-  $ossec_server_ip            = undef,
-  $ossec_server_hostname      = undef,
-  $ossec_server_port          = '1514',
-  $ossec_scanpaths            = [],
-  $ossec_emailnotification    = 'yes',
-  $ossec_ignorepaths          = [],
-  $ossec_local_files          = $::ossec::params::default_local_files,
-  $ossec_config_owner         = $::ossec::params::config_owner,
-  $ossec_config_group         = $::ossec::params::config_group,
-  $ossec_keys_owner           = $::ossec::params::keys_owner,
-  $ossec_keys_group           = $::ossec::params::keys_group,
-  $ossec_check_frequency      = 79200,
-  $ossec_prefilter            = false,
-  $ossec_service_provider     = $::ossec::params::ossec_service_provider,
-  $selinux                    = false,
-  $agent_name                 = $::hostname,
-  $agent_ip_address           = $::ipaddress,
-  $manage_repo                = true,
-  $manage_epel_repo           = true,
-  $agent_source_url           = $::ossec::params::agent_source_url,
-  $agent_package_name         = $::ossec::params::agent_package,
-  $agent_chocolatey_enabled   = $::ossec::params::agent_chocolatey_enabled,
-  $agent_download_url         = $::ossec::params::agent_download_url,
-  $agent_download_directory   = 'C:\Temp',
-  $agent_package_version      = 'installed',
-  $agent_service_name         = $::ossec::params::agent_service,
-  $manage_client_keys         = true,
-  $max_clients                = 3000,
-  $ar_repeated_offenders      = '',
-  $service_has_status         = $::ossec::params::service_has_status,
-  $ossec_rootcheck_frequency  = 36000,
-  $ossec_rootcheck_checkports = true,
-  $ossec_rootcheck_checkfiles = true,
-  $rootkit_files              = $::ossec::params::rootkit_files,
-  $rootkit_trojans            = $::ossec::params::rootkit_trojans,
-  $ossec_alert_new_files      = 'yes',
-  $ossec_ignorepaths_regex    = [],
-  Boolean $manage_firewall    = $::ossec::params::manage_firewall,
-  $ossec_conf_template        = 'ossec/10_ossec_agent.conf.erb',
+Boolean          $ossec_active_response      = true,
+Boolean          $ossec_rootcheck            = true,
+String           $ossec_server_ip            = '',
+String           $ossec_server_hostname      = '',
+String           $ossec_server_port          = '1514',
+Array            $ossec_scanpaths            = [],
+Enum['yes','no'] $ossec_emailnotification    = 'yes',
+Array            $ossec_ignorepaths          = [],
+Hash             $ossec_local_files          = $::ossec::params::default_local_files,
+String           $ossec_config_owner         = $::ossec::params::config_owner,
+String           $ossec_config_group         = $::ossec::params::config_group,
+String           $ossec_keys_owner           = $::ossec::params::keys_owner,
+String           $ossec_keys_group           = $::ossec::params::keys_group,
+Integer          $ossec_check_frequency      = 79200,
+Boolean          $ossec_prefilter            = false,
+String           $ossec_service_provider     = $::ossec::params::ossec_service_provider,
+Boolean          $selinux                    = false,
+String           $agent_name                 = $::hostname,
+String           $agent_ip_address           = $::ipaddress,
+Boolean          $manage_repo                = true,
+Boolean          $manage_epel_repo           = true,
+String           $agent_source_url           = $::ossec::params::agent_source_url,
+String           $agent_package_name         = $::ossec::params::agent_package,
+Boolean          $agent_chocolatey_enabled   = $::ossec::params::agent_chocolatey_enabled,
+String           $agent_download_url         = $::ossec::params::agent_download_url,
+String           $agent_download_directory   = 'C:\Temp',
+String           $agent_package_version      = 'installed',
+String           $agent_service_name         = $::ossec::params::agent_service,
+Boolean          $manage_client_keys         = true,
+Integer          $max_clients                = 3000,
+String           $ar_repeated_offenders      = '',
+Boolean          $service_has_status         = $::ossec::params::service_has_status,
+Integer          $ossec_rootcheck_frequency  = 36000,
+Boolean          $ossec_rootcheck_checkports = true,
+Boolean          $ossec_rootcheck_checkfiles = true,
+String           $rootkit_files              = $::ossec::params::rootkit_files,
+String           $rootkit_trojans            = $::ossec::params::rootkit_trojans,
+Enum['yes','no'] $ossec_alert_new_files      = 'yes',
+Array            $ossec_ignorepaths_regex    = [],
+Boolean          $manage_firewall            = $::ossec::params::manage_firewall,
+String           $ossec_conf_template        = 'ossec/10_ossec_agent.conf.erb',
 
 ) inherits ossec::params {
-  validate_bool(
-    $ossec_active_response, $ossec_rootcheck,
-    $selinux, $manage_repo, $manage_epel_repo
-  )
-  # This allows arrays of integers, sadly
-  # (commented due to stdlib version requirement)
-  #validate_integer($ossec_check_frequency, undef, 1800)
-  validate_array($ossec_ignorepaths)
-  validate_string($agent_package_name)
-  validate_string($agent_service_name)
 
-  if ( ( $ossec_server_ip == undef ) and ( $ossec_server_hostname == undef ) ) {
+  if ( ( $ossec_server_ip == '' ) and ( $ossec_server_hostname == '' ) ) {
     fail('must pass either $ossec_server_ip or $ossec_server_hostname to Class[\'ossec::client\'].')
   }
 
